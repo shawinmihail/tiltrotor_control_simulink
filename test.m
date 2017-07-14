@@ -153,8 +153,125 @@ clear
 % B = [R_dot/m*f*W; zeros(3,1)];
 
 %%
-R = eye(3)
-eul = rotm2eul(R);
-eul = eul'
+% R = eye(3)
+% eul = rotm2eul(R);
+% eul = eul'
+
+%%
+Th = [0;pi/2;0;-pi/2]; k = 1; l = 1; b = 1; W = [0;-1;0;-1];
+
+s1 = sin(Th(1));
+s2 = sin(Th(2));
+s3 = sin(Th(3));
+s4 = sin(Th(4));
+c1 = cos(Th(1));
+c2 = cos(Th(2));
+c3 = cos(Th(3));
+c4 = cos(Th(4));
+
+f  = [
+0 -k*s2 0 k*s4;
+-k*s1 0 k*s3 0;
+k*c1 -k*c2 k*c3 -k*c4;
+]
+
+tau = [
+0 -l*k*c2-b*s2 0 l*k*c4+b*s4;
+-l*k*c1+b*s1 0 l*k*c3-b*s3 0;
+-l*k*s1-b*c1 l*k*s2-b*c2 -l*k*s3-b*c3 l*k*s4-b*c4;
+];
+
+Ja = [f ;tau]
+x1 = Ja*W;
+x2 = zeros(6,1);
+for i=1:4
+    ji = Ja(:,i);
+    w = W(i);
+    ji*w;
+    x2 = x2 + ji*w;
+end
+
+df = [
+0 -k*c2 0 k*c4;
+-k*c1 0 k*c3 0;
+-k*s1 k*s2 -k*s3 k*s4;
+];
+
+dtau = [
+0 l*k*s2-b*c2 0 -l*k*s4+b*c4;
+l*k*s1+b*c1 0 -l*k*s3-b*c3 0;
+-l*k*c1+b*s1 l*k*c2+b*s2 -l*k*c3+b*s3 l*k*c4+b*s4;
+];
+
+d_Ja = [df;dtau];
+d_JaW = zeros(6,4);
+for i=1:4
+    col = d_Ja(:, i);
+    d_JaW(:, i) = col*W(i);
+end
+d_JaW
 
 
+%%
+JaZer = [Ja, zeros(6, 4)];
+
+R_IB = eye(3); m = 1; I_B = R_IB;
+Jr = [(1/m)*R_IB zeros(3);
+      zeros(3) I_B^(-1)];
+  
+U = [W; 0;0;0;0];
+
+'check it!'
+Jr*JaZer*U
+
+A = Jr * [Ja d_Ja];
+Arev = pinv(A);
+
+%% B
+R_dot = eye(3);
+B = [(1/m)*R_dot*f*W; zeros(3,1)];
+
+%% null proj
+
+NP = eye(8) - Arev*A;
+Z = zeros(8,1);
+NPZ = NP*Z;
+
+%% U
+
+error = zeros(6, 1);
+U = Arev*(error - B) + NPZ;
+
+% %%
+% W = [0;0;0;0];
+% Th = W;
+% k = 1; b = 1; l = 1;
+% s1 = sin(Th(1));
+% s2 = sin(Th(2));
+% s3 = sin(Th(3));
+% s4 = sin(Th(4));
+% c1 = cos(Th(1));
+% c2 = cos(Th(2));
+% c3 = cos(Th(3));
+% c4 = cos(Th(4));
+% 
+% df = [
+% 0 -k*c2 0 k*c4;
+% -k*c1 0 k*c3 0;
+% -k*s1 k*s2 -k*s3 k*s4;
+% ];
+% 
+% dtau = [
+% 0 l*k*s2-b*c2 0 -l*k*s4+b*c4;
+% l*k*s1+b*c1 0 -l*k*s3-b*c3 0;
+% -l*k*c1+b*s1 l*k*c2+b*s2 -l*k*c3+b*s3 l*k*c4+b*s4;
+% ];
+% 
+% d_Ja = [df;dtau];
+% d_JaW = zeros(6,4);
+% for i=1:4
+%     col = d_Ja(:, i);
+%     d_JaW(:, i) = col*W(i);
+% end
+% 
+% d_JaW
