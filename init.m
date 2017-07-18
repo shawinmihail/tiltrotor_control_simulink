@@ -1,22 +1,33 @@
+clear
+clc
+
 %% config
 qc.l = 0.2;
 
 % plus
-qc.rays =    [1;0;0;
+qc.rays = [1;0;0;
           0;1;0;
           -1;0;0
           0;-1;0];
-% % X
-% rays =    [1;1;0;
-%           1;-1;0;
-%           -1;-1;0
-%           -1;1;0];
+          
+%% X
+qc.rays =  [1;1;0;
+          -1;1;0;
+           -1;-1;0
+           1;-1;0];
 
-% % K
-% rays =    [1;1;0;
+% % % K
+% qc.rays = [1;1;0;
 %           0;1;0;
 %           0;-1;0
 %           1;-1;0];
+% % 
+% % % random
+% qc.rays = [1;2;0;
+%           -2;1;0;
+%           3;-1;0
+%           -1;0;0];
+
 for i = 1:4
     qc.rays(3*i-2:3*i) = qc.l*qc.rays(3*i-2:3*i)/norm(qc.rays(3*i-2:3*i));
 end
@@ -35,7 +46,7 @@ qc.I_P = [8.450 0 0
           0 0 4.580]*1e-5;
 
 %% init pose
-qc.r0 = [0;0;0];
+qc.r0 = [-0.05;1.05;0];
 qc.R0 = [
 1,0,0;
 0,1,0;
@@ -52,3 +63,6 @@ qc.b = 1*1e-6;
 %% lims
 qc.Th_dot_lim = inf;
 qc.der_filter = 8;
+
+%% jacobian
+jacobian(qc.rays, qc.rot_dirs, qc.k, qc.b, qc.l);
