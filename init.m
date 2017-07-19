@@ -56,6 +56,10 @@ qc.Th0 = 1*[45;45;45;45]*pi/180;
 qc.k = 2.5*1e-5;
 qc.b = 1*1e-6;
 
+qc.S = 20*30*1e-4;
+qc.c = 1.05;
+qc.ro = 1;
+
 %% lims
 qc.Th_dot_lim = inf;
 qc.der_filter = 8;
