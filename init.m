@@ -1,3 +1,4 @@
+addpath(genpath(pwd))
 clear
 clc
 
@@ -55,18 +56,17 @@ qc.ro = 1;
 %% control
 jacobian(qc.rays, qc.rot_dirs, qc.k, qc.b, qc.l);
 qc.wmin = abs(qc.m*qc.g(3))/(4*qc.k);
-qc.wrest = sqrt(qc.wmin * 1.2);
+qc.wrest = qc.wmin * 1.66;
 
 %% init pose
 qc.r0 = [0;0;0];
 qc.q0 = [1;0;0;0];
 qc.q0 = qc.q0/norm(qc.q0);
-qc.omega0 = [0;0;1]*0;
-qc.W0 = 1*[1;-1;1;-1]*qc.wmin;
-qc.Th0 = 1*[90;45;45;45]*pi/180;
+qc.omega0 = [0;0;0]*0;
+qc.W0 = 1*[1;-1;1;-1]*qc.wmin/2;
+qc.Th0 = 0*[45;45;45;45]*pi/180;
 
 
 %% lims
 qc.Th_dot_lim = inf;
-qc.der_filter = 8;
 
