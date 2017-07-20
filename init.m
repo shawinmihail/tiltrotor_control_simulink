@@ -60,9 +60,10 @@ qc.wrest = sqrt(qc.wmin * 1.2);
 %% init pose
 qc.r0 = [0;0;0];
 qc.q0 = [1;0;0;0];
+qc.q0 = qc.q0/norm(qc.q0);
 qc.omega0 = [0;0;1]*0;
 qc.W0 = 1*[1;-1;1;-1]*qc.wmin;
-qc.Th0 = 1*[45;45;45;45]*pi/180;
+qc.Th0 = 1*[90;45;45;45]*pi/180;
 
 
 %% lims
