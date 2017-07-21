@@ -5,13 +5,13 @@ clc
 %% config
 qc.l = 0.2;
 
-%% plus
-qc.rays = [1;0;0;
-          0;1;0;
-          -1;0;0
-          0;-1;0];
+% %% plus
+% qc.rays = [1;0;0;
+%           0;1;0;
+%           -1;0;0
+%           0;-1;0];
           
-%% X
+% X
 qc.rays =  [1;1;0;
           -1;1;0;
            -1;-1;0
@@ -63,10 +63,12 @@ qc.r0 = [0;0;0];
 qc.q0 = [1;0;0;0];
 qc.q0 = qc.q0/norm(qc.q0);
 qc.omega0 = [0;0;0]*0;
-qc.W0 = 1*[1;-1;1;-1]*qc.wmin/2;
-qc.Th0 = 0*[45;45;45;45]*pi/180;
-
-
+qc.W0 = 1*qc.rot_dirs*qc.wmin*2;
+qc.Th0 = 0*[90;90;-90;-90]*pi/180;
 %% lims
 qc.Th_dot_lim = inf;
+
+%% other
+J_fcn(qc.Th0(1), qc.Th0(2), qc.Th0(3), qc.Th0(4))
+
 
