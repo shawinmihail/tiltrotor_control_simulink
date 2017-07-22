@@ -3,7 +3,7 @@ clear
 clc
 
 %% config
-qc.l = 0.2;
+qc.l = 0.15;
 
 % %% plus
 % qc.rays = [1;0;0;
@@ -56,19 +56,19 @@ qc.ro = 1;
 %% control
 jacobian(qc.rays, qc.rot_dirs, qc.k, qc.b, qc.l);
 qc.wmin = abs(qc.m*qc.g(3))/(4*qc.k);
-qc.wrest = qc.wmin * 1.66;
+qc.wrest = qc.wmin * 4;
 
 %% init pose
 qc.r0 = [0;0;0];
 qc.q0 = [1;0;0;0];
 qc.q0 = qc.q0/norm(qc.q0);
-qc.omega0 = [0;0;0]*0;
-qc.W0 = 1*qc.rot_dirs*qc.wmin*2;
-qc.Th0 = 0*[90;90;-90;-90]*pi/180;
+qc.omega0 = [0;0;0]*2*pi;
+qc.W0 = 1*qc.rot_dirs*qc.wmin*1;
+th = 15;
+qc.Th0 = 1*[th;th;-th;-th]*pi/180;
 %% lims
 qc.Th_dot_lim = inf;
+qc.draw_tick = 0.05;
 
-%% other
-J_fcn(qc.Th0(1), qc.Th0(2), qc.Th0(3), qc.Th0(4))
 
 
