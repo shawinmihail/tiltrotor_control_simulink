@@ -1,14 +1,7 @@
-% a = pi/4;
-% ex = [1;0;0];
-% r = [1;1;1]
-% q = [cos(a/2);ex*sin(a/2)]
-% R = quat2matrix(q)
-% 
-% x1 = R*r
-% x2 = quatRotate(q, r)
+qBI = [10;5;5;5];
+qBI = qBI/norm(qBI);
+R = quat2matrix(qBI);
+r = [1;2;3];
 
-qw = [0;0;1;1];
-q_BI = [1;0;0;1];
-q_BI = q_BI/norm(q_BI);
-quatMultiply(q_BI,qw)
-quatMultiply(qw, q_BI)
+x1 = quatRotate(qBI, r)
+x2 = R*r
