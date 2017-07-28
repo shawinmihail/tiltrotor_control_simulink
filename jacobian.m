@@ -52,9 +52,6 @@ for i = 1:4
     dJt_w = dJt_w + diff(Jt, th_sym)*w_sym;
 end
 
-Jf
-Jt
-
 J = [Jf; Jt];
 dJ_w = [dJf_w; dJt_w];
 

@@ -77,3 +77,13 @@ qc.w_des_sat_lim = pi;
 
 qc.draw_tick = 0.1;
 qc.control_delay = 100e-4;
+
+%% sensors noise
+x = clock;
+x = x(6)*1e4;
+qc.seed = mod(x, 31*19*17);
+qc.r_snr = 50;
+qc.q_snr = 50;
+qc.omega_snr = 100;
+qc.W_snr = 50;
+qc.Th_snr = 50;

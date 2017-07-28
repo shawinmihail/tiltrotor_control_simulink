@@ -4,3 +4,5 @@ ryll_grt_rtw
 *.original
 *.autosave
 *.png
+J_fcn.m
+dJ_w_fcn.m
