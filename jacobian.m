@@ -7,6 +7,7 @@ Jt = sym('Jt', [3 4]);
 dJf_w = zeros(3, 4);
 dJt_w = zeros(3, 4);
 ex = [1;0;0];
+
 %% Jf
 for i = 1:4
     th_sym = Th(i);
@@ -50,6 +51,9 @@ for i = 1:4
     w_sym = W(i);
     dJt_w = dJt_w + diff(Jt, th_sym)*w_sym;
 end
+
+Jf
+Jt
 
 J = [Jf; Jt];
 dJ_w = [dJf_w; dJt_w];
