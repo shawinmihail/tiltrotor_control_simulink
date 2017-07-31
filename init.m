@@ -87,26 +87,37 @@ x = x(6)*1e4;
 qc.seed = mod(x, 31*19*17);
 
 qc.r_snr = 50;
+qc.v_snr = 100;
 qc.q_snr = 5000;
 qc.omega_snr = 5000;
 qc.W_snr = 50;
 qc.Th_snr = 50;
 
 %% calman
-qc.x0 = [qc.r0; qc.v0; qc.qBI0; qc.omegaB0];
-qc.H = eye(13);
+out_d = 13;
+in_d = 19;
+
+v_dot0 = [0;0;0];
+omegaB_dot0 = [0;0;0];
+qc.x0 = [qc.r0; qc.v0; qc.qBI0; qc.omegaB0; v_dot0; omegaB_dot0];
+qc.H = eye(in_d);
+qc.H = qc.H(1:out_d,:);
 
 Qr = 1e-1*[1 1 1];
 Qv = 1e-1*[1 1 1];
 Qquat = 1e-1*[1 1 1 1];
 Qomega = 1e-1*[1 1 1];
-qc.Q = diag([Qr Qv Qquat Qomega]);
+Qvdot = 1e-1*[1 1 1];
+Qomegadot = 1e-1*[1 1 1];
+qc.Q = diag([Qr Qv Qquat Qomega Qvdot Qomegadot]);
 
 Pr = 1*[1 1 1];
 Pv = 1*[1 1 1];
 Pquat = 1*[1 1 1 1];
 Pomega = 1*[1 1 1];
-qc.P0 = 1e-6*diag([Pr Pv Pquat Pomega]);
+Pvdot = 1*[1 1 1];
+Pomegadot = 1*[1 1 1];
+qc.P0 = 1e-6*diag([Pr Pv Pquat Pomega Pvdot Pomegadot]);
 
 Rr = 1e-4*[1 1 1];
 Rv = 1e-4*[1 1 1];
