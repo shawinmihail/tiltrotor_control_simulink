@@ -2,6 +2,8 @@ addpath(genpath(pwd))
 clear
 clc
 close all
+o3 = zeros(3, 3);
+e3 = eye(3);
 
 %% config
 qc.l = 0.25;
@@ -61,6 +63,7 @@ qc.wrest = qc.wmin * 4;
 
 %% init pose
 qc.r0 = [-1.5;0.05;0];
+qc.v0 = [0;0;0];
 qBI0 = [1;0;0;-1];
 qc.qBI0 = qBI0/norm(qBI0);
 qc.omegaB0 = [0;0;0]*2*pi;
@@ -87,3 +90,13 @@ qc.q_snr = 50;
 qc.omega_snr = 100;
 qc.W_snr = 50;
 qc.Th_snr = 50;
+
+%% calman
+qc.x0 = [qc.r0;qc.v0;qc.omegaB0];
+qc.H = eye(9);
+qc.Q = diag([0.1 0.1 0.1 0.1 0.1 0.1 0.1 0.1 0.1]);
+qc.P0 = diag([0.1 0.1 0.1 0.1 0.1 0.1 0.1 0.1 0.1]);
+qc.R = diag([0.1 0.1 0.1 0.1 0.1 0.1 0.1 0.1 0.1]);
+qc.F = [o3 e3 o3;
+        o3 o3 o3;
+        o3 o3 o3];
