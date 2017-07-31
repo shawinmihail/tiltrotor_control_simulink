@@ -62,9 +62,9 @@ qc.wmin = abs(qc.m*qc.g(3))/(4*qc.k);
 qc.wrest = qc.wmin * 4;
 
 %% init pose
-qc.r0 = [-1.5;0.05;0];
+qc.r0 = 0*[-1.5;0.05;0];
 qc.v0 = [0;0;0];
-qBI0 = [1;0;0;-1];
+qBI0 = [1;0;0;0];
 qc.qBI0 = qBI0/norm(qBI0);
 qc.omegaB0 = [0;0;0]*2*pi;
 qc.W0 = 1*qc.rot_dirs*qc.wmin*1;
@@ -85,27 +85,31 @@ qc.control_delay = 100e-4;
 x = clock;
 x = x(6)*1e4;
 qc.seed = mod(x, 31*19*17);
+
 qc.r_snr = 50;
-qc.q_snr = 50;
-qc.omega_snr = 100;
+qc.q_snr = 5000;
+qc.omega_snr = 5000;
 qc.W_snr = 50;
 qc.Th_snr = 50;
 
 %% calman
-qc.x0 = [qc.r0;qc.v0;qc.omegaB0];
-qc.F = [o3 e3 o3;
-        o3 o3 o3;
-        o3 o3 o3];
-qc.H = eye(9);
+qc.x0 = [qc.r0; qc.v0; qc.qBI0; qc.omegaB0];
+qc.H = eye(13);
 
 Qr = 1e-1*[1 1 1];
-Qrdot = 1e-1*[1 1 1];
+Qv = 1e-1*[1 1 1];
+Qquat = 1e-1*[1 1 1 1];
 Qomega = 1e-1*[1 1 1];
-qc.Q = diag([Qr Qrdot Qomega]);
+qc.Q = diag([Qr Qv Qquat Qomega]);
 
-qc.P0 = 0*diag([1 1 1 1 1 1 1 1 1]);
+Pr = 1*[1 1 1];
+Pv = 1*[1 1 1];
+Pquat = 1*[1 1 1 1];
+Pomega = 1*[1 1 1];
+qc.P0 = 1e-6*diag([Pr Pv Pquat Pomega]);
 
 Rr = 1e-4*[1 1 1];
-Rrdot = 1e-4*[1 1 1];
+Rv = 1e-4*[1 1 1];
+Rquat = 1e-4*[1 1 1 1];
 Romega = 5*1e-4*[1 1 1];
-qc.R = diag([Rr Rrdot Romega]);
+qc.R = diag([Rr Rv Rquat Romega]);
