@@ -93,10 +93,19 @@ qc.Th_snr = 50;
 
 %% calman
 qc.x0 = [qc.r0;qc.v0;qc.omegaB0];
-qc.H = eye(9);
-qc.Q = diag([0.1 0.1 0.1 0.1 0.1 0.1 0.1 0.1 0.1]);
-qc.P0 = diag([0.1 0.1 0.1 0.1 0.1 0.1 0.1 0.1 0.1]);
-qc.R = diag([0.1 0.1 0.1 0.1 0.1 0.1 0.1 0.1 0.1]);
 qc.F = [o3 e3 o3;
         o3 o3 o3;
         o3 o3 o3];
+qc.H = eye(9);
+
+Qr = 1e-1*[1 1 1];
+Qrdot = 1e-1*[1 1 1];
+Qomega = 1e-1*[1 1 1];
+qc.Q = diag([Qr Qrdot Qomega]);
+
+qc.P0 = 0*diag([1 1 1 1 1 1 1 1 1]);
+
+Rr = 1e-4*[1 1 1];
+Rrdot = 1e-4*[1 1 1];
+Romega = 5*1e-4*[1 1 1];
+qc.R = diag([Rr Rrdot Romega]);
