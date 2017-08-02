@@ -2,8 +2,9 @@ addpath(genpath(pwd))
 clear
 clc
 close all
-o3 = zeros(3, 3);
-e3 = eye(3);
+
+%% sym
+qc.time_step = 10e-4;
 
 %% config
 qc.l = 0.25;
@@ -82,4 +83,4 @@ qc.draw_tick = 0.1;
 qc.control_delay = 100e-4;
 
 %% run
-run('calman_init');
+run('kalman_init');
