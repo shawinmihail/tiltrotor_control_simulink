@@ -2,7 +2,7 @@ clc
 close all
 
 path = '\img\';
-save = 1;
+save = 0;
 
 %%
 t = time.Data;
