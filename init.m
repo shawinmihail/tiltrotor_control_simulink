@@ -5,6 +5,7 @@ close all
 
 %% sym
 qc.time_step = 10e-4;
+qc.draw_on = 0;
 
 %% config
 qc.l = 0.25;
