@@ -77,11 +77,11 @@ qc.Th_dot_lim = inf;
 qc.W_lim = inf;
 
 %% saturations
-qc.r_sat_lim = 10;
+qc.r_sat_lim = 30;
 qc.w_des_sat_lim = pi;
 
 qc.draw_tick = 0.1;
-qc.control_delay = 100e-4;
+qc.control_delay = 60e-4;
 
 %% run
 run('kalman_init');

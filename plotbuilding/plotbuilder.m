@@ -3,6 +3,7 @@ close all
 
 path = '\img\';
 save = 0;
+trees = 0;
 
 %%
 t = time.Data;
@@ -108,8 +109,9 @@ if save
     saveas(gcf, [pwd path 'eul_err.png']);
 end
 figure
+
 %% trajectory
-subplot(2,1,1);
+subplot(2,1,1);                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
 hold on
 grid on;
 plot(r_r(:, 1), r_r(:,2),'Color','g','LineWidth',w, 'linestyle', '-');
@@ -121,19 +123,21 @@ xlabel('x, m');
 ylabel('y, m');
 
 %% trees
-r = 0.5;
-i = 0:0.1:3*pi;
-x = r*sin(i);
-y = r*cos(i);
+if trees > 0.5
+    r = 0.5;
+    i = 0:0.1:3*pi;
+    x = r*sin(i);
+    y = r*cos(i);
 
-r01 = [0;0];
-r02 = [3;0];
-r03 = [6;0];
-plot(x+r01(1), y+r01(2), 'LineWidth',w, 'Color','k');
-plot(x+r02(1), y+r02(2), 'LineWidth',w, 'Color','k');
-plot(x+r03(1), y+r03(2), 'LineWidth',w, 'Color','k');
-xlim([-2, 8]);
-ylim([-5, 5]);
+    r01 = [0;0];
+    r02 = [3;0];
+    r03 = [6;0];
+    plot(x+r01(1), y+r01(2), 'LineWidth',w, 'Color','k');
+    plot(x+r02(1), y+r02(2), 'LineWidth',w, 'Color','k');
+    plot(x+r03(1), y+r03(2), 'LineWidth',w, 'Color','k');
+    xlim([-2, 8]);
+    ylim([-5, 5]);
+end
 
 %% alt
 subplot(2,1,2);

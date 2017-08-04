@@ -10,13 +10,12 @@ e44 = eye(4);
 x = clock;
 x = x(6)*1e4;
 qc.seed = mod(x, 31*19*17);
-qc.seed = 100;
+% qc.seed = 100;
 
-qc.r_snr = 55;
-qc.v_snr = 55;
-qc.vdot_snr = 55;
-qc.q_snr = 55;
-qc.omega_snr = 55;
+qc.r_snr = 15;
+qc.vdot_snr = 25;
+qc.q_snr = 35;
+qc.omega_snr = 15;
 % qc.W_snr = 50;
 % qc.Th_snr = 50;
 
