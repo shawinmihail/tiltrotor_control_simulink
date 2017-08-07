@@ -2,8 +2,8 @@ clc
 close all
 
 path = '\img\';
-save = 0;
-trees = 0;
+save = 1;
+trees = 1;
 
 %%
 t = time.Data;
@@ -13,7 +13,7 @@ r_d=r_des.Data;
 eul_d = eul_des.Data;
 eul_d = mod(eul_d + pi, 2*pi)-pi;
 eul_err = eul_d - eul_r;
-eps = 3e-3;
+eps = 5e-3;
 eul_err = sign(eul_err).*mod(abs(eul_err), pi-eps);
 r_err = r_d - r_r;
 vel_r = [[0,0,0];diff(r_r)./[diff(t),diff(t),diff(t)]];
