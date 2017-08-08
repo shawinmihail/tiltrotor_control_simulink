@@ -64,14 +64,14 @@ qc.wmin = abs(qc.m*qc.g(3))/(4*qc.k);
 qc.wrest = qc.wmin * 4;
 
 %% init pose
-qc.r0 = 1*[-1.5;0.05;0];
-qc.v0 = [0;0;0];
-qBI0 = [1;0;0;-1];
+qc.r0 = 0*[-1.5;0.05;0];
+qc.v0 = 0*[0;0;0];
+qBI0 = [1;0;0;0];
 qc.qBI0 = qBI0/norm(qBI0);
 qc.omegaB0 = 0*[1;0;1]*2*pi;
 qc.W0 = 1*qc.rot_dirs*qc.wmin*1;
 th = 0;
-qc.Th0 = 1*[th;th;-th;-th]*pi/180;
+qc.Th0 = 0*[th;th;-th;-th]*pi/180;
 %% lims
 qc.Th_dot_lim = inf;
 qc.W_lim = inf;

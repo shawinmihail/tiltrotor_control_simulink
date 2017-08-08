@@ -5,22 +5,21 @@ o44 = zeros(4, 4);
 e33 = eye(3);
 e44 = eye(4);
 
-%% sensors noise
-
+%% NOISE
 x = clock;
 x = x(6)*1e4;
 qc.seed = mod(x, 31*19*17);
 qc.seed = 100;
 
-qc.r_snr = 15;
+qc.r_snr = 30;
 qc.vdot_snr = 100;
-qc.q_snr = 28;
+qc.q_snr = 30;
 qc.omega_snr = 100;
 
 %% Kalman
-
 % x = r rdot q omega
 % z = r r2dot q omega
+
 qc.x0 = [qc.r0; qc.v0; qc.qBI0; qc.omegaB0];
 
 Q_r = 1e-8*[1 1 1];
