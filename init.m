@@ -77,7 +77,14 @@ qc.Th_dot_lim = inf;
 qc.W_lim = inf;
 
 %% saturations
-qc.r_sat_lim = 30;
+qc.r_error_lim = 1;
+qc.rdot_error_lim = 12;
+qc.r2dot_error_lim = 36;
+qc.omega_error_lim = 5;
+qc.omegadot_error_lim = 20;
+
+
+qc.r_sat_lim = 0.1;
 qc.w_des_sat_lim = pi;
 
 qc.draw_tick = 0.1;
