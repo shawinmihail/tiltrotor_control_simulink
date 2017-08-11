@@ -2,19 +2,19 @@ clc
 close all
 
 path = '\img\';
-save = 1;
+save = 0;
 trees = 1;
 
 %%
 t = time.Data;
 
-r_n=r_noisy.Data;
-r_f=r_filtred.Data;
+r_n=r_mes.Data;
+r_f=r_filtered.Data;
 r_r=r_real.Data;
 
 eul_d = eul_des.Data;
-eul_f = eul_filtred.Data;
-eul_n =eul_noisy.Data;
+eul_f = eul_filtered.Data;
+eul_n =eul_mes.Data;
 eul_r =eul_real.Data;
 
 r_ce = r_f - r_r;

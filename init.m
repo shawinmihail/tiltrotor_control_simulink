@@ -60,8 +60,9 @@ qc.ro = 1;
 
 %% control
 jacobian(qc.rays, qc.rot_dirs, qc.k, qc.b, qc.l);
-qc.wmin = abs(qc.m*qc.g(3))/(4*qc.k);
-qc.wrest = qc.wmin * 4;
+wg = abs(qc.m*qc.g(3))/(4*qc.k);
+qc.wmin = 0.5 * wg;
+qc.wmax = 5 * wg;
 
 %% init pose
 qc.r0 = 0*[-1.5;0.05;0];
@@ -69,23 +70,30 @@ qc.v0 = 0*[0;0;0];
 qBI0 = [1;0;0;0];
 qc.qBI0 = qBI0/norm(qBI0);
 qc.omegaB0 = 0*[1;0;1]*2*pi;
-qc.W0 = 1*qc.rot_dirs*qc.wmin*1;
+qc.W0 = 1*qc.rot_dirs*wg*1;
 th = 0;
 qc.Th0 = 0*[th;th;-th;-th]*pi/180;
+
 %% lims
 qc.Th_dot_lim = inf;
 qc.W_lim = inf;
 
-%% saturations
-qc.r_error_lim = 1;
+qc.Th_lim = pi;
+
+qc.r_error_lim = 2;
 qc.rdot_error_lim = 12;
 qc.r2dot_error_lim = 36;
 qc.omega_error_lim = 5;
-qc.omegadot_error_lim = 20;
+qc.omegadot_error_lim = 15;
 
+qc.r3dot_des_lim = 30;
+qc.w2dot_des_lim = 30;
 
-qc.r_sat_lim = 0.1;
-qc.w_des_sat_lim = pi;
+mult = 1.9;
+qc.x = mult*abs(qc.m*qc.g(3))/(4*qc.k);
+
+qc.r2dot_control_signal_lim = 9.81*mult;
+qc.wdot_control_signal_lim = 10;
 
 qc.draw_tick = 0.1;
 qc.control_delay = 60e-4;
