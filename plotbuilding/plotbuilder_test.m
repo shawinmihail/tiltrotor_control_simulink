@@ -31,11 +31,6 @@ x2 = vdf;
 name = 'a';
 run('plotXYZ');
 
-x1 = rr;
-x2 = rf;
-name = 'r';
-run('plotXYZ');
-
 x1 = elr;
 x2 = elf;
 name = 'eul';

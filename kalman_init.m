@@ -22,7 +22,7 @@ qc.omega_snr = 100;
 
 qc.x0 = [qc.r0; qc.v0; qc.qBI0; qc.omegaB0];
 
-Q_r = 1e-6*[1 1 1];
+Q_r = 1e-4*[1 1 1];
 Q_rdot = 1e-4*[1 1 1];
 Q_quat = 1e-6*[1 1 1 1];
 Q_omega = 1e-6*[1 1 1];
@@ -30,8 +30,8 @@ qc.Q = diag([Q_r Q_rdot Q_quat Q_omega]);
 
 qc.P0 = 100*qc.Q;
 
-R_r = 1*1e-2*[1 1 1];
-R_r2dot = 5*1e-2*[1 1 1];
+R_r = 1*1e-4*[1 1 1];
+R_r2dot = 5*1e-4*[1 1 1];
 R_quat = 1e-6*[1 1 1 1];
 R_omega = 1e-6*[1 1 1];
 qc.R = diag([R_r R_r2dot R_quat R_omega]);
