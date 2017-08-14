@@ -1,25 +1,47 @@
 clc
 close all
 
-path = '\img\';
-save = 0;
-trees = 0;
-
 %%
 t = time.Data;
 
+rr = r_real.Data;
+rf = r_filtered.Data;
+vr = v_real.Data;
+vf = v_filtered.Data;
 vdr = vdot_real.Data;
-vdm = vdot_filtered.Data;
+vdf = vdot_filtered.Data;
 
-%%
-w = 2;
-s = 22;
-r2 = [0.5 0 0];
-g2  = [0 0.5 0];
-b2 = [0 1 1];
+elr = eul_real.Data;
+elf = eul_filtered.Data;
+omr = omega_real.Data;
+omf = omega_filtered.Data;
 
-hold on
-grid on;
-plot(t, vdr(:,3),'Color','r','LineWidth',w, 'linestyle', '-');
-plot(t, vdm(:,3),'Color','k','LineWidth',w, 'linestyle', '--');
-set(gca,'FontSize',s)
+x1 = rr;
+x2 = rf;
+name = 'r';
+run('plotXYZ');
+
+x1 = vr;
+x2 = vf;
+name = 'v';
+run('plotXYZ');
+
+x1 = vdr;
+x2 = vdf;
+name = 'a';
+run('plotXYZ');
+
+x1 = rr;
+x2 = rf;
+name = 'r';
+run('plotXYZ');
+
+x1 = elr;
+x2 = elf;
+name = 'eul';
+run('plotXYZ');
+
+x1 = omr;
+x2 = omf;
+name = 'omega';
+run('plotXYZ');

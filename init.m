@@ -61,8 +61,9 @@ qc.ro = 1;
 %% control
 jacobian(qc.rays, qc.rot_dirs, qc.k, qc.b, qc.l);
 wg = abs(qc.m*qc.g(3))/(4*qc.k);
+qc.tw = 2.5;
 qc.wmin = 0.5 * wg;
-qc.wmax = 5 * wg;
+qc.wnorm = qc.tw * wg;
 
 %% init pose
 qc.r0 = 0*[-1.5;0.05;0];
@@ -80,23 +81,23 @@ qc.W_lim = inf;
 
 qc.Th_lim = pi;
 
-qc.r_error_lim = 2;
-qc.rdot_error_lim = 12;
-qc.r2dot_error_lim = 36;
-qc.omega_error_lim = 5;
-qc.omegadot_error_lim = 15;
+qc.r_error_lim = 5;
+qc.rdot_error_lim = 100;
+qc.r2dot_error_lim = 100;
+qc.omega_error_lim = 100;
+qc.omegadot_error_lim = 100;
 
 qc.r3dot_des_lim = 30;
 qc.w2dot_des_lim = 30;
 
-mult = 1.9;
-qc.x = mult*abs(qc.m*qc.g(3))/(4*qc.k);
-
-qc.r2dot_control_signal_lim = 9.81*mult;
-qc.wdot_control_signal_lim = 10;
+qc.r2dot_control_signal_lim_z = 9.81*qc.tw/sqrt(2);
+qc.r2dot_control_signal_lim_xy = 9.81*qc.tw/sqrt(2)/sqrt(2);
+qc.wdot_control_signal_lim = 30;
 
 qc.draw_tick = 0.1;
 qc.control_delay = 60e-4;
+
+qc.x = qc.tw*abs(qc.m*qc.g(3))/(4*qc.k);
 
 %% run
 run('kalman_init');

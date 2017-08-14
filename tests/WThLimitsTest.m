@@ -1,17 +1,12 @@
 clear
 
-wmin = 100;
-wmax = 200;
-wavg = 0.5*(wmin+wmax);
+wmin = 0.5*10^5;
+wnorm = 1.5*10^5;
 
 k=1;
-for i = wmin+10 : wmax-10
+for i = wmin+1e4 : wnorm*1.1
     x(k) = i;
-    
-    arg = (i-wmin)*pi/(wmax-wmin)-pi/2;
-    a(k) = arg;
-    y(k) = -tan(arg)^3;
-    
+    y(k) = calc_z(i, wmin, wnorm);
     k = k+1;
 end
 plot(x,y)
