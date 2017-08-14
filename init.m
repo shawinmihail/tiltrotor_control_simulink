@@ -81,7 +81,7 @@ qc.W_lim = inf;
 
 qc.Th_lim = pi;
 
-qc.r_error_lim = 5;
+qc.r_error_lim = 2.5;
 qc.rdot_error_lim = 100;
 qc.r2dot_error_lim = 100;
 qc.omega_error_lim = 100;
