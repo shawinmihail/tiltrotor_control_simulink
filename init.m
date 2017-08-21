@@ -4,7 +4,7 @@ clc
 close all
 
 %% sym
-qc.time_step = 10e-4;
+qc.time_step = 10*(1e-4);
 qc.draw_on = 1;
 
 %% config
@@ -63,25 +63,23 @@ jacobian(qc.rays, qc.rot_dirs, qc.k, qc.b, qc.l);
 
 %% lims
 wg = abs(qc.m*qc.g(3))/(4*qc.k);
-qc.tw = 1.7;
+qc.tw = 3.5;
 qc.wmin = 0.5 * wg;
 qc.wnorm = qc.tw * wg;
 
-qc.W_lim = inf;
-qc.Th_lim = 1;
-qc.Th_dot_lim = inf;
+qc.Th_lim = inf;
 
-qc.r_error_lim = 2.5;
-qc.rdot_error_lim = 100;
-qc.r2dot_error_lim = 100;
-qc.omega_error_lim = 100;
-qc.omegadot_error_lim = 100;
+qc.r_error_lim = 5;
+qc.rdot_error_lim = 25;
+qc.r2dot_error_lim = 50;
+qc.omega_error_lim = 20*pi;
+qc.omegadot_error_lim = 40*pi;
 
-qc.r3dot_des_lim = 20;
-qc.w2dot_des_lim = 20;
+qc.r3dot_des_lim = 300;
+qc.w2dot_des_lim = 300;
 
-qc.r2dot_control_signal_lim_z = 9.81*qc.tw/sqrt(2);
-qc.r2dot_control_signal_lim_xy = 9.81*qc.tw/sqrt(2)/sqrt(2);
+qc.r2dot_control_signal_lim_z = inf*9.81*qc.tw/sqrt(2);
+qc.r2dot_control_signal_lim_xy = inf*9.81*qc.tw/2;
 qc.wdot_control_signal_lim = inf;
 
 %% init pose
@@ -96,7 +94,7 @@ qc.Th0 = 0*[th;th;-th;-th]*pi/180;
 
 %% other
 qc.draw_tick = 0.1;
-qc.control_delay = 60e-4;
+qc.control_delay = 1*6*qc.time_step;
 qc.x = qc.tw*abs(qc.m*qc.g(3))/(4*qc.k);
 
 %% run

@@ -33,5 +33,5 @@ qc.P0 = 100*qc.Q;
 R_r = 1*1e-4*[1 1 1];
 R_r2dot = 5*1e-4*[1 1 1];
 R_quat = 1e-10*[1 1 1 1];
-R_omega = 1e-6*[1 1 1];
+R_omega = 1e-10*[1 1 1];
 qc.R = diag([R_r R_r2dot R_quat R_omega]);

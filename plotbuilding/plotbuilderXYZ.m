@@ -19,9 +19,10 @@ omr = omega_real.Data;
 omf = omega_filtered.Data;
 
 x1 = rr;
-x2 = rd;
+x2 = rf;
+x3 = rd;
 name = 'r';
-run('plotXYZ');
+run('plotXYZ3');
 
 x1 = vr;
 x2 = vr;
@@ -29,6 +30,8 @@ name = 'v';
 run('plotXYZ');
 
 x1 = elr;
-x2 = eld;
+x2 = elf;
+x3 = eld;
 name = 'eul';
-run('plotXYZ');
+run('plotXYZ3');
+
