@@ -18,7 +18,7 @@ eul_m = eul_mes.Data;
 eul_f = eul_filtered.Data;
 
 eul_error = eul_d - eul_r;
-r_error = eul_d - eul_r;
+r_error = r_d - r_r;
 
 
 %%
@@ -29,8 +29,8 @@ g2  = [0 0.5 0];
 b2 = [0 0.5 1];
 gray = [0.7 0.7 0.7];
 
-
-%% roll
+EULLIM = 0.2;
+%% roll error
 subplot(3,1,1);
 hold on
 grid on;
@@ -40,49 +40,51 @@ leg = legend('roll error', 'Location','southeast');
 set(leg,'FontSize',s);
 xlabel('time, s');
 ylabel('angle, rad');
-% ylim([-pi-0.1, pi+0.1]);
+ylim([-EULLIM, EULLIM]);
 
-%% pitch
+%% pitch error
 subplot(3,1,2);
 hold on
 grid on;
 plot(t, eul_error(:,2),'Color','g','LineWidth',w, 'linestyle', '-');
 set(gca,'FontSize',s)
-leg = legend('pitch', 'Location','southeast');
+leg = legend('pitch error', 'Location','southeast');
 set(leg,'FontSize',s);
 xlabel('time, s');
 ylabel('angle, rad');
-% ylim([-pi-0.1, pi+0.1]);
+ylim([-EULLIM, EULLIM]);
 
-%% yaw
+%% yaw error
 subplot(3,1,3);
 hold on
 grid on;
 plot(t, eul_error(:,1),'Color','b','LineWidth',w, 'linestyle', '-');
 set(gca,'FontSize',s)
-leg = legend('yaw mes', 'Location','southeast');
+leg = legend('yaw error', 'Location','southeast');
 set(leg,'FontSize',s);
 xlabel('time, s');
 ylabel('angle, rad');
-% ylim([-pi-0.1, pi+0.1]);
+ylim([-1, 1]);
 
 set(gcf, 'PaperUnits', 'centimeters', 'PaperPosition', [0 0 60 20]);
 if save
-    saveas(gcf, [pwd path 'eul.png']);
+    saveas(gcf, [pwd path 'eulError.png']);
 end
 
 figure
+
+RLIM = 0.3;
 %% x
 subplot(3,1,1);
 hold on
 grid on;
 plot(t, r_error(:,1),'Color','r','LineWidth',w, 'linestyle', '-');
 set(gca,'FontSize',s)
-leg = legend('x', 'Location','southeast');
+leg = legend('x error', 'Location','southeast');
 set(leg,'FontSize',s);
 xlabel('time, s');
 ylabel('x, m');
-% ylim([-pi-0.1, pi+0.1]);
+ylim([-RLIM, RLIM]);
 
 %% y
 subplot(3,1,2);
@@ -90,11 +92,11 @@ hold on
 grid on;
 plot(t, r_error(:,2),'Color','g','LineWidth',w, 'linestyle', '-');
 set(gca,'FontSize',s)
-leg = legend('y', 'Location','southeast');
+leg = legend('y error', 'Location','southeast');
 set(leg,'FontSize',s);
 xlabel('time, s');
 ylabel('y, m');
-% ylim([-1, 1]);
+ylim([-RLIM, RLIM]);
 
 %% z
 subplot(3,1,3);
@@ -102,8 +104,13 @@ hold on
 grid on;
 plot(t, r_error(:,3),'Color','b','LineWidth',w, 'linestyle', '-');
 set(gca,'FontSize',s)
-leg = legend('z', 'Location','southeast');
+leg = legend('z error', 'Location','southeast');
 set(leg,'FontSize',s);
 xlabel('time, s');
 ylabel('z, m');
-% ylim([-1, 1]);
+ylim([-RLIM, RLIM]);
+
+set(gcf, 'PaperUnits', 'centimeters', 'PaperPosition', [0 0 60 20]);
+if save
+    saveas(gcf, [pwd path 'rError.png']);
+end

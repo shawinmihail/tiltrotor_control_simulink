@@ -2,7 +2,7 @@ clc
 close all
 
 path = '\img\';
-save = 0;
+save = 1;
 
 %%
 t = time.Data;
@@ -26,7 +26,7 @@ g2  = [0 0.5 0];
 b2 = [0 0.5 1];
 gray = [0.7 0.7 0.7];
 
-
+EULLIM = 0.2;
 %% roll
 subplot(3,1,1);
 hold on
@@ -38,7 +38,7 @@ leg = legend('roll real', 'roll des', 'Location','southeast');
 set(leg,'FontSize',s);
 xlabel('time, s');
 ylabel('angle, rad');
-% ylim([-pi-0.1, pi+0.1]);
+ylim([-EULLIM, EULLIM]);
 
 %% pitch
 subplot(3,1,2);
@@ -52,7 +52,7 @@ leg = legend('pitch real', 'pitch des', 'Location','southeast');
 set(leg,'FontSize',s);
 xlabel('time, s');
 ylabel('angle, rad');
-% ylim([-pi-0.1, pi+0.1]);
+ylim([-EULLIM, EULLIM]);
 
 %% yaw
 subplot(3,1,3);
@@ -66,7 +66,7 @@ leg = legend('yaw real', 'yaw des', 'Location','southeast');
 set(leg,'FontSize',s);
 xlabel('time, s');
 ylabel('angle, rad');
-% ylim([-pi-0.1, pi+0.1]);
+ylim([-1, 1]);
 
 set(gcf, 'PaperUnits', 'centimeters', 'PaperPosition', [0 0 60 20]);
 if save
@@ -115,3 +115,8 @@ set(leg,'FontSize',s);
 xlabel('time, s');
 ylabel('z, m');
 ylim([-1, 1]);
+
+set(gcf, 'PaperUnits', 'centimeters', 'PaperPosition', [0 0 60 20]);
+if save
+    saveas(gcf, [pwd path 'r.png']);
+end

@@ -2,7 +2,7 @@ clc
 close all
 
 path = '\img\';
-save = 0;
+save = 1;
 s = 14;
 
 %%
@@ -22,9 +22,8 @@ eld = eul_des.Data;
 omr = omega_real.Data;
 omf = omega_filtered.Data;
 
-x1 = rf;
+x1 = rr;
 x2 = rd;
-x3 = rd;
 
 w = 1;
 
