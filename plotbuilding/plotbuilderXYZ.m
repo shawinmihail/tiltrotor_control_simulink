@@ -11,6 +11,7 @@ vr = v_real.Data;
 vf = v_filtered.Data;
 vdr = vdot_real.Data;
 vdf = vdot_filtered.Data;
+vnormr = norm3d(vr);
 
 elr = eul_real.Data;
 elf = eul_filtered.Data;
@@ -24,14 +25,20 @@ x3 = rd;
 name = 'r';
 run('plotXYZ3');
 
-x1 = vr;
-x2 = vr;
-name = 'v';
-run('plotXYZ');
-
-x1 = elr;
-x2 = elf;
-x3 = eld;
-name = 'eul';
-run('plotXYZ3');
+% x1 = vr;
+% x2 = vr;
+% name = 'v';
+% run('plotXYZ');
+% 
+% x1 = elr;
+% x2 = elf;
+% x3 = eld;
+% name = 'eul';
+% run('plotXYZ3');
+% 
+% x1 = vnormr;
+% x2 = vnormr;
+% x3 = vnormr;
+% name = 'vmorm';
+% run('plotXYZ3');
 
