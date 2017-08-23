@@ -39,8 +39,8 @@ plot(x1(:,1), x1(:,2),'Color','g','LineWidth',w, 'linestyle', '-');
 plot(x2(:,1), x2(:,2),'Color','k','LineWidth',w, 'linestyle', '--');
 xlabel('x, m');
 ylabel('y, m');
-xlim([0 14])
-ylim([-1.4 1.4])
+% xlim([0 14])
+% ylim([-1.4 1.4])
 
 %% wals
 wallX = [0;0];
