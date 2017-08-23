@@ -43,7 +43,7 @@ qc.rot_dirs = [1;-1;1;-1];
 %% dyn
 qc.g = [0;0;-9.81]*1;
 qc.m = 3.6;
-qc.I_B = [0.0348 0 0
+qc.I_B =  [0.0348 0 0
           0 0.0420 0
           0 0 0.0685];
       
@@ -75,16 +75,16 @@ qc.r2dot_error_lim = inf;
 qc.omega_error_lim = inf;
 qc.omegadot_error_lim = inf;
 
-qc.rdot_des_lim = 15;
+qc.rdot_des_lim = 20;
 qc.r2dot_des_lim = 1*qc.tw*abs(qc.g(3))/qc.m;
-qc.w_des_lim = 5*pi;
+qc.w_des_lim = 3*pi;
 
 qc.r2dot_control_signal_lim_z = inf*9.81*qc.tw/sqrt(2);
 qc.r2dot_control_signal_lim_xy = inf*9.81*qc.tw/2;
 qc.wdot_control_signal_lim = inf;
 
 %% init pose
-qc.r0 = 0*[-1.5;0.05;0];
+qc.r0 = 1*[0;-0.5;0];
 qc.v0 = 0*[0;0;0];
 qBI0 = [1;0;0;0];
 qc.qBI0 = qBI0/norm(qBI0);
@@ -100,7 +100,3 @@ qc.x = qc.tw*abs(qc.m*qc.g(3))/(4*qc.k);
 
 %% run
 run('kalman_init');
-
-%% saturations
-qc.r_sat_lim = 0;
-qc.w_des_sat_lim = 0;

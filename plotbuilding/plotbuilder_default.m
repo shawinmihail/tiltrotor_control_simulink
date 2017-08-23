@@ -2,7 +2,7 @@ clc
 close all
 
 path = '\img\';
-save = 1;
+save = 0;
 
 %%
 t = time.Data;
@@ -26,7 +26,7 @@ g2  = [0 0.5 0];
 b2 = [0 0.5 1];
 gray = [0.7 0.7 0.7];
 
-EULLIM = 0.2;
+EULLIM = pi/2;
 %% roll
 subplot(3,1,1);
 hold on
@@ -66,7 +66,7 @@ leg = legend('yaw real', 'yaw des', 'Location','southeast');
 set(leg,'FontSize',s);
 xlabel('time, s');
 ylabel('angle, rad');
-ylim([-1, 1]);
+ylim([-EULLIM, EULLIM]);
 
 set(gcf, 'PaperUnits', 'centimeters', 'PaperPosition', [0 0 60 20]);
 if save

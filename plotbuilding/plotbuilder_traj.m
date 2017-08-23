@@ -2,7 +2,7 @@ clc
 close all
 
 path = '\img\';
-save = 1;
+save = 0;
 s = 14;
 
 %%
@@ -47,9 +47,10 @@ wallX = [0;0];
 wallY = [-1;0.5];
 e = [1;1];
 plot(wallX + (2+5/4)*e, wallY ,'Color','r','LineWidth',w, 'linestyle', '-');
-plot(wallX + (2+5/4+5/2)*e, -wallY ,'Color','r','LineWidth',w, 'linestyle', '-');
-plot(wallX + (2+5/4+5)*e, wallY ,'Color','r','LineWidth',w, 'linestyle', '-');
+plot(wallX + (2+5/4+1*5/2)*e, -wallY ,'Color','r','LineWidth',w, 'linestyle', '-');
+plot(wallX + (2+5/4+2*5/2)*e, wallY ,'Color','r','LineWidth',w, 'linestyle', '-');
 plot(wallX + (2+5/4+3*5/2)*e, -wallY ,'Color','r','LineWidth',w, 'linestyle', '-');
+% plot(wallX + (2+5/4+4*5/2)*e, wallY ,'Color','r','LineWidth',w, 'linestyle', '-');
 
 %% leg
 set(gca,'FontSize',s)

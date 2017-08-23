@@ -64,7 +64,7 @@ leg = legend('yaw error', 'Location','southeast');
 set(leg,'FontSize',s);
 xlabel('time, s');
 ylabel('angle, rad');
-ylim([-1, 1]);
+ylim([-EULLIM, EULLIM]);
 
 set(gcf, 'PaperUnits', 'centimeters', 'PaperPosition', [0 0 60 20]);
 if save
