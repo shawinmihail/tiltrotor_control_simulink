@@ -58,32 +58,39 @@ qc.S = 40*30*1e-4;
 qc.c = 1.05;
 qc.ro = 1;
 
-%% control
+%% generate
 jacobian(qc.rays, qc.rot_dirs, qc.k, qc.b, qc.l);
+% generate_resolve_th(qc.rays, qc.rot_dirs, qc.k);
 
 %% lims
+%%T
 wg = abs(qc.m*qc.g(3))/(4*qc.k);
-qc.tw = 1.5;
+qc.tw = 2;
 qc.wmin = 0.5 * wg;
 qc.wnorm = qc.tw * wg;
 
+%% satur
 qc.Th_lim = inf;
+qc.W_lim = inf;
 
+%% error lims
 qc.r_error_lim = inf;
 qc.rdot_error_lim = inf;
 qc.r2dot_error_lim = inf;
 qc.omega_error_lim = inf;
 qc.omegadot_error_lim = inf;
 
+%% des lim
 qc.rdot_des_lim = 20;
 qc.r2dot_des_lim = 1*qc.tw*abs(qc.g(3))/qc.m;
 qc.w_des_lim = 3*pi;
 
+%% control lim
 qc.r2dot_control_signal_lim = 1 * 9.81*qc.tw;
 qc.wdot_control_signal_lim = inf;
 
 %% init pose
-qc.r0 = 1*[0;-0.5;0];
+qc.r0 = 0*[0;-0.5;0];
 qc.v0 = 0*[0;0;0];
 qBI0 = [1;0;0;0];
 qc.qBI0 = qBI0/norm(qBI0);

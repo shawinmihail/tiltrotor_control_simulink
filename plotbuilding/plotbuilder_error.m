@@ -40,7 +40,7 @@ leg = legend('roll error', 'Location','southeast');
 set(leg,'FontSize',s);
 xlabel('time, s');
 ylabel('angle, rad');
-ylim([-EULLIM, EULLIM]);
+% ylim([-EULLIM, EULLIM]);
 
 %% pitch error
 subplot(3,1,2);
@@ -52,7 +52,7 @@ leg = legend('pitch error', 'Location','southeast');
 set(leg,'FontSize',s);
 xlabel('time, s');
 ylabel('angle, rad');
-ylim([-EULLIM, EULLIM]);
+% ylim([-EULLIM, EULLIM]);
 
 %% yaw error
 subplot(3,1,3);
@@ -64,7 +64,7 @@ leg = legend('yaw error', 'Location','southeast');
 set(leg,'FontSize',s);
 xlabel('time, s');
 ylabel('angle, rad');
-ylim([-EULLIM, EULLIM]);
+% ylim([-EULLIM, EULLIM]);
 
 set(gcf, 'PaperUnits', 'centimeters', 'PaperPosition', [0 0 60 20]);
 if save
@@ -84,7 +84,7 @@ leg = legend('x error', 'Location','southeast');
 set(leg,'FontSize',s);
 xlabel('time, s');
 ylabel('x, m');
-ylim([-RLIM, RLIM]);
+% ylim([-RLIM, RLIM]);
 
 %% y
 subplot(3,1,2);
@@ -96,7 +96,7 @@ leg = legend('y error', 'Location','southeast');
 set(leg,'FontSize',s);
 xlabel('time, s');
 ylabel('y, m');
-ylim([-RLIM, RLIM]);
+% ylim([-RLIM, RLIM]);
 
 %% z
 subplot(3,1,3);
@@ -108,7 +108,7 @@ leg = legend('z error', 'Location','southeast');
 set(leg,'FontSize',s);
 xlabel('time, s');
 ylabel('z, m');
-ylim([-RLIM, RLIM]);
+% ylim([-RLIM, RLIM]);
 
 set(gcf, 'PaperUnits', 'centimeters', 'PaperPosition', [0 0 60 20]);
 if save

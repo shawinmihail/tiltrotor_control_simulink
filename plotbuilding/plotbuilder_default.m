@@ -100,7 +100,7 @@ leg = legend('y real', 'y des', 'Location','southeast');
 set(leg,'FontSize',s);
 xlabel('time, s');
 ylabel('y, m');
-ylim([-1, 1]);
+% ylim([-1, 1]);
 
 %% z
 subplot(3,1,3);
@@ -114,7 +114,7 @@ leg = legend('z real', 'z des', 'Location','southeast');
 set(leg,'FontSize',s);
 xlabel('time, s');
 ylabel('z, m');
-ylim([-1, 1]);
+% ylim([-1, 1]);
 
 set(gcf, 'PaperUnits', 'centimeters', 'PaperPosition', [0 0 60 20]);
 if save

@@ -16,18 +16,21 @@ res1 = (x)^2/a^2 + (y)^2/b^2 + (z)^2/c^2;
 res2 = (x + dx)^2/a^2 + (y + dy)^2/b^2 + (z + dz)^2/c^2;
 
 if res1 >= 1 % v outside ellips
-    ks = ellipsoidBoundaryOutside(a, b, c, xn, yn, zn);
+    ks = ellipsoidBoundary(a, b, c, dx, dy, dz, x, y, z);
     k = max(ks);
-    dr = vn*(k-1) + dv;
+    if k < 1
+        dr = -1*v*(1-k) + dv;
+    else
+        dr = dv;
+    end
 elseif res2 >= 1 % v inside; v+dv outside
-    ks = ellipsoidBoundaryInside(a, b, c, dx, dy, dz, x, y, z);
+    ks = ellipsoidBoundary(a, b, c, dx, dy, dz, x, y, z);
     k = max(ks);
-    dr = k*dv;
+    if k < 1
+        dr = -1*v*(1-k) + dv;
+    else
+        dr = dv;
+    end
 else %  v+dv inside
-    ks = ellipsoidBoundaryOutside(a, b, c, xn, yn, zn);
-    k = max(ks);
-    p = 1/k;
-    koeff = 0.9;
-    dr = -koeff*p*v + dv;
-%     dr = dv;
+    dr = dv;
 end

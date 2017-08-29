@@ -8,6 +8,6 @@ eq2 =   (k*x)^2/a^2 + (k*y)^2/b^2 + (k*z)^2/c^2 == 1;
 s2 = solve(eq2 ,k);
 % matlabFunction(s2, 'file', 'Wlim/ellipsoidBoundaryOutside.m');
 
-eq3 = (k*x + dx)^2/a^2 + (k*y + dy)^2/b^2 + (k*z + dz)^2/c^2 == 1;
+eq3 = (k*x + k*dx)^2/a^2 + (k*y + k*dy)^2/b^2 + (k*z + k*dz)^2/c^2 == 1;
 s3 = solve(eq3 , k);
 matlabFunction(s3, 'file', 'Wlim/ellipsoidBoundary.m');

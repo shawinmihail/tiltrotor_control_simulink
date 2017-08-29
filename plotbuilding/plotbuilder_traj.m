@@ -22,21 +22,17 @@ eld = eul_des.Data;
 omr = omega_real.Data;
 omf = omega_filtered.Data;
 
-x1 = rr;
-x2 = rd;
-
 w = 1;
-
 figure
 xlabel('x'); ylabel('y'); zlabel('z'); 
 hold on
 
 %% 1
-subplot(1,1,1);
+subplot(2,1,1);
 hold on
 grid on;
-plot(x1(:,1), x1(:,2),'Color','g','LineWidth',w, 'linestyle', '-');
-plot(x2(:,1), x2(:,2),'Color','k','LineWidth',w, 'linestyle', '--');
+plot(rr(:,1), rr(:,2),'Color','g','LineWidth',w, 'linestyle', '-');
+plot(rd(:,1), rd(:,2),'Color','k','LineWidth',w, 'linestyle', '--');
 xlabel('x, m');
 ylabel('y, m');
 % xlim([0 14])
@@ -57,14 +53,14 @@ set(gca,'FontSize',s)
 leg = legend('y(x) real', 'y(x) desired', 'Location','southeast');
 set(leg,'FontSize',s);
 
-%% 2
-% subplot(2,1,2);
-% hold on
-% grid on;
-% plot(t, x1(:,3),'Color','b','LineWidth',w, 'linestyle', '-');
-% plot(t, x2(:,3),'Color','k','LineWidth',w, 'linestyle', '--');
-% xlabel('time, s');
-% ylabel('z, m');
+% 2
+subplot(2,1,2);
+hold on
+grid on;
+r = norm3d(rd - rr);
+plot(t, r,'Color','b','LineWidth',w, 'linestyle', '-');
+xlabel('time, s');
+ylabel('error, m');
 % xlim([0 8])
 % ylim([-1 1])
 
