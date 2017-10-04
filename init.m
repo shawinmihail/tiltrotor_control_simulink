@@ -1,4 +1,4 @@
-addpath(genpath(pwd))
+%addpath(genpath(pwd))
 clear
 clc
 close all
@@ -65,7 +65,7 @@ jacobian(qc.rays, qc.rot_dirs, qc.k, qc.b, qc.l);
 %% lims
 %%T
 wg = abs(qc.m*qc.g(3))/(4*qc.k);
-qc.tw = 2;
+qc.tw = 1.35;
 qc.wmin = 0.5 * wg;
 qc.wnorm = qc.tw * wg;
 
@@ -90,7 +90,7 @@ qc.r2dot_control_signal_lim = 1 * 9.81*qc.tw;
 qc.wdot_control_signal_lim = inf;
 
 %% init pose
-qc.r0 = 0*[0;-0.5;0];
+qc.r0 = 1*[0;-0.5;0];
 qc.v0 = 0*[0;0;0];
 qBI0 = [1;0;0;0];
 qc.qBI0 = qBI0/norm(qBI0);

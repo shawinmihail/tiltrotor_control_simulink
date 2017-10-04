@@ -28,7 +28,7 @@ xlabel('x'); ylabel('y'); zlabel('z');
 hold on
 
 %% 1
-subplot(2,1,1);
+subplot(1,1,1);
 hold on
 grid on;
 plot(rr(:,1), rr(:,2),'Color','g','LineWidth',w, 'linestyle', '-');
@@ -54,15 +54,17 @@ leg = legend('y(x) real', 'y(x) desired', 'Location','southeast');
 set(leg,'FontSize',s);
 
 % 2
-subplot(2,1,2);
-hold on
-grid on;
-r = norm3d(rd - rr);
-plot(t, r,'Color','b','LineWidth',w, 'linestyle', '-');
-xlabel('time, s');
-ylabel('error, m');
-% xlim([0 8])
-% ylim([-1 1])
+% subplot(2,1,2);
+% hold on
+% grid on;
+% r = norm3d(rd - rr);
+% plot(t, r,'Color','b','LineWidth',w, 'linestyle', '-');
+% xlabel('time, s');
+% ylabel('error, m');
+% leg = legend('error', 'Location','southeast');
+% set(leg,'FontSize',s);
+% % xlim([0 8])
+% % ylim([-1 1])
 
 %% 3d
 % plot3(x1(:,1), x1(:,2), x1(:,3), 'Color','r','LineWidth',w, 'linestyle', '-')
