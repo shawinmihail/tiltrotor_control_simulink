@@ -1,0 +1,1161 @@
+%implements s25_b0_dssko_Outputs "C"
+
+%function OutputsForTID(block, system, tid) Output
+%if tid == 0
+%assign ::GlobalCurrentTID = 0
+%<SLibCGIRAccessLocalVar(31, 0)> %% rtb_Clock
+%<SLibCGIRAccessLocalVar(1, 0)> %% rtb_r_o2
+%<SLibCGIRAccessLocalVar(6, 0)> %% rtb_omegaB_int
+%assign cfgTxt = ""
+%openfile cfgTxt
+%assign localVarDecl = ""
+%openfile localVarDecl
+real_T (*lastU)[3];
+real_T (*lastU_0)[9];
+real_T (*lastU_1)[4];
+real_T (*lastU_2)[12];
+real_T scale;
+real_T n;
+real_T q2[4];
+real_T tempR[9];
+int32_T ak;
+int8_T outsz[3];
+int32_T iwork[3];
+int32_T isrc;
+int32_T e_k;
+real_T R[9];
+static const int8_T a[9] = { 5, 0, 0, 0, 5, 0, 0, 0, 5 };
+static const int8_T b_a[9] = { 10, 0, 0, 0, 10, 0, 0, 0, 10 };
+static const real_T q[4] = { 0.92387953251128674, -0.0, -0.0, -0.38268343236508978 };
+static const real_T q_dual[4] = { 0.92387953251128674, 0.0, 0.0, 0.38268343236508978 };
+real_T f_zB_top_lim;
+real_T f_zB_bot_lim;
+real_T J[24];
+real_T t7;
+real_T t8;
+real_T t9;
+real_T t10;
+real_T t11;
+real_T t12;
+real_T t13;
+real_T t14;
+real_T t15;
+real_T t18;
+real_T q_bp[4];
+real_T y[3];
+real_T rtb_R[9];
+real_T rtb_qn[4];
+real_T rtb_Derivative1[12];
+real_T rtb_Derivative[4];
+real_T rtb_Derivative1_g[3];
+static const int8_T tmp[9] = { 1, 0, 0, 0, 1, 0, 0, 0, 1 };
+real_T tmp_0[4];
+real_T rtb_qn_0[4];
+real_T tmp_1[4];
+real_T tmp_2[4];
+real_T tmp_3[4];
+real_T q_bp_0[4];
+real_T tmp_4[4];
+real_T tmp_5[4];
+real_T tmp_6[4];
+int32_T i;
+real_T rtb_Derivative1_1[3];
+real_T tmp_7[3];
+real_T tmp_8[3];
+%closefile localVarDecl
+%assign _modelSS = ""
+
+%assign tlcOutputsFcnOfS24B2 = OpaqueTLCBlockFcn("Outputs", 24, 2, 1, 7)
+%assign tlcOutputsFcnOfS24B3 = OpaqueTLCBlockFcn("Outputs", 24, 3, 1, 7)
+%assign tlcOutputsFcnOfS24B17 = OpaqueTLCBlockFcn("Outputs", 24, 17, 1, 7)
+%assign tlcOutputsFcnOfS24B18 = OpaqueTLCBlockFcn("Outputs", 24, 18, 1, 7)
+%assign tlcOutputsFcnOfS24B19 = OpaqueTLCBlockFcn("Outputs", 24, 19, 1, 7)
+%assign tlcOutputsFcnOfS24B20 = OpaqueTLCBlockFcn("Outputs", 24, 20, 1, 7)
+%assign tlcOutputsFcnOfS24B21 = OpaqueTLCBlockFcn("Outputs", 24, 21, 1, 7)
+/* MATLAB Function: '<S77>/normilize' incorporates:
+ *  Integrator: '<S77>/qBI'
+ */
+/* MATLAB Function 'model/integration/normilize': '<S88>:1' */
+/* '<S88>:1:2' */
+scale = 2.2250738585072014E-308;
+f_zB_top_lim = fabs(simple_controll_X.qBI_CSTATE[0]);
+if (f_zB_top_lim > 2.2250738585072014E-308) {
+    n = 1.0;
+    scale = f_zB_top_lim;
+} else {
+    f_zB_bot_lim = f_zB_top_lim / 2.2250738585072014E-308;
+    n = f_zB_bot_lim * f_zB_bot_lim;
+}
+f_zB_top_lim = fabs(simple_controll_X.qBI_CSTATE[1]);
+if (f_zB_top_lim > scale) {
+    f_zB_bot_lim = scale / f_zB_top_lim;
+    n = n * f_zB_bot_lim * f_zB_bot_lim + 1.0;
+    scale = f_zB_top_lim;
+} else {
+    f_zB_bot_lim = f_zB_top_lim / scale;
+    n += f_zB_bot_lim * f_zB_bot_lim;
+}
+f_zB_top_lim = fabs(simple_controll_X.qBI_CSTATE[2]);
+if (f_zB_top_lim > scale) {
+    f_zB_bot_lim = scale / f_zB_top_lim;
+    n = n * f_zB_bot_lim * f_zB_bot_lim + 1.0;
+    scale = f_zB_top_lim;
+} else {
+    f_zB_bot_lim = f_zB_top_lim / scale;
+    n += f_zB_bot_lim * f_zB_bot_lim;
+}
+f_zB_top_lim = fabs(simple_controll_X.qBI_CSTATE[3]);
+if (f_zB_top_lim > scale) {
+    f_zB_bot_lim = scale / f_zB_top_lim;
+    n = n * f_zB_bot_lim * f_zB_bot_lim + 1.0;
+    scale = f_zB_top_lim;
+} else {
+    f_zB_bot_lim = f_zB_top_lim / scale;
+    n += f_zB_bot_lim * f_zB_bot_lim;
+}
+n = scale * sqrt(n);
+rtb_qn[0] = simple_controll_X.qBI_CSTATE[0] / n;
+rtb_qn[1] = simple_controll_X.qBI_CSTATE[1] / n;
+rtb_qn[2] = simple_controll_X.qBI_CSTATE[2] / n;
+rtb_qn[3] = simple_controll_X.qBI_CSTATE[3] / n;
+/* End of MATLAB Function: '<S77>/normilize' */
+
+/* SecondOrderIntegrator: '<S77>/r' */
+/* MATLAB Function 'save real/r2eul': '<S93>:1' */
+/* '<S93>:1:2' */
+/* '<S93>:1:3' */
+simple_controll_B.r_o1[0] = simple_controll_X.r_CSTATE[0];
+rtb_r_o2[0] = simple_controll_X.r_CSTATE[3];
+simple_controll_B.r_o1[1] = simple_controll_X.r_CSTATE[1];
+rtb_r_o2[1] = simple_controll_X.r_CSTATE[4];
+simple_controll_B.r_o1[2] = simple_controll_X.r_CSTATE[2];
+rtb_r_o2[2] = simple_controll_X.r_CSTATE[5];
+if (%<(SLibCGIRIsSampleHit(1, 24))>) {
+%<tlcOutputsFcnOfS24B2>\
+    /* Constant: '<S4>/Constant5' */
+    simple_controll_B.Constant5[0] = simple_controll_P.Constant5_Value[0];
+    /* Constant: '<S4>/Constant6' */
+    simple_controll_B.Constant6[0] = simple_controll_P.Constant6_Value[0];
+    /* Constant: '<S4>/Constant5' */
+    simple_controll_B.Constant5[1] = simple_controll_P.Constant5_Value[1];
+    /* Constant: '<S4>/Constant6' */
+    simple_controll_B.Constant6[1] = simple_controll_P.Constant6_Value[1];
+    /* Constant: '<S4>/Constant5' */
+    simple_controll_B.Constant5[2] = simple_controll_P.Constant5_Value[2];
+    /* Constant: '<S4>/Constant6' */
+    simple_controll_B.Constant6[2] = simple_controll_P.Constant6_Value[2];
+    /* Constant: '<S4>/Constant5' */
+    simple_controll_B.Constant5[3] = simple_controll_P.Constant5_Value[3];
+    /* Constant: '<S4>/Constant6' */
+    simple_controll_B.Constant6[3] = simple_controll_P.Constant6_Value[3];
+}
+%<tlcOutputsFcnOfS24B3>\
+if (%<(SLibCGIRIsSampleHit(1, 24))>) {
+    /* Constant: '<S57>/Constant' */
+    simple_controll_B.Constant = simple_controll_P.time_start;
+    /* Constant: '<S57>/Constant1' */
+    simple_controll_B.Constant1 = simple_controll_P.time_X0;
+}
+/* MATLAB Function: '<S6>/traj' */
+for (isrc = 0; isrc < 9; isrc++) {
+    simple_controll_B.R_des[isrc] = tmp[isrc];
+}
+/* Step: '<S57>/Step' */
+/* MATLAB Function 'control/desired_traj/traj': '<S58>:1' */
+/*  %<"\%\% sin"> */
+/*  l1 = 2; */
+/*  a1 = 1.0; */
+/*  t1 = sqrt(2*l1/a1); */
+/*  v1 = a1*t1; */
+/*   */
+/*  r02 = [l1;0;0]; */
+/*  l2 = 5*2; */
+/*  v2 = v1; */
+/*  t2 = l2/v2; */
+/*   */
+/*  r03 = [l1+v2*t2;0;0]; */
+/*  v3 = v2; */
+/*  a3 = a1; */
+/*  dr = [0;0;0]; */
+/*  if t < t1 */
+/*      x = a1*t^2/2; */
+/*      a = 2.4961347784740068944135913136399; */
+/*      b = -5.6786033427967179120564872855637; */
+/*      c = -0.50341832934526592342369583293774; */
+/*      y = exp(a*x+b) + c; */
+/*      dx = a1*t; */
+/*      dy = dx*a*exp(b + a*x); */
+/*      r_des = [x;y;0.0]; */
+/*      dr = [dx;dy;0]; */
+/*  elseif t < t1 + t2 */
+/*      T = t - t1; */
+/*      period = t2 / 2; */
+/*      arg = T*2*pi/period; */
+/*      x = r02(1) + v2*T; */
+/*      y = r02(2) + sin(arg); */
+/*      r_des = [x;y;0]; */
+/*      dx = v2; */
+/*      dy = cos(arg)*2*pi/period; */
+/*      dr = [dx; dy; 0]; */
+/*  else */
+/*      T = t - t1; */
+/*      period = t2 / 2; */
+/*      arg = T*2*pi/period; */
+/*      a = 2.4961347784740068944135913136399; */
+/*      b = 11.725041375262481183447842935354; */
+/*      c = 0.50341832934526592342369583293774; */
+/*      x = r02(1) + v2*T; */
+/*      y = c - exp(a*(b - x)); */
+/*      r_des = [x;y;0]; */
+/*      dx = v2; */
+/*      dy = dx*a*exp(a*(b - x)); */
+/*      dr = [dx; dy; 0]; */
+/*  end */
+/*  q = quatBetweenVectors([1;0;0], dr); */
+/*  %<"\% q = quatBetweenVectors([1;0;0], [1;0;0]);"> */
+/*  R_des = quat2rotm(q'); */
+/*  eul_des = quat2eul(q')'; */
+/* '<S58>:1:2' */
+if (%<(SLibCG_SE(LibGetTaskTime(0)))> < simple_controll_P.time_start) {
+    scale = simple_controll_P.Step_Y0;
+} else {
+    scale = simple_controll_P.time_slope;
+}
+/* End of Step: '<S57>/Step' */
+
+/* MATLAB Function: '<S6>/traj' incorporates:
+ *  Product: '<S57>/Product'
+ *  Sum: '<S57>/Output'
+ *  Sum: '<S57>/Sum'
+ */
+simple_controll_B.r_des[0] = ((rtb_Clock - simple_controll_B.Constant) * scale + simple_controll_B.Constant1) * 5.0 + -10.0;
+simple_controll_B.r_des[1] = 0.0;
+simple_controll_B.r_des[2] = 0.0;
+/* '<S58>:1:2' */
+if (%<(SLibCGIRIsSampleHit(1, 24))>) {
+    /* Constant: '<S14>/Constant' */
+    simple_controll_B.Constant_d = simple_controll_P.qc.r_error_lim;
+}
+/* MATLAB Function: '<S14>/e_r' */
+/* MATLAB Function 'control/ExtendedMellingerControl/regulator/e_r': '<S22>:1' */
+/* '<S22>:1:2' */
+/* '<S22>:1:3' */
+scale = 2.2250738585072014E-308;
+simple_controll_B.e[0] = simple_controll_B.r_des[0] - simple_controll_B.r_o1[0];
+f_zB_top_lim = fabs(simple_controll_B.e[0]);
+if (f_zB_top_lim > 2.2250738585072014E-308) {
+    n = 1.0;
+    scale = f_zB_top_lim;
+} else {
+    f_zB_bot_lim = f_zB_top_lim / 2.2250738585072014E-308;
+    n = f_zB_bot_lim * f_zB_bot_lim;
+}
+simple_controll_B.e[1] = simple_controll_B.r_des[1] - simple_controll_B.r_o1[1];
+f_zB_top_lim = fabs(simple_controll_B.e[1]);
+if (f_zB_top_lim > scale) {
+    f_zB_bot_lim = scale / f_zB_top_lim;
+    n = n * f_zB_bot_lim * f_zB_bot_lim + 1.0;
+    scale = f_zB_top_lim;
+} else {
+    f_zB_bot_lim = f_zB_top_lim / scale;
+    n += f_zB_bot_lim * f_zB_bot_lim;
+}
+simple_controll_B.e[2] = simple_controll_B.r_des[2] - simple_controll_B.r_o1[2];
+f_zB_top_lim = fabs(simple_controll_B.e[2]);
+if (f_zB_top_lim > scale) {
+    f_zB_bot_lim = scale / f_zB_top_lim;
+    n = n * f_zB_bot_lim * f_zB_bot_lim + 1.0;
+    scale = f_zB_top_lim;
+} else {
+    f_zB_bot_lim = f_zB_top_lim / scale;
+    n += f_zB_bot_lim * f_zB_bot_lim;
+}
+n = scale * sqrt(n);
+if (!(n < simple_controll_B.Constant_d)) {
+    /* '<S22>:1:7' */
+    simple_controll_B.e[0] = simple_controll_B.Constant_d * simple_controll_B.e[0] / n;
+    simple_controll_B.e[1] = simple_controll_B.Constant_d * simple_controll_B.e[1] / n;
+    simple_controll_B.e[2] = simple_controll_B.Constant_d * simple_controll_B.e[2] / n;
+} else {
+    /* '<S22>:1:4' */
+}
+/* End of MATLAB Function: '<S14>/e_r' */
+
+/* Derivative: '<S14>/Derivative3' */
+if ((simple_controll_DW.TimeStampA >= %<(SLibCG_SE(LibGetT()))>) && (simple_controll_DW.TimeStampB >= %<(SLibCG_SE(LibGetT()))>)) {
+    rtb_Derivative1_g[0] = 0.0;
+    rtb_Derivative1_g[1] = 0.0;
+    rtb_Derivative1_g[2] = 0.0;
+} else {
+    scale = simple_controll_DW.TimeStampA;
+    lastU = (real_T (*)[3])simple_controll_DW.LastUAtTimeA;
+    if (simple_controll_DW.TimeStampA < simple_controll_DW.TimeStampB) {
+        if (simple_controll_DW.TimeStampB < %<(SLibCG_SE(LibGetT()))>) {
+            scale = simple_controll_DW.TimeStampB;
+            lastU = (real_T (*)[3])simple_controll_DW.LastUAtTimeB;
+        }
+    } else {
+        if (simple_controll_DW.TimeStampA >= %<(SLibCG_SE(LibGetT()))>) {
+            scale = simple_controll_DW.TimeStampB;
+            lastU = (real_T (*)[3])simple_controll_DW.LastUAtTimeB;
+        }
+    }
+    scale = %<(SLibCG_SE(LibGetT()))> - scale;
+    rtb_Derivative1_g[0] = (simple_controll_B.r_des[0] - (*lastU)[0]) / scale;
+    rtb_Derivative1_g[1] = (simple_controll_B.r_des[1] - (*lastU)[1]) / scale;
+    rtb_Derivative1_g[2] = (simple_controll_B.r_des[2] - (*lastU)[2]) / scale;
+}
+/* End of Derivative: '<S14>/Derivative3' */
+
+/* Saturate: '<S14>/Saturation5' */
+if (rtb_Derivative1_g[0] > simple_controll_P.qc.rdot_des_lim) {
+    simple_controll_B.Saturation5[0] = simple_controll_P.qc.rdot_des_lim;
+} else if (rtb_Derivative1_g[0] < -simple_controll_P.qc.rdot_des_lim) {
+    simple_controll_B.Saturation5[0] = -simple_controll_P.qc.rdot_des_lim;
+} else {
+    simple_controll_B.Saturation5[0] = rtb_Derivative1_g[0];
+}
+if (rtb_Derivative1_g[1] > simple_controll_P.qc.rdot_des_lim) {
+    simple_controll_B.Saturation5[1] = simple_controll_P.qc.rdot_des_lim;
+} else if (rtb_Derivative1_g[1] < -simple_controll_P.qc.rdot_des_lim) {
+    simple_controll_B.Saturation5[1] = -simple_controll_P.qc.rdot_des_lim;
+} else {
+    simple_controll_B.Saturation5[1] = rtb_Derivative1_g[1];
+}
+if (rtb_Derivative1_g[2] > simple_controll_P.qc.rdot_des_lim) {
+    simple_controll_B.Saturation5[2] = simple_controll_P.qc.rdot_des_lim;
+} else if (rtb_Derivative1_g[2] < -simple_controll_P.qc.rdot_des_lim) {
+    simple_controll_B.Saturation5[2] = -simple_controll_P.qc.rdot_des_lim;
+} else {
+    simple_controll_B.Saturation5[2] = rtb_Derivative1_g[2];
+}
+/* End of Saturate: '<S14>/Saturation5' */
+if (%<(SLibCGIRIsSampleHit(1, 24))>) {
+    /* Constant: '<S14>/Constant1' */
+    simple_controll_B.Constant1_l = simple_controll_P.qc.rdot_error_lim;
+}
+%if !SLibCGSysFcnIsEmptyForTid(CompiledModel.System[7], "Output",0)
+/* MATLAB Function: '<S14>/e_rdot' */
+%if SLibCG_SystemFcnArgAccessed("simple_controll_e_rdot",7,0)
+%assign _modelSS = RTMGetModelSSFromIR()
+%endif
+%if SLibCG_SystemFcnArgAccessed("simple_controll_e_rdot",7,1)
+%<SLibCGIRAccessLocalVar(1, 0)> %% rtb_r_o2
+%endif
+
+%<SLibCGIRGenReusableSysCall("simple_controll_e_rdot", ["%<_modelSS>", "rtb_r_o2", "simple_controll_B.Saturation5", "simple_controll_B.Constant1_l", "&simple_controll_B.sf_e_rdot"], 7, 0, 7, 0, 7, 24)>\
+
+%endif
+/* Derivative: '<S14>/Derivative4' */
+if ((simple_controll_DW.TimeStampA_p >= %<(SLibCG_SE(LibGetT()))>) && (simple_controll_DW.TimeStampB_f >= %<(SLibCG_SE(LibGetT()))>)) {
+    rtb_Derivative1_g[0] = 0.0;
+    rtb_Derivative1_g[1] = 0.0;
+    rtb_Derivative1_g[2] = 0.0;
+} else {
+    scale = simple_controll_DW.TimeStampA_p;
+    lastU = (real_T (*)[3])simple_controll_DW.LastUAtTimeA_k;
+    if (simple_controll_DW.TimeStampA_p < simple_controll_DW.TimeStampB_f) {
+        if (simple_controll_DW.TimeStampB_f < %<(SLibCG_SE(LibGetT()))>) {
+            scale = simple_controll_DW.TimeStampB_f;
+            lastU = (real_T (*)[3])simple_controll_DW.LastUAtTimeB_m;
+        }
+    } else {
+        if (simple_controll_DW.TimeStampA_p >= %<(SLibCG_SE(LibGetT()))>) {
+            scale = simple_controll_DW.TimeStampB_f;
+            lastU = (real_T (*)[3])simple_controll_DW.LastUAtTimeB_m;
+        }
+    }
+    scale = %<(SLibCG_SE(LibGetT()))> - scale;
+    rtb_Derivative1_g[0] = (simple_controll_B.Saturation5[0] - (*lastU)[0]) / scale;
+    rtb_Derivative1_g[1] = (simple_controll_B.Saturation5[1] - (*lastU)[1]) / scale;
+    rtb_Derivative1_g[2] = (simple_controll_B.Saturation5[2] - (*lastU)[2]) / scale;
+}
+/* End of Derivative: '<S14>/Derivative4' */
+
+/* Saturate: '<S14>/Saturation4' */
+if (rtb_Derivative1_g[0] > simple_controll_P.qc.r2dot_des_lim) {
+    simple_controll_B.Saturation4[0] = simple_controll_P.qc.r2dot_des_lim;
+} else if (rtb_Derivative1_g[0] < -simple_controll_P.qc.r2dot_des_lim) {
+    simple_controll_B.Saturation4[0] = -simple_controll_P.qc.r2dot_des_lim;
+} else {
+    simple_controll_B.Saturation4[0] = rtb_Derivative1_g[0];
+}
+if (rtb_Derivative1_g[1] > simple_controll_P.qc.r2dot_des_lim) {
+    simple_controll_B.Saturation4[1] = simple_controll_P.qc.r2dot_des_lim;
+} else if (rtb_Derivative1_g[1] < -simple_controll_P.qc.r2dot_des_lim) {
+    simple_controll_B.Saturation4[1] = -simple_controll_P.qc.r2dot_des_lim;
+} else {
+    simple_controll_B.Saturation4[1] = rtb_Derivative1_g[1];
+}
+if (rtb_Derivative1_g[2] > simple_controll_P.qc.r2dot_des_lim) {
+    simple_controll_B.Saturation4[2] = simple_controll_P.qc.r2dot_des_lim;
+} else if (rtb_Derivative1_g[2] < -simple_controll_P.qc.r2dot_des_lim) {
+    simple_controll_B.Saturation4[2] = -simple_controll_P.qc.r2dot_des_lim;
+} else {
+    simple_controll_B.Saturation4[2] = rtb_Derivative1_g[2];
+}
+/* End of Saturate: '<S14>/Saturation4' */
+
+/* Derivative: '<S14>/Derivative5' */
+if ((simple_controll_DW.TimeStampA_g >= %<(SLibCG_SE(LibGetT()))>) && (simple_controll_DW.TimeStampB_p >= %<(SLibCG_SE(LibGetT()))>)) {
+    rtb_Derivative1_g[0] = 0.0;
+    rtb_Derivative1_g[1] = 0.0;
+    rtb_Derivative1_g[2] = 0.0;
+} else {
+    scale = simple_controll_DW.TimeStampA_g;
+    lastU = (real_T (*)[3])simple_controll_DW.LastUAtTimeA_kb;
+    if (simple_controll_DW.TimeStampA_g < simple_controll_DW.TimeStampB_p) {
+        if (simple_controll_DW.TimeStampB_p < %<(SLibCG_SE(LibGetT()))>) {
+            scale = simple_controll_DW.TimeStampB_p;
+            lastU = (real_T (*)[3])simple_controll_DW.LastUAtTimeB_n;
+        }
+    } else {
+        if (simple_controll_DW.TimeStampA_g >= %<(SLibCG_SE(LibGetT()))>) {
+            scale = simple_controll_DW.TimeStampB_p;
+            lastU = (real_T (*)[3])simple_controll_DW.LastUAtTimeB_n;
+        }
+    }
+    scale = %<(SLibCG_SE(LibGetT()))> - scale;
+    rtb_Derivative1_g[0] = (simple_controll_B.Saturation4[0] - (*lastU)[0]) / scale;
+    rtb_Derivative1_g[1] = (simple_controll_B.Saturation4[1] - (*lastU)[1]) / scale;
+    rtb_Derivative1_g[2] = (simple_controll_B.Saturation4[2] - (*lastU)[2]) / scale;
+}
+/* End of Derivative: '<S14>/Derivative5' */
+
+/* MATLAB Function: '<S4>/q2R' */
+/* MATLAB Function 'control/ExtendedMellingerControl/q2R': '<S13>:1' */
+/* '<S13>:1:2' */
+scale = 1.0 / sqrt(((rtb_qn[0] * rtb_qn[0] + rtb_qn[1] * rtb_qn[1]) + rtb_qn[2] * rtb_qn[2]) + rtb_qn[3] * rtb_qn[3]);
+f_zB_top_lim = rtb_qn[0] * scale;
+f_zB_bot_lim = rtb_qn[1] * scale;
+n = rtb_qn[2] * scale;
+scale *= rtb_qn[3];
+tempR[0] = 1.0 - (n * n + scale * scale) * 2.0;
+tempR[1] = (f_zB_bot_lim * n - f_zB_top_lim * scale) * 2.0;
+tempR[2] = (f_zB_bot_lim * scale + f_zB_top_lim * n) * 2.0;
+tempR[3] = (f_zB_bot_lim * n + f_zB_top_lim * scale) * 2.0;
+tempR[4] = 1.0 - (f_zB_bot_lim * f_zB_bot_lim + scale * scale) * 2.0;
+tempR[5] = (n * scale - f_zB_top_lim * f_zB_bot_lim) * 2.0;
+tempR[6] = (f_zB_bot_lim * scale - f_zB_top_lim * n) * 2.0;
+tempR[7] = (n * scale + f_zB_top_lim * f_zB_bot_lim) * 2.0;
+tempR[8] = 1.0 - (f_zB_bot_lim * f_zB_bot_lim + n * n) * 2.0;
+memcpy(&R[0], &tempR[0], 9U * sizeof(real_T));
+outsz[0] = 3;
+outsz[1] = 3;
+outsz[2] = 1;
+iwork[0] = 0;
+iwork[1] = 0;
+iwork[2] = 0;
+ak = 0;
+do {
+    isrc = iwork[2] * 3 + iwork[1];
+    rtb_R[ak] = R[isrc];
+    ak++;
+    isrc += 3;
+    rtb_R[ak] = R[isrc];
+    ak++;
+    isrc += 3;
+    rtb_R[ak] = R[isrc];
+    ak++;
+    isrc = 1;
+    do {
+        e_k = 0;
+        iwork[isrc]++;
+        if (iwork[isrc] < outsz[isrc]) {
+            e_k = 2;
+        } else if (isrc + 1 == 3) {
+            e_k = 1;
+        } else {
+            iwork[1] = 0;
+            isrc = 2;
+        }
+    } while (e_k == 0);
+} while (!(e_k == 1));
+/* Integrator: '<S77>/omegaB_int' */
+/* MATLAB Function 'control/ExtendedMellingerControl/regulator/e_R': '<S21>:1' */
+/* '<S21>:1:2' */
+/* '<S21>:1:3' */
+rtb_omegaB_int[0] = simple_controll_X.omegaB_int_CSTATE[0];
+rtb_omegaB_int[1] = simple_controll_X.omegaB_int_CSTATE[1];
+rtb_omegaB_int[2] = simple_controll_X.omegaB_int_CSTATE[2];
+/* Derivative: '<S14>/Derivative2' */
+if ((simple_controll_DW.TimeStampA_o >= %<(SLibCG_SE(LibGetT()))>) && (simple_controll_DW.TimeStampB_a >= %<(SLibCG_SE(LibGetT()))>)) {
+    memset(&tempR[0], 0, 9U * sizeof(real_T));
+} else {
+    scale = simple_controll_DW.TimeStampA_o;
+    lastU_0 = (real_T (*)[9])simple_controll_DW.LastUAtTimeA_m;
+    if (simple_controll_DW.TimeStampA_o < simple_controll_DW.TimeStampB_a) {
+        if (simple_controll_DW.TimeStampB_a < %<(SLibCG_SE(LibGetT()))>) {
+            scale = simple_controll_DW.TimeStampB_a;
+            lastU_0 = (real_T (*)[9])simple_controll_DW.LastUAtTimeB_k;
+        }
+    } else {
+        if (simple_controll_DW.TimeStampA_o >= %<(SLibCG_SE(LibGetT()))>) {
+            scale = simple_controll_DW.TimeStampB_a;
+            lastU_0 = (real_T (*)[9])simple_controll_DW.LastUAtTimeB_k;
+        }
+    }
+    scale = %<(SLibCG_SE(LibGetT()))> - scale;
+    for (isrc = 0; isrc < 9; isrc++) {
+        tempR[isrc] = (simple_controll_B.R_des[isrc] - (*lastU_0)[isrc]) / scale;
+    }
+}
+/* End of Derivative: '<S14>/Derivative2' */
+
+/* MATLAB Function: '<S14>/omegad' */
+/* MATLAB Function 'control/ExtendedMellingerControl/regulator/omegad': '<S25>:1' */
+/* '<S25>:1:3' */
+for (isrc = 0; isrc < 3; isrc++) {
+    for (e_k = 0; e_k < 3; e_k++) {
+        R[isrc + 3 * e_k] = 0.0;
+        R[isrc + 3 * e_k] += simple_controll_B.R_des[3 * isrc] * tempR[3 * e_k];
+        R[isrc + 3 * e_k] += simple_controll_B.R_des[3 * isrc + 1] * tempR[3 * e_k + 1];
+        R[isrc + 3 * e_k] += simple_controll_B.R_des[3 * isrc + 2] * tempR[3 * e_k + 2];
+    }
+}
+/* Saturate: '<S14>/Saturation2' incorporates:
+ *  MATLAB Function: '<S14>/omegad'
+ */
+/* '<S25>:1:4' */
+if (-R[7] > simple_controll_P.qc.w_des_lim) {
+    simple_controll_B.Saturation2[0] = simple_controll_P.qc.w_des_lim;
+} else if (-R[7] < -simple_controll_P.qc.w_des_lim) {
+    simple_controll_B.Saturation2[0] = -simple_controll_P.qc.w_des_lim;
+} else {
+    simple_controll_B.Saturation2[0] = -R[7];
+}
+if (R[6] > simple_controll_P.qc.w_des_lim) {
+    simple_controll_B.Saturation2[1] = simple_controll_P.qc.w_des_lim;
+} else if (R[6] < -simple_controll_P.qc.w_des_lim) {
+    simple_controll_B.Saturation2[1] = -simple_controll_P.qc.w_des_lim;
+} else {
+    simple_controll_B.Saturation2[1] = R[6];
+}
+if (-R[3] > simple_controll_P.qc.w_des_lim) {
+    simple_controll_B.Saturation2[2] = simple_controll_P.qc.w_des_lim;
+} else if (-R[3] < -simple_controll_P.qc.w_des_lim) {
+    simple_controll_B.Saturation2[2] = -simple_controll_P.qc.w_des_lim;
+} else {
+    simple_controll_B.Saturation2[2] = -R[3];
+}
+/* End of Saturate: '<S14>/Saturation2' */
+if (%<(SLibCGIRIsSampleHit(1, 24))>) {
+    /* Constant: '<S14>/Constant3' */
+    simple_controll_B.Constant3 = simple_controll_P.qc.omega_error_lim;
+}
+%if !SLibCGSysFcnIsEmptyForTid(CompiledModel.System[7], "Output",0)
+/* MATLAB Function: '<S14>/e_w' */
+%if SLibCG_SystemFcnArgAccessed("simple_controll_e_rdot",7,0)
+%assign _modelSS = RTMGetModelSSFromIR()
+%endif
+%if SLibCG_SystemFcnArgAccessed("simple_controll_e_rdot",7,1)
+%<SLibCGIRAccessLocalVar(6, 0)> %% rtb_omegaB_int
+%endif
+
+%<SLibCGIRGenReusableSysCall("simple_controll_e_rdot", ["%<_modelSS>", "rtb_omegaB_int", "simple_controll_B.Saturation2", "simple_controll_B.Constant3", "&simple_controll_B.sf_e_w"], 7, 1, 7, 0, 7, 24)>\
+%endif
+/* MATLAB Function 'control/ExtendedMellingerControl/regulator/regulator': '<S26>:1' */
+/* '<S26>:1:11' */
+/* '<S26>:1:21' */
+if (%<(SLibCGIRIsSampleHit(1, 24))>) {
+    /* Constant: '<S4>/Constant' */
+    simple_controll_B.Constant_c[0] = simple_controll_P.qc.g[0];
+    simple_controll_B.Constant_c[1] = simple_controll_P.qc.g[1];
+    simple_controll_B.Constant_c[2] = simple_controll_P.qc.g[2];
+    /* Constant: '<S4>/Constant1' */
+    simple_controll_B.Constant1_i = simple_controll_P.qc.m;
+}
+/* Saturate: '<S14>/Saturation' */
+/* MATLAB Function 'control/ExtendedMellingerControl/force_reg_B': '<S11>:1' */
+/* '<S11>:1:2' */
+/* MATLAB Function 'control/ExtendedMellingerControl/limit_force_R1': '<S12>:1' */
+/* %<"\%"> */
+/* '<S12>:1:8' */
+scale = -simple_controll_P.qc.r2dot_des_lim;
+for (isrc = 0; isrc < 3; isrc++) {
+    /* MATLAB Function: '<S14>/regulator' incorporates:
+ *  Saturate: '<S14>/Saturation'
+ */
+    if (rtb_Derivative1_g[isrc] > simple_controll_P.qc.r2dot_des_lim) {
+        f_zB_top_lim = simple_controll_P.qc.r2dot_des_lim;
+    } else if (rtb_Derivative1_g[isrc] < scale) {
+        f_zB_top_lim = scale;
+    } else {
+        f_zB_top_lim = rtb_Derivative1_g[isrc];
+    }
+    /* MATLAB Function: '<S4>/force_reg_B' incorporates:
+ *  MATLAB Function: '<S14>/regulator'
+ */
+    y[isrc] = (((((real_T)a[isrc + 3] * simple_controll_B.sf_e_rdot.e[1] + (real_T)a[isrc] * simple_controll_B.sf_e_rdot.e[0]) + (real_T)a[isrc + 6] * simple_controll_B.sf_e_rdot.e[2]) + f_zB_top_lim) + ((real_T)b_a[isrc + 6] * simple_controll_B.e[2] + ((real_T)b_a[isrc + 3] * simple_controll_B.e[1] + (real_T)b_a[isrc] * simple_controll_B.e[0]))) - simple_controll_B.Constant1_i * simple_controll_B.Constant_c[isrc];
+}
+/* MATLAB Function: '<S4>/limit_force_R1' */
+tmp_1[0] = 0.0;
+for (isrc = 0; isrc < 3; isrc++) {
+    /* MATLAB Function: '<S4>/limit_force_R1' incorporates:
+ *  MATLAB Function: '<S4>/force_reg_B'
+ */
+    tmp_1[isrc + 1] = rtb_R[3 * isrc + 2] * y[2] + (rtb_R[3 * isrc + 1] * y[1] + rtb_R[3 * isrc] * y[0]);
+}
+/* MATLAB Function: '<S4>/limit_force_R1' */
+%<(SLibCGCallSubFcn("simple_controll_quatMultiply", ["tmp_1", "q_dual", "tmp_2"], 1, 7, 7))>;
+%<(SLibCGCallSubFcn("simple_controll_quatMultiply", ["q", "tmp_2", "q2"], 1, 7, 4))>;
+simple_controll_B.force_reg_R1[0] = q2[1];
+simple_controll_B.force_reg_R1[1] = q2[2];
+simple_controll_B.force_reg_R1[2] = q2[3];
+if (%<(SLibCGIRIsSampleHit(1, 24))>) {
+    /* Constant: '<S4>/Constant4' */
+    simple_controll_B.Constant4 = simple_controll_P.qc.Th_lim;
+    /* Constant: '<S4>/Constant3' */
+    simple_controll_B.Constant3_n = simple_controll_P.qc.tw;
+    /* Constant: '<S4>/Constant2' */
+    simple_controll_B.Constant2[0] = simple_controll_P.qc.g[0];
+    simple_controll_B.Constant2[1] = simple_controll_P.qc.g[1];
+    simple_controll_B.Constant2[2] = simple_controll_P.qc.g[2];
+    /* Constant: '<S4>/Constant7' */
+    simple_controll_B.Constant7 = simple_controll_P.qc.m;
+}
+/* MATLAB Function: '<S4>/Th_req' */
+/* MATLAB Function 'control/ExtendedMellingerControl/Th_req': '<S10>:1' */
+/* %<"\%"> */
+/* '<S10>:1:5' */
+/* '<S10>:1:6' */
+scale = fabs(simple_controll_B.Constant2[2]);
+/* '<S10>:1:8' */
+f_zB_top_lim = simple_controll_B.Constant7 * simple_controll_B.Constant3_n * scale * cos(simple_controll_B.Constant4);
+/* '<S10>:1:9' */
+f_zB_bot_lim = (scale - 3.0) * simple_controll_B.Constant7 * cos(simple_controll_B.Constant4);
+/* '<S10>:1:10' */
+scale = simple_controll_B.force_reg_R1[2];
+if (simple_controll_B.force_reg_R1[2] > f_zB_top_lim) {
+    scale = f_zB_top_lim;
+} else {
+    if (simple_controll_B.force_reg_R1[2] < f_zB_bot_lim) {
+        scale = f_zB_bot_lim;
+    }
+}
+/* '<S10>:1:12' */
+f_zB_bot_lim = simple_controll_B.Constant7 * scale * sin(simple_controll_B.Constant4);
+/* '<S10>:1:14' */
+f_zB_top_lim = simple_controll_B.force_reg_R1[0];
+if (simple_controll_B.force_reg_R1[0] > f_zB_bot_lim) {
+    f_zB_top_lim = f_zB_bot_lim;
+} else {
+    if (simple_controll_B.force_reg_R1[0] < -f_zB_bot_lim) {
+        f_zB_top_lim = -f_zB_bot_lim;
+    }
+}
+/* '<S10>:1:15' */
+n = simple_controll_B.force_reg_R1[1];
+if (simple_controll_B.force_reg_R1[1] > f_zB_bot_lim) {
+    n = f_zB_bot_lim;
+} else {
+    if (simple_controll_B.force_reg_R1[1] < f_zB_bot_lim) {
+        n = f_zB_bot_lim;
+    }
+}
+/* %<"\%"> */
+/* '<S10>:1:19' */
+/* '<S10>:1:20' */
+/* '<S10>:1:21' */
+f_zB_bot_lim = atan(f_zB_top_lim / n);
+/* '<S10>:1:22' */
+scale = atan(f_zB_top_lim / scale);
+/* '<S10>:1:23' */
+simple_controll_B.Th[0] = -f_zB_bot_lim;
+simple_controll_B.Th[1] = scale;
+simple_controll_B.Th[2] = f_zB_bot_lim;
+simple_controll_B.Th[3] = -scale;
+/* End of MATLAB Function: '<S4>/Th_req' */
+
+/* MATLAB Function: '<S4>/J' */
+/* MATLAB Function 'control/ExtendedMellingerControl/J': '<S9>:1' */
+/* '<S9>:1:2' */
+/* J_FCN */
+/*     J = J_FCN(TH1,TH2,TH3,TH4) */
+/*     This function was generated by the Symbolic Math Toolbox version 6.3. */
+/*     05-Oct-2017 20:05:56 */
+scale = sin(simple_controll_B.Th[0]);
+f_zB_top_lim = 1.4142135623730951 * scale * 5.0E-5;
+f_zB_bot_lim = sin(simple_controll_B.Th[1]);
+n = sin(simple_controll_B.Th[2]);
+t7 = sin(simple_controll_B.Th[3]);
+t8 = 1.4142135623730951 * t7 * 5.0E-5;
+t9 = cos(simple_controll_B.Th[0]);
+t10 = cos(simple_controll_B.Th[1]);
+t11 = cos(simple_controll_B.Th[2]);
+t12 = cos(simple_controll_B.Th[3]);
+t13 = 1.4142135623730951 * t9 * 1.25E-5;
+t14 = 1.4142135623730951 * f_zB_bot_lim * -1.5E-6 - 1.4142135623730951 * t10 * 1.25E-5;
+t15 = 1.4142135623730951 * n * 1.5E-6;
+t18 = 1.4142135623730951 * t12 * 1.25E-5 + 1.4142135623730951 * t7 * 1.5E-6;
+J[0] = f_zB_top_lim;
+J[1] = -f_zB_top_lim;
+J[2] = t9 * 0.0001;
+J[3] = t13 - 1.4142135623730951 * scale * 1.5E-6;
+J[4] = 1.4142135623730951 * scale * 1.5E-6 + -t13;
+J[5] = scale * -2.5E-5 - t9 * 3.0E-6;
+J[6] = 1.4142135623730951 * f_zB_bot_lim * -5.0E-5;
+J[7] = 1.4142135623730951 * f_zB_bot_lim * -5.0E-5;
+J[8] = t10 * -0.0001;
+J[9] = t14;
+J[10] = t14;
+J[11] = f_zB_bot_lim * 2.5E-5 - t10 * 3.0E-6;
+J[12] = 1.4142135623730951 * n * -5.0E-5;
+J[13] = 1.4142135623730951 * n * 5.0E-5;
+J[14] = t11 * 0.0001;
+J[15] = t15 - 1.4142135623730951 * t11 * 1.25E-5;
+J[16] = 1.4142135623730951 * t11 * 1.25E-5 + -t15;
+J[17] = n * -2.5E-5 - t11 * 3.0E-6;
+J[18] = t8;
+J[19] = t8;
+J[20] = t12 * -0.0001;
+J[21] = t18;
+J[22] = t18;
+J[23] = t7 * 2.5E-5 - t12 * 3.0E-6;
+/* '<S9>:1:3' */
+/* '<S9>:1:4' */
+if (%<(SLibCGIRIsSampleHit(1, 24))>) {
+    /* Constant: '<S4>/Constant8' */
+    simple_controll_B.Constant8[0] = simple_controll_P.qc.rot_dirs[0];
+    simple_controll_B.Constant8[1] = simple_controll_P.qc.rot_dirs[1];
+    simple_controll_B.Constant8[2] = simple_controll_P.qc.rot_dirs[2];
+    simple_controll_B.Constant8[3] = simple_controll_P.qc.rot_dirs[3];
+}
+/* MATLAB Function: '<S4>/thrust_ort' incorporates:
+ *  MATLAB Function: '<S4>/J'
+ */
+/* MATLAB Function 'control/ExtendedMellingerControl/thrust_ort': '<S15>:1' */
+/* '<S15>:1:2' */
+/* '<S15>:1:3' */
+n = 0.0;
+scale = 2.2250738585072014E-308;
+for (isrc = 0; isrc < 3; isrc++) {
+    simple_controll_B.thrust_ort[isrc] = 0.0;
+    simple_controll_B.thrust_ort[isrc] += J[isrc] * simple_controll_B.Constant8[0];
+    simple_controll_B.thrust_ort[isrc] += J[isrc + 6] * simple_controll_B.Constant8[1];
+    simple_controll_B.thrust_ort[isrc] += J[isrc + 12] * simple_controll_B.Constant8[2];
+    simple_controll_B.thrust_ort[isrc] += J[isrc + 18] * simple_controll_B.Constant8[3];
+    f_zB_top_lim = fabs(simple_controll_B.thrust_ort[isrc]);
+    if (f_zB_top_lim > scale) {
+        f_zB_bot_lim = scale / f_zB_top_lim;
+        n = n * f_zB_bot_lim * f_zB_bot_lim + 1.0;
+        scale = f_zB_top_lim;
+    } else {
+        f_zB_bot_lim = f_zB_top_lim / scale;
+        n += f_zB_bot_lim * f_zB_bot_lim;
+    }
+}
+n = scale * sqrt(n);
+simple_controll_B.thrust_ort[0] /= n;
+simple_controll_B.thrust_ort[1] /= n;
+simple_controll_B.thrust_ort[2] /= n;
+/* End of MATLAB Function: '<S4>/thrust_ort' */
+if (%<(SLibCGIRIsSampleHit(1, 24))>) {
+%<tlcOutputsFcnOfS24B17>\
+%<tlcOutputsFcnOfS24B18>\
+%<tlcOutputsFcnOfS24B19>\
+%<tlcOutputsFcnOfS24B20>\
+%<tlcOutputsFcnOfS24B21>\
+    /* MATLAB Function: '<S76>/q_PB' incorporates:
+ *  Constant: '<S76>/Constant5'
+ */
+    /* MATLAB Function 'model/dynamic/q_PB': '<S82>:1' */
+    /* '<S82>:1:2' */
+    memset(&simple_controll_B.q_PB[0], 0, sizeof(real_T) << 4U);
+    for (ak = 0; ak < 4; ak++) {
+        scale = 2.2250738585072014E-308;
+        f_zB_top_lim = fabs(simple_controll_P.qc.rays[(int8_T)((1 + ak) * 3) - 3]);
+        if (f_zB_top_lim > 2.2250738585072014E-308) {
+            n = 1.0;
+            scale = f_zB_top_lim;
+        } else {
+            f_zB_bot_lim = f_zB_top_lim / 2.2250738585072014E-308;
+            n = f_zB_bot_lim * f_zB_bot_lim;
+        }
+        f_zB_top_lim = fabs(simple_controll_P.qc.rays[(int8_T)((1 + ak) * 3) - 2]);
+        if (f_zB_top_lim > scale) {
+            f_zB_bot_lim = scale / f_zB_top_lim;
+            n = n * f_zB_bot_lim * f_zB_bot_lim + 1.0;
+            scale = f_zB_top_lim;
+        } else {
+            f_zB_bot_lim = f_zB_top_lim / scale;
+            n += f_zB_bot_lim * f_zB_bot_lim;
+        }
+        f_zB_top_lim = fabs(simple_controll_P.qc.rays[(int8_T)((1 + ak) * 3) - 1]);
+        if (f_zB_top_lim > scale) {
+            f_zB_bot_lim = scale / f_zB_top_lim;
+            n = n * f_zB_bot_lim * f_zB_bot_lim + 1.0;
+            scale = f_zB_top_lim;
+        } else {
+            f_zB_bot_lim = f_zB_top_lim / scale;
+            n += f_zB_bot_lim * f_zB_bot_lim;
+        }
+        n = scale * sqrt(n);
+        isrc = (1 + ak) * 3 - 3;
+        scale = acos((simple_controll_P.qc.rays[1 + isrc] / n * 0.0 + simple_controll_P.qc.rays[isrc] / n) + simple_controll_P.qc.rays[2 + isrc] / n * 0.0);
+        if (simple_controll_P.qc.rays[(int8_T)((1 + ak) * 3) - 2] < 0.0) {
+            scale = -scale;
+        }
+        f_zB_top_lim = sin(simple_controll_B.Constant6[ak] / 2.0);
+        q2[0] = cos(simple_controll_B.Constant6[ak] / 2.0);
+        q2[1] = f_zB_top_lim;
+        q2[2] = 0.0 * f_zB_top_lim;
+        q2[3] = 0.0 * f_zB_top_lim;
+        f_zB_top_lim = sin(scale / 2.0);
+        rtb_Derivative[0] = cos(scale / 2.0);
+        rtb_Derivative[1] = 0.0 * f_zB_top_lim;
+        rtb_Derivative[2] = 0.0 * f_zB_top_lim;
+        simple_controll_B.q_PB[ak << 2] = ((rtb_Derivative[0] * q2[0] - rtb_Derivative[1] * q2[1]) - rtb_Derivative[2] * q2[2]) - f_zB_top_lim * q2[3];
+        simple_controll_B.q_PB[1 + (ak << 2)] = (rtb_Derivative[0] * q2[1] + q2[0] * rtb_Derivative[1]) + (rtb_Derivative[2] * q2[3] - f_zB_top_lim * q2[2]);
+        simple_controll_B.q_PB[2 + (ak << 2)] = (rtb_Derivative[0] * q2[2] + q2[0] * rtb_Derivative[2]) + (f_zB_top_lim * q2[1] - rtb_Derivative[1] * q2[3]);
+        simple_controll_B.q_PB[3 + (ak << 2)] = (rtb_Derivative[0] * q2[3] + q2[0] * f_zB_top_lim) + (rtb_Derivative[1] * q2[2] - rtb_Derivative[2] * q2[1]);
+    }
+    /* End of MATLAB Function: '<S76>/q_PB' */
+
+    /* RateTransition: '<S75>/Rate Transition1' */
+    if (%<(LibIsSpecialSampleHit(2, 1))>) {
+        memcpy(&simple_controll_B.RateTransition1[0], &simple_controll_B.q_PB[0], sizeof(real_T) << 4U);
+    }
+    /* End of RateTransition: '<S75>/Rate Transition1' */
+
+    /* Constant: '<S76>/Constant' */
+    simple_controll_B.Constant_m = simple_controll_P.qc.k;
+    /* Constant: '<S76>/Constant1' */
+    simple_controll_B.Constant1_k = simple_controll_P.qc.b;
+    /* Constant: '<S76>/Constant2' */
+    memcpy(&simple_controll_B.Constant2_n[0], &simple_controll_P.qc.I_P[0], 9U * sizeof(real_T));
+    /* Constant: '<S76>/Constant3' */
+    memcpy(&simple_controll_B.Constant3_j[0], &simple_controll_P.qc.rays[0], 12U * sizeof(real_T));
+    /* Constant: '<S76>/Constant4' */
+    simple_controll_B.Constant4_k[0] = simple_controll_P.qc.rot_dirs[0];
+    simple_controll_B.Constant4_k[1] = simple_controll_P.qc.rot_dirs[1];
+    simple_controll_B.Constant4_k[2] = simple_controll_P.qc.rot_dirs[2];
+    simple_controll_B.Constant4_k[3] = simple_controll_P.qc.rot_dirs[3];
+}
+/* RateTransition: '<S75>/Rate Transition' */
+if (%<(LibIsSpecialSampleHit(2, 0))>) {
+    simple_controll_B.RateTransition[0] = rtb_qn[0];
+    simple_controll_B.RateTransition[1] = rtb_qn[1];
+    simple_controll_B.RateTransition[2] = rtb_qn[2];
+    simple_controll_B.RateTransition[3] = rtb_qn[3];
+}
+/* End of RateTransition: '<S75>/Rate Transition' */
+
+/* Derivative: '<S76>/Derivative' */
+if ((simple_controll_DW.TimeStampA_h >= %<(SLibCG_SE(LibGetT()))>) && (simple_controll_DW.TimeStampB_o >= %<(SLibCG_SE(LibGetT()))>)) {
+    rtb_Derivative[0] = 0.0;
+    rtb_Derivative[1] = 0.0;
+    rtb_Derivative[2] = 0.0;
+    rtb_Derivative[3] = 0.0;
+} else {
+    scale = simple_controll_DW.TimeStampA_h;
+    lastU_1 = (real_T (*)[4])simple_controll_DW.LastUAtTimeA_b;
+    if (simple_controll_DW.TimeStampA_h < simple_controll_DW.TimeStampB_o) {
+        if (simple_controll_DW.TimeStampB_o < %<(SLibCG_SE(LibGetT()))>) {
+            scale = simple_controll_DW.TimeStampB_o;
+            lastU_1 = (real_T (*)[4])simple_controll_DW.LastUAtTimeB_kl;
+        }
+    } else {
+        if (simple_controll_DW.TimeStampA_h >= %<(SLibCG_SE(LibGetT()))>) {
+            scale = simple_controll_DW.TimeStampB_o;
+            lastU_1 = (real_T (*)[4])simple_controll_DW.LastUAtTimeB_kl;
+        }
+    }
+    scale = %<(SLibCG_SE(LibGetT()))> - scale;
+    rtb_Derivative[0] = (simple_controll_B.Constant6[0] - (*lastU_1)[0]) / scale;
+    rtb_Derivative[1] = (simple_controll_B.Constant6[1] - (*lastU_1)[1]) / scale;
+    rtb_Derivative[2] = (simple_controll_B.Constant6[2] - (*lastU_1)[2]) / scale;
+    rtb_Derivative[3] = (simple_controll_B.Constant6[3] - (*lastU_1)[3]) / scale;
+}
+/* End of Derivative: '<S76>/Derivative' */
+
+/* MATLAB Function: '<S76>/wp' */
+/* MATLAB Function 'model/dynamic/wp': '<S84>:1' */
+/* '<S84>:1:3' */
+memset(&simple_controll_B.omegaP[0], 0, 12U * sizeof(real_T));
+/* '<S84>:1:4' */
+for (ak = 0; ak < 4; ak++) {
+    /* '<S84>:1:4' */
+    /* '<S84>:1:6' */
+    /* '<S84>:1:7' */
+    q_bp[0] = simple_controll_B.q_PB[ak << 2];
+    q_bp[1] = -simple_controll_B.q_PB[(ak << 2) + 1];
+    q_bp[2] = -simple_controll_B.q_PB[(ak << 2) + 2];
+    q_bp[3] = -simple_controll_B.q_PB[(ak << 2) + 3];
+    /* '<S84>:1:8' */
+    /* '<S84>:1:9' */
+    tmp_3[0] = 0.0;
+    tmp_3[1] = rtb_omegaB_int[0];
+    tmp_3[2] = rtb_omegaB_int[1];
+    tmp_3[3] = rtb_omegaB_int[2];
+    q_bp_0[0] = simple_controll_B.q_PB[ak << 2];
+    q_bp_0[1] = -(-simple_controll_B.q_PB[(ak << 2) + 1]);
+    q_bp_0[2] = -(-simple_controll_B.q_PB[(ak << 2) + 2]);
+    q_bp_0[3] = -(-simple_controll_B.q_PB[(ak << 2) + 3]);
+    %<(SLibCGCallSubFcn("simple_controll_quatMultiply_e", ["tmp_3", "q_bp_0", "tmp_1"], 1, 7, 8))>;
+    %<(SLibCGCallSubFcn("simple_controll_quatMultiply_e", ["q_bp", "tmp_1", "q2"], 1, 7, 3))>;
+    isrc = (1 + ak) * 3 - 3;
+    simple_controll_B.omegaP[isrc] = q2[1] + rtb_Derivative[ak];
+    simple_controll_B.omegaP[1 + isrc] = q2[2];
+    if (simple_controll_B.Constant5[ak] < 0.0) {
+        scale = -1.0;
+    } else if (simple_controll_B.Constant5[ak] > 0.0) {
+        scale = 1.0;
+    } else if (simple_controll_B.Constant5[ak] == 0.0) {
+        scale = 0.0;
+    } else {
+        scale = simple_controll_B.Constant5[ak];
+    }
+    simple_controll_B.omegaP[2 + isrc] = scale * sqrt(fabs(simple_controll_B.Constant5[ak])) + q2[3];
+    /* '<S84>:1:4' */
+}
+/* End of MATLAB Function: '<S76>/wp' */
+
+/* Derivative: '<S76>/Derivative1' */
+if ((simple_controll_DW.TimeStampA_c >= %<(SLibCG_SE(LibGetT()))>) && (simple_controll_DW.TimeStampB_c >= %<(SLibCG_SE(LibGetT()))>)) {
+    memset(&rtb_Derivative1[0], 0, 12U * sizeof(real_T));
+} else {
+    scale = simple_controll_DW.TimeStampA_c;
+    lastU_2 = (real_T (*)[12])simple_controll_DW.LastUAtTimeA_f;
+    if (simple_controll_DW.TimeStampA_c < simple_controll_DW.TimeStampB_c) {
+        if (simple_controll_DW.TimeStampB_c < %<(SLibCG_SE(LibGetT()))>) {
+            scale = simple_controll_DW.TimeStampB_c;
+            lastU_2 = (real_T (*)[12])simple_controll_DW.LastUAtTimeB_em;
+        }
+    } else {
+        if (simple_controll_DW.TimeStampA_c >= %<(SLibCG_SE(LibGetT()))>) {
+            scale = simple_controll_DW.TimeStampB_c;
+            lastU_2 = (real_T (*)[12])simple_controll_DW.LastUAtTimeB_em;
+        }
+    }
+    scale = %<(SLibCG_SE(LibGetT()))> - scale;
+    for (ak = 0; ak < 12; ak++) {
+        rtb_Derivative1[ak] = (simple_controll_B.omegaP[ak] - (*lastU_2)[ak]) / scale;
+    }
+}
+/* End of Derivative: '<S76>/Derivative1' */
+
+/* Derivative: '<S76>/Derivative2' */
+if ((simple_controll_DW.TimeStampA_j >= %<(SLibCG_SE(LibGetT()))>) && (simple_controll_DW.TimeStampB_m >= %<(SLibCG_SE(LibGetT()))>)) {
+    rtb_Derivative1_g[0] = 0.0;
+    rtb_Derivative1_g[1] = 0.0;
+    rtb_Derivative1_g[2] = 0.0;
+} else {
+    scale = simple_controll_DW.TimeStampA_j;
+    lastU = (real_T (*)[3])simple_controll_DW.LastUAtTimeA_g;
+    if (simple_controll_DW.TimeStampA_j < simple_controll_DW.TimeStampB_m) {
+        if (simple_controll_DW.TimeStampB_m < %<(SLibCG_SE(LibGetT()))>) {
+            scale = simple_controll_DW.TimeStampB_m;
+            lastU = (real_T (*)[3])simple_controll_DW.LastUAtTimeB_p;
+        }
+    } else {
+        if (simple_controll_DW.TimeStampA_j >= %<(SLibCG_SE(LibGetT()))>) {
+            scale = simple_controll_DW.TimeStampB_m;
+            lastU = (real_T (*)[3])simple_controll_DW.LastUAtTimeB_p;
+        }
+    }
+    scale = %<(SLibCG_SE(LibGetT()))> - scale;
+    rtb_Derivative1_g[0] = (simple_controll_B.r_o1[0] - (*lastU)[0]) / scale;
+    rtb_Derivative1_g[1] = (simple_controll_B.r_o1[1] - (*lastU)[1]) / scale;
+    rtb_Derivative1_g[2] = (simple_controll_B.r_o1[2] - (*lastU)[2]) / scale;
+}
+/* End of Derivative: '<S76>/Derivative2' */
+
+/* MATLAB Function: '<S76>/tau, F' */
+/* MATLAB Function 'model/dynamic/tau, F': '<S83>:1' */
+/* '<S83>:1:3' */
+/* '<S83>:1:4' */
+t9 = 0.0;
+scale = 0.0;
+t8 = 0.0;
+f_zB_top_lim = 0.0;
+t7 = 0.0;
+f_zB_bot_lim = 0.0;
+/* '<S83>:1:6' */
+for (ak = 0; ak < 4; ak++) {
+    /* '<S83>:1:6' */
+    /* '<S83>:1:7' */
+    /* '<S83>:1:8' */
+    /* '<S83>:1:9' */
+    /* '<S83>:1:10' */
+    /* '<S83>:1:11' */
+    /* '<S83>:1:12' */
+    /* '<S83>:1:14' */
+    /* '<S83>:1:15' */
+    tmp_5[0] = 0.0;
+    tmp_5[1] = simple_controll_B.Constant4_k[ak] * 0.0;
+    tmp_5[2] = simple_controll_B.Constant4_k[ak] * 0.0;
+    tmp_5[3] = simple_controll_B.Constant_m * simple_controll_B.Constant5[ak] * simple_controll_B.Constant4_k[ak];
+    tmp_6[0] = simple_controll_B.q_PB[ak << 2];
+    tmp_6[1] = -simple_controll_B.q_PB[(ak << 2) + 1];
+    tmp_6[2] = -simple_controll_B.q_PB[(ak << 2) + 2];
+    tmp_6[3] = -simple_controll_B.q_PB[(ak << 2) + 3];
+    %<(SLibCGCallSubFcn("simple_controll_quatMultiply_o", ["tmp_5", "tmp_6", "tmp_1"], 1, 7, 10))>;
+    %<(SLibCGCallSubFcn("simple_controll_quatMultiply_o", ["*(real_T (*)[4])&simple_controll_B.q_PB[ak << 2]", "tmp_1", "q2"], 1, 7, 2))>;
+    n = q2[1];
+    t10 = q2[2];
+    t11 = q2[3];
+    /* '<S83>:1:17' */
+    /* '<S83>:1:18' */
+    isrc = (1 + ak) * 3 - 3;
+    /* '<S83>:1:19' */
+    e_k = (1 + ak) * 3 - 3;
+    for (i = 0; i < 3; i++) {
+        rtb_Derivative1_1[i] = rtb_Derivative1[i + e_k];
+        y[i] = simple_controll_B.Constant2_n[i + 6] * simple_controll_B.omegaP[2 + isrc] + (simple_controll_B.Constant2_n[i + 3] * simple_controll_B.omegaP[1 + isrc] + simple_controll_B.Constant2_n[i] * simple_controll_B.omegaP[isrc]);
+    }
+    tmp_7[0] = simple_controll_B.omegaP[(int8_T)((1 + ak) * 3) - 2] * y[2] - simple_controll_B.omegaP[(int8_T)((1 + ak) * 3) - 1] * y[1];
+    tmp_7[1] = simple_controll_B.omegaP[(int8_T)((1 + ak) * 3) - 1] * y[0] - simple_controll_B.omegaP[(int8_T)((1 + ak) * 3) - 3] * y[2];
+    tmp_7[2] = simple_controll_B.omegaP[(int8_T)((1 + ak) * 3) - 3] * y[1] - simple_controll_B.omegaP[(int8_T)((1 + ak) * 3) - 2] * y[0];
+    tmp_8[0] = 0.0;
+    tmp_8[1] = 0.0;
+    tmp_8[2] = fabs(simple_controll_B.omegaP[(int8_T)((1 + ak) * 3) - 1]) * -simple_controll_B.Constant1_k * simple_controll_B.omegaP[(int8_T)((1 + ak) * 3) - 1];
+    tmp_1[0] = 0.0;
+    for (isrc = 0; isrc < 3; isrc++) {
+        tmp_1[isrc + 1] = ((simple_controll_B.Constant2_n[isrc + 6] * rtb_Derivative1_1[2] + (simple_controll_B.Constant2_n[isrc + 3] * rtb_Derivative1_1[1] + simple_controll_B.Constant2_n[isrc] * rtb_Derivative1_1[0])) + tmp_7[isrc]) - tmp_8[isrc];
+    }
+    tmp_4[0] = simple_controll_B.q_PB[ak << 2];
+    tmp_4[1] = -simple_controll_B.q_PB[(ak << 2) + 1];
+    tmp_4[2] = -simple_controll_B.q_PB[(ak << 2) + 2];
+    tmp_4[3] = -simple_controll_B.q_PB[(ak << 2) + 3];
+    %<(SLibCGCallSubFcn("simple_controll_quatMultiply_o", ["tmp_1", "tmp_4", "tmp_2"], 1, 7, 9))>;
+    %<(SLibCGCallSubFcn("simple_controll_quatMultiply_o", ["*(real_T (*)[4])&simple_controll_B.q_PB[ak << 2]", "tmp_2", "q2"], 1, 7, 1))>;
+    /* '<S83>:1:21' */
+    /* '<S83>:1:25' */
+    t9 += (simple_controll_B.Constant3_j[(int8_T)((1 + ak) * 3) - 2] * t11 - simple_controll_B.Constant3_j[(int8_T)((1 + ak) * 3) - 1] * t10) - q2[1];
+    scale += n;
+    t8 += (simple_controll_B.Constant3_j[(int8_T)((1 + ak) * 3) - 1] * n - simple_controll_B.Constant3_j[(int8_T)((1 + ak) * 3) - 3] * t11) - q2[2];
+    f_zB_top_lim += t10;
+    t7 += (simple_controll_B.Constant3_j[(int8_T)((1 + ak) * 3) - 3] * t10 - simple_controll_B.Constant3_j[(int8_T)((1 + ak) * 3) - 2] * n) - q2[3];
+    f_zB_bot_lim += t11;
+    /* '<S83>:1:6' */
+}
+/* End of MATLAB Function: '<S76>/tau, F' */
+
+/* MATLAB Function: '<S76>/F_I' incorporates:
+ *  Gain: '<S76>/Gain'
+ */
+/* MATLAB Function 'model/dynamic/F_I': '<S79>:1' */
+/* '<S79>:1:2' */
+tmp_0[0] = 0.0;
+tmp_0[1] = simple_controll_P.Gain_Gain * scale;
+tmp_0[2] = simple_controll_P.Gain_Gain * f_zB_top_lim;
+tmp_0[3] = simple_controll_P.Gain_Gain * f_zB_bot_lim;
+rtb_qn_0[0] = rtb_qn[0];
+rtb_qn_0[1] = -rtb_qn[1];
+rtb_qn_0[2] = -rtb_qn[2];
+rtb_qn_0[3] = -rtb_qn[3];
+%<(SLibCGCallSubFcn("simple_controll_quatMultiply_a", ["tmp_0", "rtb_qn_0", "tmp_1"], 1, 7, 6))>;
+%<(SLibCGCallSubFcn("simple_controll_quatMultiply_a", ["rtb_qn", "tmp_1", "q2"], 1, 7, 0))>;
+if (%<(SLibCGIRIsSampleHit(1, 24))>) {
+    /* MATLAB Function: '<S81>/mg' incorporates:
+ *  Constant: '<S81>/Constant6'
+ *  Constant: '<S81>/Constant7'
+ */
+    /* MATLAB Function 'model/dynamic/mg/mg': '<S86>:1' */
+    /* '<S86>:1:2' */
+    simple_controll_B.mg[0] = simple_controll_P.qc.m * simple_controll_P.qc.g[0];
+    simple_controll_B.mg[1] = simple_controll_P.qc.m * simple_controll_P.qc.g[1];
+    simple_controll_B.mg[2] = simple_controll_P.qc.m * simple_controll_P.qc.g[2];
+    /* Constant: '<S80>/Constant8' */
+    simple_controll_B.Constant8_p = simple_controll_P.qc.ro;
+    /* Constant: '<S80>/Constant9' */
+    simple_controll_B.Constant9 = simple_controll_P.qc.c;
+    /* Constant: '<S80>/Constant10' */
+    simple_controll_B.Constant10 = simple_controll_P.qc.S;
+}
+/* MATLAB Function: '<S80>/air force I' */
+/* MATLAB Function 'model/dynamic/airforce/air force I': '<S85>:1' */
+/* '<S85>:1:2' */
+scale = 2.2250738585072014E-308;
+f_zB_top_lim = fabs(rtb_Derivative1_g[0]);
+if (f_zB_top_lim > 2.2250738585072014E-308) {
+    n = 1.0;
+    scale = f_zB_top_lim;
+} else {
+    f_zB_bot_lim = f_zB_top_lim / 2.2250738585072014E-308;
+    n = f_zB_bot_lim * f_zB_bot_lim;
+}
+f_zB_top_lim = fabs(rtb_Derivative1_g[1]);
+if (f_zB_top_lim > scale) {
+    f_zB_bot_lim = scale / f_zB_top_lim;
+    n = n * f_zB_bot_lim * f_zB_bot_lim + 1.0;
+    scale = f_zB_top_lim;
+} else {
+    f_zB_bot_lim = f_zB_top_lim / scale;
+    n += f_zB_bot_lim * f_zB_bot_lim;
+}
+f_zB_top_lim = fabs(rtb_Derivative1_g[2]);
+if (f_zB_top_lim > scale) {
+    f_zB_bot_lim = scale / f_zB_top_lim;
+    n = n * f_zB_bot_lim * f_zB_bot_lim + 1.0;
+    scale = f_zB_top_lim;
+} else {
+    f_zB_bot_lim = f_zB_top_lim / scale;
+    n += f_zB_bot_lim * f_zB_bot_lim;
+}
+n = scale * sqrt(n);
+scale = -simple_controll_B.Constant8_p * simple_controll_B.Constant9 * simple_controll_B.Constant10 * n;
+if (%<(SLibCGIRIsSampleHit(1, 24))>) {
+    /* Constant: '<S77>/Constant' */
+    simple_controll_B.Constant_dx = simple_controll_P.qc.m;
+    /* Constant: '<S77>/Constant1' */
+    memcpy(&simple_controll_B.Constant1_ip[0], &simple_controll_P.qc.I_B[0], 9U * sizeof(real_T));
+}
+/* MATLAB Function: '<S77>/r_ddot' incorporates:
+ *  MATLAB Function: '<S76>/F_I'
+ *  MATLAB Function: '<S80>/air force I'
+ *  Sum: '<S76>/Sum'
+ */
+/* MATLAB Function 'model/integration/r_ddot': '<S91>:1' */
+/* '<S91>:1:3' */
+simple_controll_B.r_ddot[0] = ((q2[1] + simple_controll_B.mg[0]) + scale * rtb_Derivative1_g[0]) / simple_controll_B.Constant_dx;
+simple_controll_B.r_ddot[1] = ((q2[2] + simple_controll_B.mg[1]) + scale * rtb_Derivative1_g[1]) / simple_controll_B.Constant_dx;
+simple_controll_B.r_ddot[2] = ((q2[3] + simple_controll_B.mg[2]) + scale * rtb_Derivative1_g[2]) / simple_controll_B.Constant_dx;
+/* MATLAB Function: '<S77>/omegaB_dot' incorporates:
+ *  Gain: '<S76>/Gain1'
+ */
+/* MATLAB Function 'model/integration/omegaB_dot': '<S89>:1' */
+/* '<S89>:1:2' */
+for (isrc = 0; isrc < 3; isrc++) {
+    y[isrc] = simple_controll_B.Constant1_ip[isrc + 6] * rtb_omegaB_int[2] + (simple_controll_B.Constant1_ip[isrc + 3] * rtb_omegaB_int[1] + simple_controll_B.Constant1_ip[isrc] * rtb_omegaB_int[0]);
+}
+%<(SLibCGCallSubFcn("simple_controll_mpower", ["simple_controll_B.Constant1_ip", "tempR"], 1, 7, 5))>;
+scale = simple_controll_P.Gain1_Gain * t9 - (rtb_omegaB_int[1] * y[2] - rtb_omegaB_int[2] * y[1]);
+f_zB_top_lim = simple_controll_P.Gain1_Gain * t8 - (rtb_omegaB_int[2] * y[0] - rtb_omegaB_int[0] * y[2]);
+f_zB_bot_lim = simple_controll_P.Gain1_Gain * t7 - (rtb_omegaB_int[0] * y[1] - rtb_omegaB_int[1] * y[0]);
+/* MATLAB Function 'model/integration/qBIdot': '<S90>:1' */
+/* '<S90>:1:2' */
+for (ak = 0; ak < 3; ak++) {
+    simple_controll_B.omegaB_dot[ak] = 0.0;
+    simple_controll_B.omegaB_dot[ak] += tempR[ak] * scale;
+    simple_controll_B.omegaB_dot[ak] += tempR[ak + 3] * f_zB_top_lim;
+    simple_controll_B.omegaB_dot[ak] += tempR[ak + 6] * f_zB_bot_lim;
+    /* MATLAB Function: '<S77>/qBIdot' */
+    q2[ak + 1] = rtb_omegaB_int[ak];
+}
+/* End of MATLAB Function: '<S77>/omegaB_dot' */
+
+/* MATLAB Function: '<S77>/qBIdot' */
+/* '<S90>:1:3' */
+simple_controll_B.qBIdot[0] = (((rtb_qn[0] * 0.0 - rtb_qn[1] * q2[1]) - rtb_qn[2] * q2[2]) - rtb_qn[3] * q2[3]) * 0.5;
+simple_controll_B.qBIdot[1] = ((rtb_qn[0] * q2[1] + 0.0 * rtb_qn[1]) + (rtb_qn[2] * q2[3] - rtb_qn[3] * q2[2])) * 0.5;
+simple_controll_B.qBIdot[2] = ((rtb_qn[0] * q2[2] + 0.0 * rtb_qn[2]) + (rtb_qn[3] * q2[1] - rtb_qn[1] * q2[3])) * 0.5;
+simple_controll_B.qBIdot[3] = ((rtb_qn[0] * q2[3] + 0.0 * rtb_qn[3]) + (rtb_qn[1] * q2[2] - rtb_qn[2] * q2[1])) * 0.5;
+%<SLibInsertSolverResetCode()>\
+%closefile cfgTxt
+%<cfgTxt>
+%assign fcnProtoType = ""
+%openfile fcnProtoType
+static void Outputs(\
+%assign comma = ""
+%closefile fcnProtoType
+%<SLibCG_SetFcnProtoType(1, 7, fcnProtoType)>
+%<LibSetSystemField(system, "CachedOutput0LocalVars", localVarDecl)>
+%assign ::GlobalCurrentTID = []
+%endif
+%if tid == 2
+%assign ::GlobalCurrentTID = 2
+%assign ::GlobalCurrentTID = []
+%endif
+%endfunction

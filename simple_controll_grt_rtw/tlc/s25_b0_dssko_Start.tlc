@@ -1,0 +1,97 @@
+%implements s25_b0_dssko_Start "C"
+
+%function Start(block, system) Output
+%assign cfgTxt = ""
+%openfile cfgTxt
+%assign localVarDecl = ""
+%assign tlcStartFcnOfS24B2 = OpaqueTLCBlockFcn("Start", 24, 2, 1, 5)
+%assign tlcStartFcnOfS24B17 = OpaqueTLCBlockFcn("Start", 24, 17, 1, 5)
+%assign tlcStartFcnOfS24B18 = OpaqueTLCBlockFcn("Start", 24, 18, 1, 5)
+%assign tlcStartFcnOfS24B19 = OpaqueTLCBlockFcn("Start", 24, 19, 1, 5)
+%assign tlcStartFcnOfS24B20 = OpaqueTLCBlockFcn("Start", 24, 20, 1, 5)
+%assign tlcStartFcnOfS24B21 = OpaqueTLCBlockFcn("Start", 24, 21, 1, 5)
+%<tlcStartFcnOfS24B2>\
+/* Start for Constant: '<S4>/Constant5' */
+simple_controll_B.Constant5[0] = simple_controll_P.Constant5_Value[0];
+/* Start for Constant: '<S4>/Constant6' */
+simple_controll_B.Constant6[0] = simple_controll_P.Constant6_Value[0];
+/* Start for Constant: '<S4>/Constant5' */
+simple_controll_B.Constant5[1] = simple_controll_P.Constant5_Value[1];
+/* Start for Constant: '<S4>/Constant6' */
+simple_controll_B.Constant6[1] = simple_controll_P.Constant6_Value[1];
+/* Start for Constant: '<S4>/Constant5' */
+simple_controll_B.Constant5[2] = simple_controll_P.Constant5_Value[2];
+/* Start for Constant: '<S4>/Constant6' */
+simple_controll_B.Constant6[2] = simple_controll_P.Constant6_Value[2];
+/* Start for Constant: '<S4>/Constant5' */
+simple_controll_B.Constant5[3] = simple_controll_P.Constant5_Value[3];
+/* Start for Constant: '<S4>/Constant6' */
+simple_controll_B.Constant6[3] = simple_controll_P.Constant6_Value[3];
+/* Start for Constant: '<S14>/Constant' */
+simple_controll_B.Constant_d = simple_controll_P.qc.r_error_lim;
+/* Start for Constant: '<S14>/Constant1' */
+simple_controll_B.Constant1_l = simple_controll_P.qc.rdot_error_lim;
+/* Start for Constant: '<S14>/Constant3' */
+simple_controll_B.Constant3 = simple_controll_P.qc.omega_error_lim;
+/* Start for Constant: '<S4>/Constant1' */
+simple_controll_B.Constant1_i = simple_controll_P.qc.m;
+/* Start for Constant: '<S4>/Constant4' */
+simple_controll_B.Constant4 = simple_controll_P.qc.Th_lim;
+/* Start for Constant: '<S4>/Constant3' */
+simple_controll_B.Constant3_n = simple_controll_P.qc.tw;
+/* Start for Constant: '<S4>/Constant' */
+simple_controll_B.Constant_c[0] = simple_controll_P.qc.g[0];
+/* Start for Constant: '<S4>/Constant2' */
+simple_controll_B.Constant2[0] = simple_controll_P.qc.g[0];
+/* Start for Constant: '<S4>/Constant' */
+simple_controll_B.Constant_c[1] = simple_controll_P.qc.g[1];
+/* Start for Constant: '<S4>/Constant2' */
+simple_controll_B.Constant2[1] = simple_controll_P.qc.g[1];
+/* Start for Constant: '<S4>/Constant' */
+simple_controll_B.Constant_c[2] = simple_controll_P.qc.g[2];
+/* Start for Constant: '<S4>/Constant2' */
+simple_controll_B.Constant2[2] = simple_controll_P.qc.g[2];
+/* Start for Constant: '<S4>/Constant7' */
+simple_controll_B.Constant7 = simple_controll_P.qc.m;
+/* Start for Constant: '<S4>/Constant8' */
+simple_controll_B.Constant8[0] = simple_controll_P.qc.rot_dirs[0];
+simple_controll_B.Constant8[1] = simple_controll_P.qc.rot_dirs[1];
+simple_controll_B.Constant8[2] = simple_controll_P.qc.rot_dirs[2];
+simple_controll_B.Constant8[3] = simple_controll_P.qc.rot_dirs[3];
+%<tlcStartFcnOfS24B17>\
+%<tlcStartFcnOfS24B18>\
+%<tlcStartFcnOfS24B19>\
+%<tlcStartFcnOfS24B20>\
+%<tlcStartFcnOfS24B21>\
+/* Start for Constant: '<S76>/Constant' */
+simple_controll_B.Constant_m = simple_controll_P.qc.k;
+/* Start for Constant: '<S76>/Constant1' */
+simple_controll_B.Constant1_k = simple_controll_P.qc.b;
+/* Start for Constant: '<S76>/Constant2' */
+memcpy(&simple_controll_B.Constant2_n[0], &simple_controll_P.qc.I_P[0], 9U * sizeof(real_T));
+/* Start for Constant: '<S76>/Constant3' */
+memcpy(&simple_controll_B.Constant3_j[0], &simple_controll_P.qc.rays[0], 12U * sizeof(real_T));
+/* Start for Constant: '<S76>/Constant4' */
+simple_controll_B.Constant4_k[0] = simple_controll_P.qc.rot_dirs[0];
+simple_controll_B.Constant4_k[1] = simple_controll_P.qc.rot_dirs[1];
+simple_controll_B.Constant4_k[2] = simple_controll_P.qc.rot_dirs[2];
+simple_controll_B.Constant4_k[3] = simple_controll_P.qc.rot_dirs[3];
+/* Start for Constant: '<S80>/Constant8' */
+simple_controll_B.Constant8_p = simple_controll_P.qc.ro;
+/* Start for Constant: '<S80>/Constant9' */
+simple_controll_B.Constant9 = simple_controll_P.qc.c;
+/* Start for Constant: '<S80>/Constant10' */
+simple_controll_B.Constant10 = simple_controll_P.qc.S;
+/* Start for Constant: '<S77>/Constant' */
+simple_controll_B.Constant_dx = simple_controll_P.qc.m;
+/* Start for Constant: '<S77>/Constant1' */
+memcpy(&simple_controll_B.Constant1_ip[0], &simple_controll_P.qc.I_B[0], 9U * sizeof(real_T));
+%closefile cfgTxt
+%<cfgTxt>
+%assign fcnProtoType = ""
+%openfile fcnProtoType
+static void Start(\
+%assign comma = ""
+%closefile fcnProtoType
+%<SLibCG_SetFcnProtoType(1, 5, fcnProtoType)>
+%endfunction

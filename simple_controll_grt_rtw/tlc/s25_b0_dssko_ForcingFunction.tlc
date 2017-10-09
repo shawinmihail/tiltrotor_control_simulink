@@ -1,0 +1,46 @@
+%implements s25_b0_dssko_ForcingFunction "C"
+
+%function ForcingFunction(block, system) Output
+%assign cfgTxt = ""
+%openfile cfgTxt
+%assign localVarDecl = ""
+%openfile localVarDecl
+XDot_simple_controll_T *_rtXdot;
+%closefile localVarDecl
+_rtXdot = %<(SLibCG_SE(SLibGetContStatesDerivativeStructPtr()))>;
+/* ForcingFunction for Integrator: '<S77>/qBI' */
+_rtXdot->qBI_CSTATE[0] = simple_controll_B.qBIdot[0];
+_rtXdot->qBI_CSTATE[1] = simple_controll_B.qBIdot[1];
+_rtXdot->qBI_CSTATE[2] = simple_controll_B.qBIdot[2];
+_rtXdot->qBI_CSTATE[3] = simple_controll_B.qBIdot[3];
+/* ForcingFunction for SecondOrderIntegrator: '<S77>/r' */
+if (simple_controll_DW.r_MODE[0] == 0) {
+    _rtXdot->r_CSTATE[0] = simple_controll_X.r_CSTATE[3];
+    _rtXdot->r_CSTATE[3] = simple_controll_B.r_ddot[0];
+}
+/* ForcingFunction for Integrator: '<S77>/omegaB_int' */
+_rtXdot->omegaB_int_CSTATE[0] = simple_controll_B.omegaB_dot[0];
+/* ForcingFunction for SecondOrderIntegrator: '<S77>/r' */
+if (simple_controll_DW.r_MODE[1] == 0) {
+    _rtXdot->r_CSTATE[1] = simple_controll_X.r_CSTATE[4];
+    _rtXdot->r_CSTATE[4] = simple_controll_B.r_ddot[1];
+}
+/* ForcingFunction for Integrator: '<S77>/omegaB_int' */
+_rtXdot->omegaB_int_CSTATE[1] = simple_controll_B.omegaB_dot[1];
+/* ForcingFunction for SecondOrderIntegrator: '<S77>/r' */
+if (simple_controll_DW.r_MODE[2] == 0) {
+    _rtXdot->r_CSTATE[2] = simple_controll_X.r_CSTATE[5];
+    _rtXdot->r_CSTATE[5] = simple_controll_B.r_ddot[2];
+}
+/* ForcingFunction for Integrator: '<S77>/omegaB_int' */
+_rtXdot->omegaB_int_CSTATE[2] = simple_controll_B.omegaB_dot[2];
+%closefile cfgTxt
+%<cfgTxt>
+%assign fcnProtoType = ""
+%openfile fcnProtoType
+static void ForcingFunction(\
+%assign comma = ""
+%closefile fcnProtoType
+%<SLibCG_SetFcnProtoType(1, 10, fcnProtoType)>
+%<LibSetSystemField(system, "CachedForcingFunctionLocalVars", localVarDecl)>
+%endfunction

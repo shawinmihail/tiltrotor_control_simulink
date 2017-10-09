@@ -1,5 +1,4 @@
 %% trees
-
 v = 3;
 radius = 1.5;
 period = 2*pi*radius/v;

@@ -2,7 +2,7 @@ clc
 close all
 
 path = '\img\';
-save = 0;
+save = 1;
 
 %%
 t = time.Data;
@@ -22,8 +22,11 @@ r_error = r_d - r_r;
 
 
 %%
-w = 2;
-s = 22;
+w = 1;
+s = 8;
+xlshift = [0.5, 0.2];
+ylshift = [0.065, 0.5];
+
 r2 = [0.5 0 0];
 g2  = [0 0.5 0];
 b2 = [0 0.5 1];
@@ -36,10 +39,18 @@ hold on
 grid on;
 plot(t, eul_error(:,3),'Color','r','LineWidth',w, 'linestyle', '-');
 set(gca,'FontSize',s)
+
 leg = legend('roll error', 'Location','southeast');
 set(leg,'FontSize',s);
-xlabel('time, s');
-ylabel('angle, rad');
+rect = [0.7, 0.87, .1, .1];
+set(leg, 'Position', rect)
+legend boxoff
+
+xl = xlabel('time, s');
+yl = ylabel('angle, rad');
+set(xl, 'Units', 'Normalized', 'Position', [xlshift(1), xlshift(2), 0]);
+set(yl, 'Units', 'Normalized', 'Position', [ylshift(1), ylshift(2), 0]);
+
 % ylim([-EULLIM, EULLIM]);
 
 %% pitch error
@@ -48,10 +59,18 @@ hold on
 grid on;
 plot(t, eul_error(:,2),'Color','g','LineWidth',w, 'linestyle', '-');
 set(gca,'FontSize',s)
+
 leg = legend('pitch error', 'Location','southeast');
 set(leg,'FontSize',s);
-xlabel('time, s');
-ylabel('angle, rad');
+set(leg,'FontSize',s);
+rect = [0.7, 0.57, .1, .1];
+set(leg, 'Position', rect)
+legend boxoff
+
+xl = xlabel('time, s');
+yl = ylabel('angle, rad');
+set(xl, 'Units', 'Normalized', 'Position', [xlshift(1), xlshift(2), 0]);
+set(yl, 'Units', 'Normalized', 'Position', [ylshift(1), ylshift(2), 0]);
 % ylim([-EULLIM, EULLIM]);
 
 %% yaw error
@@ -60,19 +79,28 @@ hold on
 grid on;
 plot(t, eul_error(:,1),'Color','b','LineWidth',w, 'linestyle', '-');
 set(gca,'FontSize',s)
+
 leg = legend('yaw error', 'Location','southeast');
 set(leg,'FontSize',s);
-xlabel('time, s');
-ylabel('angle, rad');
+set(leg,'FontSize',s);
+rect = [0.7, 0.27, .1, .1];
+set(leg, 'Position', rect)
+legend boxoff
+
+xl = xlabel('time, s');
+yl = ylabel('angle, rad');
+set(xl, 'Units', 'Normalized', 'Position', [xlshift(1), xlshift(2), 0]);
+set(yl, 'Units', 'Normalized', 'Position', [ylshift(1), ylshift(2), 0]);
 % ylim([-EULLIM, EULLIM]);
 
-set(gcf, 'PaperUnits', 'centimeters', 'PaperPosition', [0 0 60 20]);
+set(gcf, 'PaperUnits', 'p', 'PaperPosition', [0 0 200 300]);
 if save
-    saveas(gcf, [pwd path 'eulError.png']);
+    saveas(gcf, [pwd path 'eulError.eps'], 'epsc');
 end
 
-figure
+return
 
+figure
 RLIM = 0.3;
 %% x
 subplot(3,1,1);
@@ -110,7 +138,7 @@ xlabel('time, s');
 ylabel('z, m');
 % ylim([-RLIM, RLIM]);
 
-set(gcf, 'PaperUnits', 'centimeters', 'PaperPosition', [0 0 60 20]);
+set(gcf, 'PaperUnits', 'p', 'PaperPosition', [0 0 200 300]);
 if save
     saveas(gcf, [pwd path 'rError.png']);
 end
