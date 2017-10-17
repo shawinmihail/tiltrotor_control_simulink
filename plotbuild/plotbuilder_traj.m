@@ -14,6 +14,7 @@ rr = r_real.Data;
 % rf = r_filtered.Data;
 rd = r_des.Data;
 vr = v_real.Data;
+qr = q_real.Data;
 % vf = v_filtered.Data;
 % vdr = vdot_real.Data;
 % vdf = vdot_filtered.Data;
@@ -35,6 +36,16 @@ hold on
 grid on;
 plot(rr(:,1), rr(:,2),'Color','g','LineWidth',w, 'linestyle', '-');
 plot(rd(:,1), rd(:,2),'Color','k','LineWidth',w, 'linestyle', '--');
+
+ex = [1;0;0];
+for i = 1:1000:numel(qr(:,1))*1+0
+q = qr(i,:)';
+v = quatRotate(q, ex);
+e(:,i) = v;
+plot([rd(i,1),rd(i,1)+e(1,i)], [rd(i,2),rd(i,2)+e(2,i)],'Color','b','LineWidth',w, 'linestyle', '-');
+end
+
+
 xl = xlabel('x, m');
 yl = ylabel('y, m');
 set(xl, 'Units', 'Normalized', 'Position', [0.5, 0.1, 0]);

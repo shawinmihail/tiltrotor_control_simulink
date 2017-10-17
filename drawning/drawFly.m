@@ -1,7 +1,6 @@
-function drawFly(q_BI, q_PB, rays, l, draw_on)
-if draw_on < 0.5
-    return
-end
+function drawFly(q_BI, q_PB, rays, l, draw_mode)
+if draw_mode == 1
+
 hold on
 cla(gca)
 %% rays and propellers axis
@@ -62,3 +61,5 @@ axis([-scale scale -scale scale -scale scale]);
 xlabel('x');
 ylabel('y');
 zlabel('z');
+
+end

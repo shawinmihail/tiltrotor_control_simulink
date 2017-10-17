@@ -1,10 +1,14 @@
 function [ r_des, R_des, eul_des ] = current_traj( t, rr)
-% r_des = 1*[10;-5;5];
-% eul_des = 0*[t;0;10]*pi/180;
-% R_des = eul2rotm(eul_des');
+traj_num = 2;
 
-% %% trees
-v = 2;
+if traj_num == 1
+r_des = 1*[40;20;20];
+eul_des = 0*[0;8*sin(t/5);0]*pi/180;
+R_des = eul2rotm(eul_des');
+
+elseif traj_num == 2
+%% trees
+v = 2.0;
 radius = 1.5;
 period = 2*pi*radius/v;
 r_des = [0;0;0];
@@ -54,7 +58,7 @@ end
 q = quatBetweenVectors([1;0;0], dr);
 R_des = quat2rotm(q');
 eul_des = quat2eul(q')';
-
+end
 
 
 end

@@ -8,16 +8,16 @@ save = 1;
 t = time.Data;
 
 r_r= r_real.Data;
-r_m= r_mes.Data;
-r_f = r_filtered.Data;
+% r_m= r_mes.Data;
+% r_f = r_filtered.Data;
 r_d = r_des.Data;
 
 eul_r = eul_real.Data;
 eul_d = eul_des.Data;
-eul_m = eul_mes.Data;
-eul_f = eul_filtered.Data;
+% eul_m = eul_mes.Data;
+% eul_f = eul_filtered.Data;
 
-eul_error = eul_d - eul_r;
+eul_error = wrapToPi(eul_d - eul_r);
 r_error = r_d - r_r;
 
 
@@ -97,8 +97,6 @@ set(gcf, 'PaperUnits', 'p', 'PaperPosition', [0 0 200 300]);
 if save
     saveas(gcf, [pwd path 'eulError.eps'], 'epsc');
 end
-
-return
 
 figure
 RLIM = 0.3;
