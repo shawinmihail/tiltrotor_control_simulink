@@ -24,22 +24,5 @@ fit_force = k*f_h/sqrt(2);
 if norm(lim_req_f(1:2, 1)) > norm(fit_force)
     lim_req_f(1:2, 1) = fit_force;
 end
-
-%%
-% cla(gca)
-% hold on
-% xsq = [1 0 -1 0 1]*h_force_lim;
-% ysq = [0 1 0 -1 0]*h_force_lim;
-% plot(xsq, ysq);
-% % step = th_lim/3;
-% % for th = -th_lim : step : th_lim
-% %     plot3([0 0.5*forse_lim*sin(th)], [0 0], [0 forse_lim*cos(th)], 'b')
-% %     plot3([0 0], [0 0.5*forse_lim*sin(th)], [0 forse_lim*cos(th)], 'b')
-% % end
-% plot3(lim_req_f(1), lim_req_f(2), lim_req_f(3), '*g')
-% plot3([0 req_f(1)], [0 req_f(2)], [0 req_f(3)], 'r');
-% xlim([-50, 50]);
-% ylim([-50, 50]);
-% zlim([0, 50]);
 end
 

@@ -38,11 +38,11 @@ plot(rr(:,1), rr(:,2),'Color','g','LineWidth',w, 'linestyle', '-');
 plot(rd(:,1), rd(:,2),'Color','k','LineWidth',w, 'linestyle', '--');
 
 ex = [1;0;0];
-for i = 1:1000:numel(qr(:,1))*1+0
+for i = 1:1/qc.time_step:numel(qr(:,1))*1+0
 q = qr(i,:)';
 v = quatRotate(q, ex);
-e(:,i) = v;
-plot([rd(i,1),rd(i,1)+e(1,i)], [rd(i,2),rd(i,2)+e(2,i)],'Color','b','LineWidth',w, 'linestyle', '-');
+e(:,i) = v/5;
+plot([rr(i,1),rr(i,1)+e(1,i)], [rr(i,2),rr(i,2)+e(2,i)],'Color','b','LineWidth',w, 'linestyle', '-');
 end
 
 
@@ -71,18 +71,17 @@ rect = [0.66, 0.85, .1, .1];
 set(leg, 'Position', rect)
 legend boxoff
 
-% 2
-% subplot(2,1,2);
-% hold on
-% grid on;
-% r = norm3d(rd - rr);
-% plot(t, r,'Color','b','LineWidth',w, 'linestyle', '-');
-% xlabel('time, s');
-% ylabel('error, m');
-% leg = legend('error', 'Location','southeast');
-% set(leg,'FontSize',s);
-% % xlim([0 8])
-% % ylim([-1 1])
+figure
+hold on
+grid on;
+r = norm3d(rd - rr);
+plot(t, r,'Color','b','LineWidth',w, 'linestyle', '-');
+xlabel('time, s');
+ylabel('error, m');
+leg = legend('error', 'Location','southeast');
+set(leg,'FontSize',s);
+% xlim([0 8])
+% ylim([-1 1])
 
 %% 3d
 % plot3(x1(:,1), x1(:,2), x1(:,3), 'Color','r','LineWidth',w, 'linestyle', '-')

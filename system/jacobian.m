@@ -44,7 +44,6 @@ for i = 1:4
     Jt(2, i) = k*l*(-dir*cos(th_sym)*cos(alpha)) + b*(+sin(th_sym)*cos(alpha));
     Jt(3, i) = k*l*(-dir*sin(th_sym)) + b*(-cos(th_sym));
 end
-
 %% dJt_w
 for i = 1:4
     th_sym = Th(i);
