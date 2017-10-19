@@ -3,8 +3,8 @@ traj_num = 2;
 
 if traj_num == 0
 %% point
-r_des = 0*[2*t;0;0];
-eul_des = 1*[45;0;0]*pi/180;
+r_des = 1*[0;0;t];
+eul_des = 0*[45;0;0]*pi/180;
 R_des = eul2rotm(eul_des');
 
 

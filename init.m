@@ -40,9 +40,8 @@ jacobian(qc.rays, qc.rot_dirs, qc.k, qc.b, qc.l);
 qc.tw = 1.99;
 qc.Th_lim = pi/3;
 qc.Th_dot_lim = 6;
-qc.Th_ddot_lim = 400; % not used
 qc.W_lim = qc.tw*abs(qc.m*qc.g(3))/(4*qc.k);
-qc.w_dot_lim = 0.5 * qc.b*qc.W_lim / qc.I_P(3,3);
+qc.w_dot_lim = 0.5 * qc.b*qc.W_lim / qc.I_P(3,3); % tau max = -b*Wmax
 qc.vertical_acc_max = min(5, (qc.tw-1.15)*abs(qc.g(3))); % at least 15% for horizontal thrust
 qc.vertical_acc_min = -qc.vertical_acc_max;
 
@@ -70,7 +69,7 @@ qc.W0 = 1*qc.rot_dirs*wg;
 th = 0;
 qc.Th0 = 0*[th;th;-th;-th]*pi/180;
 
-%% other
+%% simulation
 qc.time_step = 10*(1e-3);
 % qc.control_tick = 0.005;
 qc.draw_mode = 1;
@@ -92,3 +91,6 @@ qc.Th_transfer_bot = [0.06 1 6];
 
 qc.W_transfer_top = [0.4 6]; % not used
 qc.W_transfer_bot = [0.005 0.5 6]; % not used
+
+%% other
+jacobian_torque_advanced( qc.rays, qc.rot_dirs, qc.k, qc.b, qc.l, qc.I_P(3,3), qc.time_step)

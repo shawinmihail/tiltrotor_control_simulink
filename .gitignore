@@ -10,3 +10,4 @@ integration0_ert_rtw
 img/*
 trash/*
 *_grt_rtw
+*.fig
