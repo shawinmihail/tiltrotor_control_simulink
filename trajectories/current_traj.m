@@ -1,20 +1,21 @@
 function [ r_des, R_des, eul_des ] = current_traj( t, rr)
-traj_num = 2;
-
+%%%%%%%%%%%
+traj_num = 0;
+%%%%%%%%%%%
 if traj_num == 0
 %% point
-r_des = 1*[0;0;t];
-eul_des = 0*[45;0;0]*pi/180;
+r_des = 1*[1.2*t;1.8*t;0*t];
+eul_des = 1*[0;10;10]*pi/180;
 R_des = eul2rotm(eul_des');
 
 
 elseif traj_num == 1
 %% circle
 radius = 1.5;
-v = 3;
+v = 1;
 period = 2*pi*radius/v;
 r_des = 1*[radius*sin(2*pi*t/period);radius*cos(2*pi*t/period);0];
-eul_des = 0*[period*t;0;0*pi/180];
+eul_des = 1*[0;10;8]*pi/180;
 R_des = eul2rotm(eul_des');
 
 elseif traj_num == 2

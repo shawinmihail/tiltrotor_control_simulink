@@ -1,33 +1,12 @@
-clear
-clc
-
-rays =    [1;0;0;
-          0;1;0;
-          -1;0;0
-          0;-1;0];
-   
-% rays =    [1;1;0;
-%           -1;1;0;
-%            -1;-1;0
-%            1;-1;0];
-
+function jacobian_ryll( rays, rot_dirs, k, b, l)
 %%
 W = sym('W', [4 1]);
 Th = sym('Th', [4 1]);
-rot_dirs = [1;-1;1;-1];
-k = 1;
-b = 1;
-l = 1;
-R_IB = eye(3,3);
-m = 1;
-I_B = R_IB;
-ex = [1;0;0];
-
-
 Jf = sym('Jf', [3 4]);
 Jt = sym('Jt', [3 4]);
 dJf_w = zeros(3, 4);
 dJt_w = zeros(3, 4);
+ex = [1;0;0];
 
 %% Jf
 for i = 1:4
@@ -65,8 +44,6 @@ for i = 1:4
     Jt(2, i) = k*l*(-dir*cos(th_sym)*cos(alpha)) + b*(+sin(th_sym)*cos(alpha));
     Jt(3, i) = k*l*(-dir*sin(th_sym)) + b*(-cos(th_sym));
 end
-
-
 %% dJt_w
 for i = 1:4
     th_sym = Th(i);
@@ -77,18 +54,7 @@ end
 J = [Jf; Jt];
 dJ_w = [dJf_w; dJt_w];
 
-for i = 1:1e0
-    th1 = 0;
-    th2 = 0;
-    th3 = 0;
-    th4 = 0;
+matlabFunction(J, 'file', 'system/J_fcn.m');
+matlabFunction(dJ_w, 'file', 'system/dJ_w_fcn.m');
 end
 
-% Jr = [(1/m)*R_IB zeros(3);
-%       zeros(3) I_B^(-1)];
-% 
-% A = Jr * [J dJ_w];
-% Arev = pinv(A);
-  
-J_fnc = matlabFunction(J);
-dJ_w_fnk = matlabFunction(dJ_w);

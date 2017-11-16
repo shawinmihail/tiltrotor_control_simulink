@@ -33,9 +33,6 @@ qc.S = 40*30*1e-4;
 qc.c = 1.05;
 qc.ro = 1;
 
-%% generate
-jacobian(qc.rays, qc.rot_dirs, qc.k, qc.b, qc.l);
-
 %% constraints
 qc.tw = 1.99;
 qc.Th_lim = pi/3;
@@ -75,22 +72,11 @@ qc.time_step = 10*(1e-3);
 qc.draw_mode = 1;
 qc.draw_tick = 0.1;
 
-% %% motors
-% R = 58e-3;
-% L = 1.5e-3;
-% KV = 830; % T-Motor MT2820 830kV
-% KT = 60/(2*pi*KV);
-% KE = 0.0605 * KT;
-% Y = qc.I_P(3,3);
-% tm = 0.004*Y*R/(KE*KT);
-% te = L/(0.004*R);
 
 %% transfer cooefs
 qc.Th_transfer_top = [0.4 6];
 qc.Th_transfer_bot = [0.06 1 6];
 
-qc.W_transfer_top = [0.4 6]; % not used
-qc.W_transfer_bot = [0.005 0.5 6]; % not used
-
-%% other
-jacobian_torque_advanced( qc.rays, qc.rot_dirs, qc.k, qc.b, qc.l, qc.I_P(3,3), qc.time_step)
+%% generate
+% jacobian_own( qc.rays, qc.rot_dirs, qc.k, qc.b, qc.l)
+% jacobian_torque_advanced( qc.rays, qc.rot_dirs, qc.k, qc.b, qc.l, qc.I_P(3,3), qc.time_step)

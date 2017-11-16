@@ -2,7 +2,7 @@ function [ h_force_lim, lim_req_f ] = lim_req_force( req_f, th_lim, forse_lim, v
 lim_req_f = req_f;
 lim_req_f(3) = set_between(lim_req_f(3), v_force_max, v_force_min);
 
-if lim_req_f(3) < forse_lim*cos(th_lim)
+if lim_req_f(3) < 0.5*forse_lim*cos(th_lim)
     h_force_lim = req_f(3)*tan(th_lim)/2;
 else
     c = lim_req_f(3)/forse_lim;
