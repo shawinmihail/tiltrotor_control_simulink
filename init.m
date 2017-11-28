@@ -34,8 +34,8 @@ qc.c = 1.05;
 qc.ro = 1;
 
 %% constraints
-qc.tw = 1.5;
-qc.max_tw= 1.8;
+qc.tw = 2.0;
+qc.max_tw= qc.tw + 0.2;
 qc.Th_lim = pi/3;
 qc.Th_dot_lim = 6;
 qc.W_lim = qc.tw*abs(qc.m*qc.g(3))/(4*qc.k);
@@ -48,14 +48,15 @@ qc.vertical_acc_min = -qc.vertical_acc_max;
 qc.r_error_lim = inf;
 qc.rdot_error_lim = inf;
 qc.r2dot_error_lim = inf;
-qc.omega_error_lim = inf;
-qc.omegadot_error_lim = inf;
+qc.omega_error_lim = 1.5;
+qc.omegadot_error_lim = 1.5;
 
 %% des lim
 qc.rdot_des_lim = 20;
 qc.r2dot_des_lim = 1*qc.tw*abs(qc.g(3))/qc.m;
 qc.w_des_lim = pi;
 qc.wdot_des_lim = pi/2;
+qc.tau_des_lim = 0.08;
 
 %% init pose
 qc.r0 = 0*[-1.5;0.05;0];

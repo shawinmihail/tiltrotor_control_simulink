@@ -1,10 +1,10 @@
 clc
 clear all
 %%
-syms k b l q
-% k = 1.13e-5;
-% b = 3e-6;
-% l = 0.25;
+% syms k b l q
+k = 1.13e-5;
+b = 3e-6;
+l = 0.25;
 
 W = sym('W', [4 1]);
 Th = sym('Th', [4 1]);
@@ -78,8 +78,8 @@ eqII = subs(eqII, [W(2), W(4)], [0, 0]);
 
 %% generate
 s = solve(eqII, [W(1) W(3) Th(1) Th(3)]);
-simplify(s.Th1(3))
-simplify(s.Th3(3))
+simplify(s.Th1(1));
+simplify(s.Th3(3));
 % th1 = s.Th1(3); 
 % th3 = s.Th3(3);
 % pretty(simplify ([th1;th3]))
