@@ -4,8 +4,8 @@ traj_num = 0;
 %%%%%%%%%%%
 if traj_num == 0
 %% point
-r_des =  [0;0;0];
-eul_des = 1*[0;0;10*t]*pi/180;
+r_des =  100*[10;2;5];
+eul_des = 1*[30*t;0;0]*pi/180;
 R_des = eul2rotm(eul_des'); 
 
 elseif traj_num == 1

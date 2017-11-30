@@ -73,12 +73,13 @@ eq2 = F(2) == X(2);
 eq3 = F(3) == X(3);
 eq5 = F(5) == X(5);
 eq6 = F(6) == X(6);
-eqII = [eq2 eq3 eq5 eq6];
+eqII = [eq2 eq3 eq5 eq6]
 eqII = subs(eqII, [W(2), W(4)], [0, 0]);
 
 %% generate
 s = solve(eqII, [W(1) W(3) Th(1) Th(3)]);
-th3 = simplify(s.Th3(4));
+th1 = simplify(s.Th1(4))
+th3 = simplify(s.Th3(4))
 
 %%
 % f3_ = 20;

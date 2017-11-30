@@ -1,7 +1,7 @@
 clc
 close all
 
-path = '\img\';56
+path = '\img\';
 
 save = 1;
 save_size = [];

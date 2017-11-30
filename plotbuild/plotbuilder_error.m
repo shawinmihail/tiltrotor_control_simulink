@@ -18,7 +18,7 @@ eul_d = eul_des.Data;
 % eul_f = eul_filtered.Data;
 
 eul_error = wrapToPi(eul_d - eul_r);
-r_error = r_d - r_r;
+r_error = r_d - r_r;    
 
 
 %%
