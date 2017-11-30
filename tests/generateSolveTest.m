@@ -1,10 +1,10 @@
 clc
-clear all
+clear
 %%
-% syms k b l q
-k = 1.13e-5;
-b = 3e-6;
-l = 0.25;
+syms k b l q
+% k = 1.13e-5;
+% b = 1.5e-6;
+% l = 0.25;
 
 W = sym('W', [4 1]);
 Th = sym('Th', [4 1]);
@@ -67,25 +67,31 @@ eq4 = F(4) - X(4);
 eq6 = F(6) - X(6);
 eqI = [eq1 eq3 eq4 eq6];
 eqI = subs(eqI, [W(1), W(3)], [0, 0]);
+subs(eqI, [Th(2) Th(4)], [0 0])
 
-eq2 = F(2) - X(2);
-eq3 = F(3) - X(3);
-eq5 = F(5) - X(5);
-eq6 = F(6) - X(6);
+eq2 = F(2) == X(2);
+eq3 = F(3) == X(3);
+eq5 = F(5) == X(5);
+eq6 = F(6) == X(6);
 eqII = [eq2 eq3 eq5 eq6];
 eqII = subs(eqII, [W(2), W(4)], [0, 0]);
 
-
 %% generate
 s = solve(eqII, [W(1) W(3) Th(1) Th(3)]);
-simplify(s.Th1(1));
-simplify(s.Th3(3));
-% th1 = s.Th1(3); 
-% th3 = s.Th3(3);
-% pretty(simplify ([th1;th3]))
-% solve(tan(th/2), t3)
-% simplify(s.Th3)
+th3 = simplify(s.Th3(4));
+
+%%
+% f3_ = 20;
+% t2_ = 0;
+% t3_ = -2.64;
+% th3 = vpa(subs(th3, [f3 t2 t3], [f3_ t2_ t3_]));
+% ezplot(th3, [-25 25])
+% TgHalfTh3 = -tan(th3/2);
+% z = solve(TgHalfTh3==-tan(pi/6));
+% double(z)
+%%
 return
+
 matlabFunction(s.W1, 'file', 'tests/W1.m');
 matlabFunction(s.W3, 'file', 'tests/W3.m');
 matlabFunction(s.Th1, 'file', 'tests/Th1.m');

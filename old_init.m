@@ -58,17 +58,10 @@ qc.w_des_lim = pi;
 qc.wdot_des_lim = pi/2;
 qc.tau_des_lim = 0.08;
 
-%% force&torqs lim
-qc.torq_h_lim = 0.25;
-qc.torq_v_lim = 2.5;
-qc.acc_v_lim = 2.5;
-qc.acc_h_lim = 2.5;
-
-
 %% init pose
-qc.r0 = 0*[-1.5;0.05;0];
+qc.r0 = 1*[-1.5;0.05;0];
 qc.v0 = 1*[0;-2;0];
-alpha = 0*pi/2;
+alpha = 1*pi/2;
 pin = [0;0;-1];
 qc.qBI0 = [cos(alpha/2);pin*sin(alpha/2)];
 qc.omegaB0 = 0*[1;0;1]*2*pi;

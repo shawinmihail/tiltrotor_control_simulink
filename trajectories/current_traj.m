@@ -4,10 +4,9 @@ traj_num = 0;
 %%%%%%%%%%%
 if traj_num == 0
 %% point
-r_des = 1*[5;0;10];
-eul_des = 1*[179;10;10]*pi/180;
+r_des = 100*[1;0;1];
+eul_des = 0*[0;15*sin(1*t);15*cos(1*t)]*pi/180;
 R_des = eul2rotm(eul_des');
-
 
 elseif traj_num == 1
 %% circle
