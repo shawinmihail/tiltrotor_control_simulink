@@ -34,9 +34,9 @@ qc.c = 1.05;
 qc.ro = 1;
 
 %% constraints
-qc.tw = 1.8;
+qc.tw = 1.6;
 qc.max_tw= qc.tw + 0.2;
-qc.Th_lim = pi/3;
+qc.Th_lim = 75*pi/180;
 qc.Th_dot_lim = 6;
 qc.W_lim = qc.tw*abs(qc.m*qc.g(3))/(4*qc.k);
 qc.W_lim_max_tw = qc.max_tw*abs(qc.m*qc.g(3))/(4*qc.k);
@@ -45,9 +45,9 @@ qc.vertical_acc_max = min(5, (qc.tw-1.15)*abs(qc.g(3))); % at least 15% for hori
 qc.vertical_acc_min = -qc.vertical_acc_max;
 
 %% error lims
-qc.r_error_lim = inf;
-qc.rdot_error_lim = inf;
-qc.r2dot_error_lim = inf;
+qc.r_error_lim = 20;
+qc.rdot_error_lim = 16;
+qc.r2dot_error_lim = 3;
 qc.omega_error_lim = 1.5;
 qc.omegadot_error_lim = 1.5;
 
@@ -56,18 +56,17 @@ qc.rdot_des_lim = 20;
 qc.r2dot_des_lim = 1*qc.tw*abs(qc.g(3))/qc.m;
 qc.w_des_lim = pi;
 qc.wdot_des_lim = pi/2;
-qc.tau_des_lim = 0.08;
 
 %% force&torqs lim
-qc.torq_h_lim = 0.25;
-qc.torq_v_lim = 2.5;
-qc.acc_v_lim = 2.5;
-qc.acc_h_lim = 2.5;
+qc.torq_h_lim = 0.1;
+qc.torq_v_lim = 2;
+qc.acc_v_lim = 3;
+qc.acc_h_lim = 3;
 
 
 %% init pose
 qc.r0 = 0*[-1.5;0.05;0];
-qc.v0 = 1*[0;-2;0];
+qc.v0 = 0*[0;-2;0];
 alpha = 0*pi/2;
 pin = [0;0;-1];
 qc.qBI0 = [cos(alpha/2);pin*sin(alpha/2)];
