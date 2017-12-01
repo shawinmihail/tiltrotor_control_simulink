@@ -2,14 +2,14 @@ function [ r_des, R_des, eul_des ] = current_traj( t, rr)
 
 
 %%%%%%%%%%%
-traj_num = 0;
+traj_num = 4;
 %%%%%%%%%%%
 
 
 if traj_num == 0
 %% point
 r_des =  10*[10;2;1];
-eul_des = 1*[30*t;10*sin(t);0]*pi/180;
+eul_des = 1*[30*t;15*sin(t);15*sin(t)]*pi/180;
 R_des = eul2rotm(eul_des'); 
 
 elseif traj_num == 1
@@ -106,8 +106,13 @@ end
 q = quatBetweenVectors([1;0;0], dr);
 R_des = quat2rotm(q');
 eul_des = quat2eul(q')';
-end
+%% random points
+elseif traj_num == 4
+r_des =  100*[0.7-0.5;0.2-0.5;0.56-0.5];
+eul_des = pi*[0.66-0.5;0.95-0.5;0.12-0.5];
+R_des = eul2rotm(eul_des'); 
 
+end
 
 end
 

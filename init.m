@@ -63,6 +63,14 @@ qc.torq_v_lim = 2;
 qc.acc_v_lim = 3;
 qc.acc_h_lim = 3;
 
+gN = abs(qc.g(3));
+qc.f_v_max_lim = qc.m*(gN + qc.acc_v_lim);
+qc.f_v_min_lim = qc.m*(gN - qc.acc_v_lim);
+qc.f_h_lim_bound = qc.acc_h_lim*qc.m;
+qc.t3_typical = qc.m*gN*qc.b/2/qc.k;
+qc.f_h_lim = xflLimits( qc.t3_typical, qc.f_v_max_lim, qc.f_h_lim_bound, qc.torq_h_lim, qc.torq_v_lim, qc.W_lim, qc.Th_lim);
+
+
 
 %% init pose
 qc.r0 = 0*[-1.5;0.05;0];
