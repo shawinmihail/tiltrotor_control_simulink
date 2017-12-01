@@ -1,10 +1,10 @@
 clc
 clear
 %%
-syms k b l q
-% k = 1.13e-5;
-% b = 1.5e-6;
-% l = 0.25;
+% syms k b l q
+k = 1.13e-5;
+b = 1.5e-6;
+l = 0.25;
 
 W = sym('W', [4 1]);
 Th = sym('Th', [4 1]);
@@ -55,7 +55,8 @@ for i = 1:4
     J(6, i) = k*l*(-dir*sin(th)) + 1*b*(-cos(th));
     F = F + J(:,i)*w;
 end
-
+return
+matlabFunction(J,'file', 'tests/xflJ');
 syms f1 f2 f3 t1 t2 t3
 f = [f1;f2;f3];
 t = [t1;t2;t3];

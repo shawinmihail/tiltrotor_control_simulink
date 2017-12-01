@@ -78,7 +78,6 @@ qc.Th0 = 0*[th;th;-th;-th]*pi/180;
 
 %% simulation
 qc.time_step = 10*(1e-3);
-% qc.control_tick = 0.005;
 qc.draw_mode = 1;
 qc.draw_tick = 0.1;
 
@@ -89,4 +88,4 @@ qc.Th_transfer_bot = [0.06 1 6];
 
 %% generate
 % jacobian_own( qc.rays, qc.rot_dirs, qc.k, qc.b, qc.l)
-% jacobian_torque_advanced( qc.rays, qc.rot_dirs, qc.k, qc.b, qc.l, qc.I_P(3,3), qc.time_step)
+jacobian_torque_advanced( qc.rays, qc.rot_dirs, qc.k, qc.b, qc.l, qc.I_P(3,3), qc.time_step)
