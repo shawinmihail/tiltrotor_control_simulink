@@ -34,8 +34,8 @@ qc.c = 1.05;
 qc.ro = 1;
 
 %% constraints
-qc.tw = 1.6;
-qc.max_tw= qc.tw + 0.2;
+qc.tw = 1.5;
+qc.max_tw = qc.tw+0.2;
 qc.Th_lim = 75*pi/180;
 qc.Th_dot_lim = 6;
 qc.W_lim = qc.tw*abs(qc.m*qc.g(3))/(4*qc.k);
@@ -73,11 +73,12 @@ qc.f_h_lim = xflLimits( qc.t3_typical, qc.f_v_max_lim, qc.f_h_lim_bound, qc.torq
 
 
 %% init pose
-qc.r0 = 0*[-1.5;0.05;0];
-qc.v0 = 0*[0;-2;0];
+qc.r0 = 1*[0;0;0];
+qc.v0 = 1*[0.47;0.94;0];
 alpha = 0*pi/2;
 pin = [0;0;-1];
 qc.qBI0 = [cos(alpha/2);pin*sin(alpha/2)];
+qc.qBI0 = [0.8507;0;0;0.5257];
 qc.omegaB0 = 0*[1;0;1]*2*pi;
 wg = abs(qc.m*qc.g(3))/(4*qc.k);
 qc.W0 = 1*qc.rot_dirs*wg;

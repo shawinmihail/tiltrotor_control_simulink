@@ -5,7 +5,7 @@ path = '\img\';
 
 save = 1;
 save_size = [];
-s = 8;
+s = 20;
 
 %%
 t = time.Data;
@@ -53,23 +53,19 @@ set(yl, 'Units', 'Normalized', 'Position', [0.1, 0.5, 0]);
 % xlim([0 14])
 % ylim([-1.4 1.6])
 
-%% wals
-% wallX = [0;0];
-% wallY = [-1;0.5];
-% e = [1;1];
-% plot(wallX + (2+5/4)*e, wallY ,'Color','r','LineWidth',w, 'linestyle', '-');
-% plot(wallX + (2+5/4+1*5/2)*e, -wallY ,'Color','r','LineWidth',w, 'linestyle', '-');
-% plot(wallX + (2+5/4+2*5/2)*e, wallY ,'Color','r','LineWidth',w, 'linestyle', '-');
-% plot(wallX + (2+5/4+3*5/2)*e, -wallY ,'Color','r','LineWidth',w, 'linestyle', '-');
-% plot(wallX + (2+5/4+4*5/2)*e, wallY ,'Color','r','LineWidth',w, 'linestyle', '-');
-
 %% leg
 set(gca,'FontSize',s)
 [leg, hobj1] = legend('y(x) real', 'y(x) desired', 'Location','southeast');
 set(leg,'FontSize',s);
-rect = [0.66, 0.85, .1, .1];
+rect = [0.42, 0.85, .1, .1];
 set(leg, 'Position', rect)
 legend boxoff
+
+%%
+set(gcf, 'PaperUnits', 'p', 'PaperPosition', [0 0 800 600]);
+if save
+    saveas(gcf, [pwd path 'traj.eps'], 'epsc');
+end
 
 figure
 hold on
@@ -86,9 +82,3 @@ set(leg,'FontSize',s);
 %% 3d
 % plot3(x1(:,1), x1(:,2), x1(:,3), 'Color','r','LineWidth',w, 'linestyle', '-')
 % plot3(x2(:,1), x2(:,2), x2(:,3), 'Color','k','LineWidth',w, 'linestyle', '--');
-
-%%
-set(gcf, 'PaperUnits', 'p', 'PaperPosition', [0 0 200 180]);
-if save
-    saveas(gcf, [pwd path 'traj.eps'], 'epsc');
-end

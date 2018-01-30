@@ -1,10 +1,10 @@
 clc
 clear
 %%
-% syms k b l q
-k = 1.13e-5;
-b = 1.5e-6;
-l = 0.25;
+syms k b l q
+% k = 1.13e-5;
+% b = 1.5e-6;
+% l = 0.25;
 
 W = sym('W', [4 1]);
 Th = sym('Th', [4 1]);
@@ -80,55 +80,9 @@ eqII = subs(eqII, [W(2), W(4)], [0, 0]);
 
 %% generate
 s = solve(eqII, [W(1) W(3) Th(1) Th(3)]);
-
-% matlabFunction(s.W1, 'file', 'tests/W1.m');
-% matlabFunction(s.W3, 'file', 'tests/W3.m');
-% matlabFunction(s.Th1, 'file', 'tests/Th1.m');
-% matlabFunction(s.Th3, 'file', 'tests/Th3.m');
+pretty(simplify(s.W3))
+pretty(simplify(s.Th3))
+return
 
 s = solve(eqI, [W(2) W(4) Th(2) Th(4)]);
-
-simplify(s.W2)
 simplify(s.W4)
-
-% matlabFunction(s.W2, 'file', 'tests/W2.m');
-% matlabFunction(s.W4, 'file', 'tests/W4.m');
-% matlabFunction(s.Th2, 'file', 'tests/Th2.m');
-% matlabFunction(s.Th4, 'file', 'tests/Th4.m');
-
-return
-%%
-x = [10*rand()-5; 10*rand()-5; 40+10*rand(); rand()-0.5; rand()-0.5; 3*rand()-1.5]
-d = rand()/2;
-if x(6) > 0
-    tI = x(6) + d;
-    tII = -d;
-else
-    tI = d;
-    tII =  x(6) - d;
-end
-w2 = W2(x(1), x(3)/2, x(4), tI);
-th2 = Th2(x(1), x(3)/2, x(4), tI);
-w4 = W4(x(1), x(3)/2, x(4), tI);
-th4 = Th4(x(1), x(3)/2, x(4), tI);
-w1 = W1(x(2), x(3)/2, x(5), tII);
-th1 = Th1(x(2), x(3)/2, x(5), tII);
-w3 = W3(x(2), x(3)/2, x(5), tII);
-th3 = Th3(x(2), x(3)/2, x(5), tII);
-
-sW = [w1(3);w2(4);w3(3);w4(4)]
-sTh = [th1(3);th2(4);th3(3);th4(4)]
-
-double(subs(F, [W Th], [sW, sTh])-x)
-
-% q = sqrt(2)/2;
-% ef1 = [q*sin(Th(1));-q*sin(Th(1));cos(Th(1))];
-% ef2 = [-q*sin(Th(2));-q*sin(Th(2));-cos(Th(2))];
-% et1 = [q*l*cos(Th(1));-q*l*cos(Th(1));-l*sin(Th(1))];
-% et2 = [-q*l*cos(Th(2));-q*l*cos(Th(2));l*sin(Th(2))];
-% 
-% 
-% e1 = [ef1;et1];
-% e2 = [ef2;et2];
-% eN = cross(e1,e2);
-% eS = dot(X,eN)

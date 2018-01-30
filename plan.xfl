@@ -1,9 +1,0 @@
-+ simulate Th delay
-- simulate W delay
-- limit target traj
-- mesure params (Ip Ib ThTransfer k b m)
-- check params sustainability
-- set up EKF
-- gazebo additional dynamics
-- gazebo sensors plugin
-- px4 autopilot
