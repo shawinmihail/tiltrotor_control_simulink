@@ -24,7 +24,7 @@ qc.I_B =  [0.0348 0 0
       
 qc.I_P = 1*[8.450 0 0
           0 8.450 0
-          0 0 4.580]*1e-5;
+          0 0 4.580]*1e-9;
       
 %% aerodyn
 qc.k = 1.13e-5;
@@ -34,11 +34,11 @@ qc.c = 1.05;
 qc.ro = 1;
 
 %% constraints
-qc.tw = 1.5;
+qc.tw = 2.0;
 qc.max_tw = qc.tw+0.2;
-qc.Th_lim = 75*pi/180;
+qc.Th_lim = 40*pi/180;
 qc.Th_dot_lim = 6;
-qc.W_lim = qc.tw*abs(qc.m*qc.g(3))/(4*qc.k);
+qc.W_lim = 0.8*qc.tw*abs(qc.m*qc.g(3))/(4*qc.k);
 qc.W_lim_max_tw = qc.max_tw*abs(qc.m*qc.g(3))/(4*qc.k);
 qc.w_dot_lim = 0.5 * qc.b*qc.W_lim / qc.I_P(3,3); % tau max = -b*Wmax
 qc.vertical_acc_max = min(5, (qc.tw-1.15)*abs(qc.g(3))); % at least 15% for horizontal thrust
@@ -73,12 +73,13 @@ qc.f_h_lim = xflLimits( qc.t3_typical, qc.f_v_max_lim, qc.f_h_lim_bound, qc.torq
 
 
 %% init pose
-qc.r0 = 1*[0;0;0];
-qc.v0 = 1*[0.47;0.94;0];
+qc.r0 = 0*[0;0;0];
+qc.v0 = 0*[0.47;0.94;0];
 alpha = 0*pi/2;
 pin = [0;0;-1];
 qc.qBI0 = [cos(alpha/2);pin*sin(alpha/2)];
 qc.qBI0 = [0.8507;0;0;0.5257];
+qc.qBI0 = [1;0;0;0];
 qc.omegaB0 = 0*[1;0;1]*2*pi;
 wg = abs(qc.m*qc.g(3))/(4*qc.k);
 qc.W0 = 1*qc.rot_dirs*wg;
@@ -96,5 +97,9 @@ qc.Th_transfer_top = [0.4 6];
 qc.Th_transfer_bot = [0.06 1 6];
 
 %% generate
-% jacobian_own( qc.rays, qc.rot_dirs, qc.k, qc.b, qc.l)
+jacobian_own( qc.rays, qc.rot_dirs, qc.k, qc.b, qc.l)
 jacobian_torque_advanced( qc.rays, qc.rot_dirs, qc.k, qc.b, qc.l, qc.I_P(3,3), qc.time_step)
+
+%%
+thlim = qc.Th_lim
+wlim = sqrt(qc.W_lim)
