@@ -28,7 +28,7 @@ end
 dF = jacobian(F, [W; Th]);
 
 
-matlabFunction(F, 'file', 'system/F_own_fnc.m');
-matlabFunction(dF, 'file', 'system/dF_own_fnc.m');
+matlabFunction(F, 'file', 'generated/F_own_fnc.m');
+matlabFunction(dF, 'file', 'generated/dF_own_fnc.m');
 end
 

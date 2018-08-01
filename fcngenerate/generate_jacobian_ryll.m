@@ -54,7 +54,7 @@ end
 J = [Jf; Jt];
 dJ_w = [dJf_w; dJt_w];
 
-matlabFunction(J, 'file', 'system/J_fcn.m');
-matlabFunction(dJ_w, 'file', 'system/dJ_w_fcn.m');
+matlabFunction(J, 'file', 'generated/J_fcn.m');
+matlabFunction(dJ_w, 'file', 'generated/dJ_w_fcn.m');
 end
 

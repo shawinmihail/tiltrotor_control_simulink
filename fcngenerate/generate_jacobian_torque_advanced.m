@@ -26,7 +26,7 @@ for i = 1:4
     ft(3, i) = (Ipz/(2*w_*dt))*(-cos(th));
 end
 
-matlabFunction(Jt, 'file', 'system/Jt_fcn_advanced.m');
-matlabFunction(ft, 'file', 'system/ft_fcn_advanced.m');
+matlabFunction(Jt, 'file', 'generated/Jt_fcn_advanced.m');
+matlabFunction(ft, 'file', 'generated/ft_fcn_advanced.m');
 end
 

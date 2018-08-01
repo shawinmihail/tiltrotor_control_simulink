@@ -1,10 +1,10 @@
 clc
 clear
 %%
-syms k b l q
-% k = 1.13e-5;
-% b = 1.5e-6;
-% l = 0.25;
+% syms k b l q
+k = 1.13e-5;
+b = 1.5e-6;
+l = 0.25;
 
 W = sym('W', [4 1]);
 Th = sym('Th', [4 1]);
@@ -13,7 +13,7 @@ f = sym('f', [3 1]);
 F = zeros(6,1);
 
 % assume([k b l],'real')
-rot_dirs = [1;-1;1;-1];
+rot_dirs = [-1;1;-1;1];
 rays =  [1;1;0;
          -1;1;0;
          -1;-1;0
@@ -56,7 +56,9 @@ for i = 1:4
     F = F + J(:,i)*w;
 end
 
-% matlabFunction(J,'file', 'tests/xflJ');
+matlabFunction(J,'file', 'tests/xflJ');
+
+return
 
 syms f1 f2 f3 t1 t2 t3 eps
 f = [f1;f2;f3];

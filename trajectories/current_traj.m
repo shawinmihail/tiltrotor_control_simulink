@@ -1,5 +1,11 @@
 function [ r_des, R_des, eul_des ] = current_traj( t, rr)
 
+r_des = [1;2;3];
+q = [20 1 0 0]';
+q = q / norm(q);
+R_des = quat2rotm(q');
+eul_des = quat2eul(q')';
+return
 %% sin
 l1 = 2;
 a1 = 0.5;

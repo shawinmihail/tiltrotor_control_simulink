@@ -13,7 +13,7 @@ qc.rays =  [1;1;0;
 for i = 1:4
     qc.rays(3*i-2:3*i) = qc.l*qc.rays(3*i-2:3*i)/norm(qc.rays(3*i-2:3*i));
 end
-qc.rot_dirs = [1;-1;1;-1];
+qc.rot_dirs = [-1;1;-1;1];
 
 %% dyn
 qc.g = [0;0;-9.81]*1;
@@ -41,8 +41,6 @@ qc.Th_dot_lim = 6;
 qc.W_lim = 0.8*qc.tw*abs(qc.m*qc.g(3))/(4*qc.k);
 qc.W_lim_max_tw = qc.max_tw*abs(qc.m*qc.g(3))/(4*qc.k);
 qc.w_dot_lim = 0.5 * qc.b*qc.W_lim / qc.I_P(3,3); % tau max = -b*Wmax
-qc.vertical_acc_max = min(5, (qc.tw-1.15)*abs(qc.g(3))); % at least 15% for horizontal thrust
-qc.vertical_acc_min = -qc.vertical_acc_max;
 
 %% error lims
 qc.r_error_lim = 20;
@@ -56,21 +54,6 @@ qc.rdot_des_lim = 20;
 qc.r2dot_des_lim = 1*qc.tw*abs(qc.g(3))/qc.m;
 qc.w_des_lim = pi;
 qc.wdot_des_lim = pi/2;
-
-%% force&torqs lim
-qc.torq_h_lim = 0.1;
-qc.torq_v_lim = 2;
-qc.acc_v_lim = 3;
-qc.acc_h_lim = 3;
-
-gN = abs(qc.g(3));
-qc.f_v_max_lim = qc.m*(gN + qc.acc_v_lim);
-qc.f_v_min_lim = qc.m*(gN - qc.acc_v_lim);
-qc.f_h_lim_bound = qc.acc_h_lim*qc.m;
-qc.t3_typical = qc.m*gN*qc.b/2/qc.k;
-qc.f_h_lim = xflLimits( qc.t3_typical, qc.f_v_max_lim, qc.f_h_lim_bound, qc.torq_h_lim, qc.torq_v_lim, qc.W_lim, qc.Th_lim);
-
-
 
 %% init pose
 qc.r0 = 0*[0;0;0];
@@ -97,9 +80,27 @@ qc.Th_transfer_top = [0.4 6];
 qc.Th_transfer_bot = [0.06 1 6];
 
 %% generate
-jacobian_own( qc.rays, qc.rot_dirs, qc.k, qc.b, qc.l)
-jacobian_torque_advanced( qc.rays, qc.rot_dirs, qc.k, qc.b, qc.l, qc.I_P(3,3), qc.time_step)
+% generate_jacobian_own( qc.rays, qc.rot_dirs, qc.k, qc.b, qc.l)
+% generate_jacobian_torque_advanced( qc.rays, qc.rot_dirs, qc.k, qc.b, qc.l, qc.I_P(3,3), qc.time_step)
+generate_solution_MPMP(qc.k, qc.b, qc.l)
+generate_jacobian_xfl(qc.k, qc.b, qc.l, qc.rot_dirs, qc.rays)
+
+%% limits
+d = [2.5 2.5 2.5 0.05 0.05 0.05]; % suppose v(1) = v(2), v(4) = v(5)
+T0 = qc.m*norm(qc.g)*qc.b/2/qc.k; % torque from pair of motors in hover
+F0 = qc.m*norm(qc.g); %thrust from all of motors in hover
+a_range = [13 20];
+step = 0.5;
+% limits = find_limits_rectangle_MPMP(T0, F0, qc.k, qc.b, qc.l, qc.W_lim,  qc.Th_lim, d, a_range, step)
+limits = [8.6585    8.6585    8.6585    0.1732    0.1732    0.1732];
+qc.force_v_lim = limits(1);
+qc.force_h_min = F0 - limits(3);
+qc.force_h_max = F0 + limits(3);
+qc.torq_balance_coeff = T0;
+qc.torq_h_lim = limits(4);
+qc.torq_v_lim = limits(6);
+
 
 %%
-thlim = qc.Th_lim
-wlim = sqrt(qc.W_lim)
+thlim = qc.Th_lim;
+wlim = sqrt(qc.W_lim);
