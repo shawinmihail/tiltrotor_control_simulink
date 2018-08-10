@@ -71,7 +71,7 @@ qc.Th0 = 0*[th;th;-th;-th]*pi/180;
 
 %% simulation
 qc.time_step = 10*(1e-3);
-qc.draw_mode = 1;
+qc.draw_mode = 0;
 qc.draw_tick = 0.1;
 
 
@@ -82,8 +82,8 @@ qc.Th_transfer_bot = [0.06 1 6];
 %% generate
 % generate_jacobian_own( qc.rays, qc.rot_dirs, qc.k, qc.b, qc.l)
 % generate_jacobian_torque_advanced( qc.rays, qc.rot_dirs, qc.k, qc.b, qc.l, qc.I_P(3,3), qc.time_step)
-generate_solution_MPMP(qc.k, qc.b, qc.l)
-generate_jacobian_xfl(qc.k, qc.b, qc.l, qc.rot_dirs, qc.rays)
+% generate_solution_MPMP(qc.k, qc.b, qc.l)
+% generate_jacobian_xfl(qc.k, qc.b, qc.l, qc.rot_dirs, qc.rays)
 
 %% limits
 d = [2.5 2.5 2.5 0.05 0.05 0.05]; % suppose v(1) = v(2), v(4) = v(5)
@@ -104,3 +104,7 @@ qc.torq_v_lim = limits(6);
 %%
 thlim = qc.Th_lim;
 wlim = sqrt(qc.W_lim);
+
+%%
+run('ekf_init.m');
+run('spkf_init.m');

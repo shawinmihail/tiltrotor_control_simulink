@@ -79,6 +79,15 @@ set(leg,'FontSize',s);
 % xlim([0 8])
 % ylim([-1 1])
 
-%% 3d
-% plot3(x1(:,1), x1(:,2), x1(:,3), 'Color','r','LineWidth',w, 'linestyle', '-')
-% plot3(x2(:,1), x2(:,2), x2(:,3), 'Color','k','LineWidth',w, 'linestyle', '--');
+% 3d
+figure
+hold on
+grid on;
+plot3(rr(:,1), rr(:,2), rr(:,3), 'Color','g','LineWidth',w, 'linestyle', '-');
+plot3(rd(:,1), rd(:,2), rd(:,3), 'Color','k','LineWidth',w, 'linestyle', '--');
+
+xl = xlabel('x, m');
+yl = ylabel('y, m');
+zl = ylabel('z, m');
+leg = legend('trajectory', 'trajectory desired', 'Location','southeast');
+set(leg,'FontSize',22);

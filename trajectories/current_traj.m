@@ -1,10 +1,28 @@
 function [ r_des, R_des, eul_des ] = current_traj( t, rr)
-
-r_des = [1;2;3];
-q = [20 1 0 0]';
+r_des = [0;0;7];
+q = [1 0 0 0]';
 q = q / norm(q);
 R_des = quat2rotm(q');
 eul_des = quat2eul(q')';
+if t < 50
+r_des = 5*[cos(2*pi*t/31)-1;1*sin(2*pi*t/19);exp(sin(t/7))-1];
+q = [300 10*sin(2*pi*t/19) 10*(cos(2*pi*t/31)-1) 100*exp(sin(t/7))-1]';
+q = q / norm(q);
+R_des = quat2rotm(q');
+eul_des = quat2eul(q')';
+elseif t < 10
+r_des = [0;0;7];
+q = [100 5 0 30]';
+q = q / norm(q);
+R_des = quat2rotm(q');
+eul_des = quat2eul(q')';
+elseif t < 20
+r_des = [5;1;7];
+q = [100 5 0 30]';
+q = q / norm(q);
+R_des = quat2rotm(q');
+eul_des = quat2eul(q')';
+end
 return
 %% sin
 l1 = 2;
