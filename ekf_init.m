@@ -11,10 +11,10 @@ x = x(6)*1e4;
 qc.seed = mod(x, 31*19*17);
 qc.seed = 100;
 
-qc.poseNoiseA = 2.77;
-qc.vdotNoiseA = 2.21;
-qc.quatNoiseA = 0.02;
-qc.omegaNoiseA = 0.2;
+qc.poseNoiseA = 2.21;
+qc.vdotNoiseA = 1.51;
+qc.quatNoiseA = 0.03;
+qc.omegaNoiseA = 0.18;
 
 %% Kalman
 % x = r rdot q omega

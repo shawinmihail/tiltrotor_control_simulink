@@ -1,5 +1,7 @@
 function generate_jacobian_xfl( k, b, l, rot_dirs, rays )
 
+%% X' is parallel ray1
+
 W = sym('W', [4 1]);
 Th = sym('Th', [4 1]);
 F = zeros(6,1);
@@ -35,8 +37,8 @@ for i = 1:4
     J(6, i) = k*l*(-dir*sin(th)) + 1*b*(-cos(th));
     F = F + J(:,i)*w;
 end
-
-matlabFunction(J,'file', 'generated/xflJ');
+F
+% matlabFunction(J,'file', 'generated/xflJ');
 
 end
 

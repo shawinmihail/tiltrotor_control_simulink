@@ -8,9 +8,9 @@ save = 0;
 %%
 t = time.Data;
 r_m = r_mes.Data;
-r_f = r_filtered.Data;
+r_f = r_filtered_ukf.Data;
 r_r = r_real.Data;
-eul_f = eul_filtered.Data;
+eul_f = eul_filtered_ukf.Data;
 eul_m =eul_mes.Data;
 eul_r =eul_real.Data;
 
@@ -44,7 +44,7 @@ leg = legend(label, 'Location','southeast');
 set(leg,'FontSize',s);
 xlabel('time, s');
 ylabel(['error, ', xunit]);
-ylim([-LIM, LIM]);
+% ylim([-LIM, LIM]);
 
 %% x filtered error
 subplot(2,1,2);
@@ -57,7 +57,7 @@ leg = legend(label, 'Location','southeast');
 set(leg,'FontSize',s);
 xlabel('time, s');
 ylabel(['error, ', xunit]);
-ylim([-LIM, LIM]);
+% ylim([-LIM, LIM]);
 
 
 set(gcf, 'PaperUnits', 'centimeters', 'PaperPosition', [0 0 60 20]);

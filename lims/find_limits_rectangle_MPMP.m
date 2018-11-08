@@ -1,4 +1,4 @@
-function limits = find_limits_rectangle_MPMP( T_, F_, k_, b_, l_, W_,  Th_, d, a_range, step)
+function limits = find_limits_rectangle_MPMP( T0_, F0_, Fc_, k_, b_, l_, W_,  Th_, d, a_range, step)
 
 syms k b l
 syms f1 f2 f3 t1 t2 t3
@@ -30,17 +30,14 @@ for i = 1 : length(conditions_vector)
     matlabFunction(f, 'file', name);
 end
 
-y0 = [0 0 F_ 0 0 0];
+y0 = [0 0 Fc_ 0 0 0];
 d = d / norm(d);
 
 ends = 0;
 a_star = -1;
-limits = 0;
 
 for a = a_range(1):step:a_range(2)
-    
-    disp(a)
-    
+        
     ps = permn([1 -1], 6); %% finding all vertixes of 6-n cube
     s = size(ps);
     
@@ -48,10 +45,10 @@ for a = a_range(1):step:a_range(2)
         p = ps(i, :);
         y = a * d .* p + y0;
         
-        f3_13 = y(3)/2;
-        f3_24 = y(3)/2;
-        t3_13 =  T_ + y(6)/2;
-        t3_24 = -T_ - y(6)/2;
+        f3_13 =  F0_ + y(3)/2;
+        f3_24 = -F0_ + y(3)/2;
+        t3_13 =  T0_ + y(6)/2;
+        t3_24 = -T0_ + y(6)/2;
         
         subX1 = limitCondition1(y(2),f3_13,y(5),t3_13);
         subY1 = limitCondition3(y(2),f3_13,y(5),t3_13);
@@ -75,6 +72,7 @@ for a = a_range(1):step:a_range(2)
         if checkX1+checkY1+checkX2+checkY2+checkX3+checkY3+checkX4+checkY4 > 0
             a_star = a - step;
             ends = 1;
+            
             break;
         end
     end
