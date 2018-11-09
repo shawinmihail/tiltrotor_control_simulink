@@ -25,8 +25,8 @@ r2 = [0.5 0 0];
 g2  = [0 0.5 0];
 b2 = [0 0.5 1];
 gray = [0.7 0.7 0.7];
-lim_q = 0.25;
-lim_r = 10;
+lim_q = 0.05;
+lim_r = 5;
 
 %% roll
 figure
@@ -85,7 +85,7 @@ set(leg,'FontSize',s);
 xlabel('t, s');
 ylabel('\delta_{mes}, rad');
 
-ylim([-lim_q lim_q])
+ylim(2*[-lim_q lim_q])
 set(gcf, 'PaperUnits', 'p', 'PaperPosition', [0 0 height width]);
 if save
     saveas(gcf, [pwd path 'yaw_ukf_perf.png']);
@@ -149,7 +149,7 @@ set(leg,'FontSize',s);
 xlabel('t, s');
 ylabel('\delta, m');
 
-ylim([-lim_r lim_r])
+ylim(2*[-lim_r lim_r])
 set(gcf, 'PaperUnits', 'p', 'PaperPosition', [0 0 height width]);
 if save
     saveas(gcf, [pwd path 'z_ukf_perf.png']);

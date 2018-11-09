@@ -14,8 +14,8 @@ qc.spkf_wic = qc.spkf_wim;
 
 qc.spkf_X0 = [qc.r0;    qc.v0;    qc.qBI0;    qc.omegaB0]';
 
-qc.spkf_R0 = diag([5e-4*[1 1 1]    5e-4*[1 1 1]    1e-6*[1 1 1 1]     1e-8*[1 1 1]]);
-qc.spkf_Q0 = diag([1*[1 1 1]    1*[1 1 1]    1e-4*[1 1 1 1]     1e-3*[1 1 1] ]);
+qc.spkf_R0 = diag([1e-2*[1 1 1]    1e-2*[1 1 1]    1e-6*[1 1 1 1]     1e-2*[1 1 1]]);
+qc.spkf_Q0 = diag([1*[1 1 2]    1e-1*[1 1 1]    1e-4*[100 1 1 1]     1e-2*[1 1 1] ]);
 
 % qc.spkf_R0 = qc.ekf_R;
 % qc.spkf_Q0 = qc.ekf_Q;

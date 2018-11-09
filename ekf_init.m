@@ -5,20 +5,7 @@ o44 = zeros(4, 4);
 e33 = eye(3);
 e44 = eye(4);
 
-%% NOISE
-x = clock;
-x = x(6)*1e4;
-qc.seed = mod(x, 31*19*17);
-qc.seed = 100;
 
-qc.poseNoiseA = 2.21;
-qc.vdotNoiseA = 1.51;
-qc.quatNoiseA = 0.03;
-qc.omegaNoiseA = 0.18;
-
-%% Kalman
-% x = r rdot q omega
-% z = r r2dot q omega
 
 qc.ekf_x0 = [qc.r0; qc.v0; qc.qBI0; qc.omegaB0];
     

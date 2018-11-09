@@ -58,7 +58,7 @@ qc.wdot_des_lim = inf;
 
 %% init pose
 qc.r0 = 1*[-5;20;0];
-qc.v0 = 1*[5;0;5];
+qc.v0 = 1*[5;0;8];
 alpha = 0*pi/2;
 pin = [0;0;-1];
 qc.omegaB0 = 0*[1;0;1]*2*pi;
@@ -90,17 +90,15 @@ vforce = 2;
 htorque = 0.05;
 vtorque = 0.05;
 d = [hforce hforce vforce htorque htorque vtorque]; % suppose v(1) = v(2), v(4) = v(5)
-T0 = qc.m*norm(qc.g)*qc.b/2/qc.k; % torque from pair of motors in hover
+%T0 = qc.m*norm(qc.g)*qc.b/2/qc.k; % torque from pair of motors in hover
+T0 = 2.6;
 F0 = 0;
-% T0 = 2.5;
 FC = qc.m*norm(qc.g); %thrust from all of motors in hover
 a_range = [0 100];
 step = 0.5;
 
-
-limits = find_limits_rectangle_MPMP(T0, F0, FC, qc.k, qc.b, qc.l, qc.W_lim,  qc.Th_lim, d, a_range, step)
-
-% limits = [6.0603    6.0603    6.0603    0.1515    0.1515    0.1515];
+% limits = find_limits_rectangle_MPMP(T0, F0, FC, qc.k, qc.b, qc.l, qc.W_lim,  qc.Th_lim, d, a_range, step)
+limits = [8.0804    8.0804    8.0804    0.2020    0.2020    0.2020];
 qc.force_v_lim = limits(1);
 qc.force_h_min = FC - limits(3);
 qc.force_h_max = FC + limits(3);
@@ -114,5 +112,6 @@ thlim = qc.Th_lim;
 wlim = sqrt(qc.W_lim);
 
 %%
+run('sensors_init.m');
 run('ekf_init.m');
 run('spkf_init.m');
