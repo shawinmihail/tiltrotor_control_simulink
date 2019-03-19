@@ -82,7 +82,6 @@ eqII = subs(eqII, [W(2), W(4)], [0, 0]);
 s = solve(eqII, [W(1) W(3) Th(1) Th(3)]);
 pretty(simplify(s.W3))
 pretty(simplify(s.Th3))
-return
 
 s = solve(eqI, [W(2) W(4) Th(2) Th(4)]);
 simplify(s.W4)

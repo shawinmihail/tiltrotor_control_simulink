@@ -34,8 +34,8 @@ qc.c = 1.05;
 qc.ro = 1;
 
 %% constraints
-qc.tw = 3;
-qc.Th_lim = pi/3;
+qc.tw = 4;
+qc.Th_lim = pi;
 qc.Th_dot_lim = 20;
 
 qc.max_tw = qc.tw+0.2;
@@ -44,8 +44,8 @@ qc.W_lim_max_tw = qc.max_tw*abs(qc.m*qc.g(3))/(4*qc.k);
 qc.w_dot_lim = 0.5 * qc.b*qc.W_lim / qc.I_P(3,3); % tau max = -b*Wmax
 
 %% error lims
-qc.r_error_lim = 30;
-qc.rdot_error_lim = 15;
+qc.r_error_lim = 1;
+qc.rdot_error_lim = inf;
 qc.r2dot_error_lim = inf;
 qc.omega_error_lim = inf;
 qc.omegadot_error_lim = inf;
@@ -57,10 +57,10 @@ qc.w_des_lim = inf;
 qc.wdot_des_lim = inf;
 
 %% init pose
-qc.r0 = 1*[-5;20;0];
-qc.v0 = 1*[5;0;8];
-alpha = 0*pi/2;
-pin = [0;0;-1];
+qc.r0 = 0*[-5;20;0];
+qc.v0 = 0*[5;0;8];
+alpha = -pi/2;
+pin = [0;1;0];
 qc.omegaB0 = 0*[1;0;1]*2*pi;
 
 qc.qBI0 = [cos(alpha/2);pin*sin(alpha/2)];
@@ -70,8 +70,8 @@ th = 0;
 qc.Th0 = 0*[th;th;-th;-th]*pi/180;
 
 %% simulation
-qc.time_step = 10*(1e-3);
-qc.draw_mode = 0;
+qc.time_step = 1e-3;
+qc.draw_mode = 1;
 qc.draw_tick = 0.1;
 
 
@@ -80,9 +80,10 @@ qc.Th_transfer_top = [0.4 6];
 qc.Th_transfer_bot = [0.06 1 6];
 
 %% generate
-% generate_jacobian_xfl_B( qc.rays, qc.rot_dirs, qc.k, qc.b, qc.l)
-% generate_force_from_torque_line(qc.rays, qc.rot_dirs, qc.k, qc.b, qc.l)
-% generate_solution_MPMP(qc.k, qc.b, qc.l)
+%generate_jacobian_xfl_B( qc.rays, qc.rot_dirs, qc.k, qc.b, qc.l)
+%generate_force_from_torque_line(qc.rays, qc.rot_dirs, qc.k, qc.b, qc.l)
+%generate_solution_MPMP(qc.k, qc.b, qc.l)
+%generate_em_solution_MPMP(qc.k, qc.b, qc.l)
 
 %% limits
 hforce = 2;
@@ -110,6 +111,9 @@ qc.torq_v_lim = limits(6);
 %%
 thlim = qc.Th_lim;
 wlim = sqrt(qc.W_lim);
+
+%% emergency control
+qc.em_unit = em_thrust_unit();
 
 %%
 run('sensors_init.m');

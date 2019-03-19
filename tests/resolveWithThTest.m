@@ -86,9 +86,9 @@ w3 = s1.W3
 w2 = s2.W2
 w4 = s2.W4
 
-matlabFunction(w1, 'file', 'tests/W1ThPredicted.m');
-matlabFunction(w3, 'file', 'tests/W3ThPredicted.m');
-matlabFunction(w2, 'file', 'tests/W2ThPredicted.m');
-matlabFunction(w4, 'file', 'tests/W4ThPredicted.m');
+% matlabFunction(w1, 'file', 'tests/W1ThPredicted.m');
+% matlabFunction(w3, 'file', 'tests/W3ThPredicted.m');
+% matlabFunction(w2, 'file', 'tests/W2ThPredicted.m');
+% matlabFunction(w4, 'file', 'tests/W4ThPredicted.m');
 
 return

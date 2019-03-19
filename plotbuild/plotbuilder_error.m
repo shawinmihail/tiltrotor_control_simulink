@@ -40,7 +40,7 @@ set(leg,'FontSize',s);
 xl = xlabel('t, s');
 yl = ylabel('\delta, rad');
 
-ylim([-0.1 0.1])
+% ylim([-0.1 0.1])
 set(gcf, 'PaperUnits', 'p', 'PaperPosition', [0 0 height width]);
 if save
     saveas(gcf, [pwd path 'roll_error.png']);
@@ -62,12 +62,14 @@ set(leg,'FontSize',s);
 xl = xlabel('t, s');
 yl = ylabel('\delta, rad');
 
-ylim([-0.1 0.1])
+% ylim([-0.1 0.1])
 set(gcf, 'PaperUnits', 'p', 'PaperPosition', [0 0 height width]);
 if save
     saveas(gcf, [pwd path 'pitch_error.png']);
     saveas(gcf, [pwd path 'pitch_error.fig']);
 end
+
+return
 
 %% yaw error
 figure

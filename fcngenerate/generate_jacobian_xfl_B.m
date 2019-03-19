@@ -23,7 +23,6 @@ for i = 1:4
     J(6, i) = k*l*(-dir*sin(th)) + b*(-cos(th));
     F = F + J(:,i)*w;
 end
-
 matlabFunction(J, 'file', 'generated/xfl_J_B.m');
 end
 

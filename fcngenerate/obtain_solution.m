@@ -56,7 +56,6 @@ eq4 = F(4) - X(4);
 eq6 = F(6) - X(6);
 eqI = [eq1 eq3 eq4 eq6];
 eqI = subs(eqI, [W(1), W(3)], [0, 0]);
-% subs(eqI, [Th(2) Th(4)], [0 0]);
 
 eq2 = F(2) == X(2);
 eq3 = F(3) == X(3);
@@ -66,15 +65,15 @@ eqII = [eq2 eq3 eq5 eq6];
 eqII = subs(eqII, [W(2), W(4)], [0, 0]);
 
 %% generate
-s13 = solve(eqII, [W(1) W(3) Th(1) Th(3)]);
-s24 = solve(eqI, [W(2) W(4) Th(2) Th(4)]);
+s13 = solve(eqII, [W(1) W(3) Th(1) Th(3)], 'IgnoreProperties', true);
+s24 = solve(eqI, [W(2) W(4) Th(2) Th(4)], 'IgnoreProperties', true);
 
 W1s = simplify(s13.W1);
 W2s = simplify(s24.W2);
 W3s = simplify(s13.W3);
 W4s = simplify(s24.W4);
 
-Th1s = simplify(s13.Th1)
+Th1s = simplify(s13.Th1);
 Th2s = simplify(s24.Th2);
 Th3s = simplify(s13.Th3);
 Th4s = simplify(s24.Th4);
