@@ -16,7 +16,7 @@ b2 = [0 0.5 1];
 gray = [0.7 0.7 0.7];
 k = 'k';
 
-lim_q = 0.5;
+lim_q = 3;
 
 %% roll
 figure
@@ -26,15 +26,9 @@ plot(t, eul_r(:,3),'Color','r','LineWidth',w, 'linestyle', '-');
 plot(t, eul_d(:,3),'Color',k,'LineWidth',w, 'linestyle', '--');
 set(gca,'FontSize',s)
 
-leg = legend('\alpha', '\alpha_0', 'Location','southeast');
-set(leg,'FontSize',s);
+xl = xlabel('t, ñ');
+yl = ylabel('q_x');
 
-legend boxoff
-
-xl = xlabel('t, s');
-yl = ylabel('\alpha, rad');
-
-ylim([-lim_q lim_q])
 set(gcf, 'PaperUnits', 'p', 'PaperPosition', [0 0 height width]);
 if save
     saveas(gcf, [pwd path 'roll.png']);
@@ -49,15 +43,10 @@ plot(t, eul_r(:,2),'Color','g','LineWidth',w, 'linestyle', '-');
 plot(t, eul_d(:,2),'Color',k,'LineWidth',w, 'linestyle', '--');
 set(gca,'FontSize',s)
 
-leg = legend('\beta', '\beta_0', 'Location','southeast');
-set(leg,'FontSize',s);
 
-legend boxoff
+xl = xlabel('t, ñ');
+yl = ylabel('q_y');
 
-xl = xlabel('t, s');
-yl = ylabel('\beta, rad');
-
-ylim([-lim_q lim_q])
 set(gcf, 'PaperUnits', 'p', 'PaperPosition', [0 0 height width]);
 if save
     saveas(gcf, [pwd path 'pitch.png']);
@@ -72,15 +61,10 @@ plot(t, eul_r(:,1),'Color','b','LineWidth',w, 'linestyle', '-');
 plot(t, eul_d(:,1),'Color',k,'LineWidth',w, 'linestyle', '--');
 set(gca,'FontSize',s)
 
-leg = legend('\gamma', '\gamma_0', 'Location','southeast');
-set(leg,'FontSize',s);
 
-legend boxoff
+xl = xlabel('t, c');
+yl = ylabel('q_z');
 
-xl = xlabel('t, s');
-yl = ylabel('\gamma, rad');
-
-ylim([-1 1])
 set(gcf, 'PaperUnits', 'p', 'PaperPosition', [0 0 height width]);
 if save
     saveas(gcf, [pwd path 'yaw.png']);
@@ -96,13 +80,9 @@ plot(t, r_r(:,1),'Color','r','LineWidth',w, 'linestyle', '-');
 plot(t, r_d(:,1),'Color',k,'LineWidth',w, 'linestyle', '--');
 set(gca,'FontSize',s)
 
-leg = legend('x', 'x_0', 'Location','southeast');
-set(leg,'FontSize',s);
 
-legend boxoff
-
-xl = xlabel('t, s');
-yl = ylabel('x, m');
+xl = xlabel('t, c');
+yl = ylabel('x, ì');
 
 set(gcf, 'PaperUnits', 'p', 'PaperPosition', [0 0 height width]);
 if save
@@ -118,13 +98,9 @@ plot(t, r_r(:,2),'Color','g','LineWidth',w, 'linestyle', '-');
 plot(t, r_d(:,2),'Color',k,'LineWidth',w, 'linestyle', '--');
 set(gca,'FontSize',s)
 
-leg = legend('y', 'y_0', 'Location','southeast');
-set(leg,'FontSize',s);
 
-legend boxoff
-
-xl = xlabel('t, s');
-yl = ylabel('y, m');
+xl = xlabel('t, ñ');
+yl = ylabel('y, ì');
 
 set(gcf, 'PaperUnits', 'p', 'PaperPosition', [0 0 height width]);
 if save
@@ -140,13 +116,9 @@ plot(t, r_r(:,3),'Color','b','LineWidth',w, 'linestyle', '-');
 plot(t, r_d(:,3),'Color',k,'LineWidth',w, 'linestyle', '--');
 set(gca,'FontSize',s)
 
-leg = legend('z', 'z_0', 'Location','southeast');
-set(leg,'FontSize',s);
 
-legend boxoff
-
-xl = xlabel('t, s');
-yl = ylabel('z, m');
+xl = xlabel('t, ñ');
+yl = ylabel('z, ì');
 
 set(gcf, 'PaperUnits', 'p', 'PaperPosition', [0 0 height width]);
 if save

@@ -57,9 +57,10 @@ qc.w_des_lim = inf;
 qc.wdot_des_lim = inf;
 
 %% init pose
-qc.r0 = 0*[-5;20;0];
+qc.r0 = 1*[10;7;25];
 qc.v0 = 0*[5;0;8];
 alpha = -pi/2;
+alpha = 0;
 pin = [0;1;0];
 qc.omegaB0 = 0*[1;0;1]*2*pi;
 
@@ -119,3 +120,5 @@ qc.em_unit = em_thrust_unit();
 run('sensors_init.m');
 run('ekf_init.m');
 run('spkf_init.m');
+
+sqrt(qc.W_lim)
